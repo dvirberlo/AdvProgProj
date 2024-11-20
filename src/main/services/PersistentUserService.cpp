@@ -64,10 +64,23 @@ map<int, set<int>> PersistentUserService::getAllUsersMap() {
     return map<int, set<int>>(userMap);
 }
 
+/**
+ * map<int, set<int>> serialization is in this format (readable text):
+ *  int_key:set_val_1,set_val_2,...,set_val_n,
+ * for example:
+ *  1:100,102,
+ *  2:101,
+ *  3:
+ * represents 3 users: User(1, {100, 102}), User(2, {101}) and User(3, {})
+ */
 void serializeMap(const map<int, set<int>>& map, ostream& outputStream) {
     for (const auto& pair : map) {
-        outputStream << pair.first << ":";
-        for (auto it = pair.second.begin(); it != pair.second.end(); ++it) {
+        int key = pair.first;
+        set<int> values = pair.second;
+        // write "int_key:"
+        outputStream << key << ":";
+        for (auto it = values.begin(); it != values.end(); ++it) {
+            // write "set_val_i,"
             outputStream << *it << ",";
         }
         outputStream << "\n";
@@ -76,12 +89,15 @@ void serializeMap(const map<int, set<int>>& map, ostream& outputStream) {
 map<int, set<int>> deserializeMap(istream& inputStream) {
     map<int, set<int>> map;
     string line;
+    // read the stream line by line
     while (getline(inputStream, line)) {
         stringstream lineStream(line);
         int key, val;
         char column;
         set<int> values;
+        // read "int_key:" from line
         lineStream >> key >> column;
+        // read all "set_val_i," values from line
         while (lineStream >> val) {
             values.insert(val);
             // skip comma separator
