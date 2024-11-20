@@ -6,7 +6,8 @@ vector<string> CommandParser::parseString(const std::string &fullCommand)
 {
     if (fullCommand.empty())
     {
-        return {};
+        vector<string> empty;
+        return empty;
     }
     std::vector<std::string> splitedCommand;
     size_t startPos = 0; // Start position for finding words

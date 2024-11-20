@@ -11,15 +11,17 @@ void App::run()
 {
     while (true)
     {
-        // Command is represented as a vector of strings.
         vector<string> cmdStr = menu->nextCommand();
-        try
+        // check if exist a entry in the commands map for that input
+        auto it = commands.find(cmdStr[0]);
+        // Remark : commands.end() mark the end of the map (pass the map range)
+        if (it != commands.end())
         {
-            // The command is in the first element.
-            commands[cmdStr[0]]->execute(cmdStr);
+            commands[cmdStr[0]]->execute(cmdStr); // Execute the command safely
         }
-        catch (...)
+        else
         {
+            // do nothing
         }
     }
 }
