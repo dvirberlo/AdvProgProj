@@ -1,12 +1,11 @@
 #ifndef APP_H
 #define APP_H
-
 #include "IMenu.h"
 #include "ICommand.h"
 #include <map>
 #include <string>
 #include <vector>
-
+using namespace std;
 class App
 {
 private:

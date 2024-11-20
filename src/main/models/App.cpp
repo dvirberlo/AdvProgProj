@@ -2,7 +2,6 @@
 #include <iostream>
 #include <vector>
 #include <string>
-
 using namespace std;
 
 App::App(IMenu *menu, map<string, ICommand *> commands)
@@ -17,7 +16,7 @@ void App::run()
         try
         {
             // The command is in the first element.
-            commands[cmdStr[0]]->execute();
+            commands[cmdStr[0]]->execute(cmdStr);
         }
         catch (...)
         {
