@@ -21,7 +21,6 @@ void App::run()
         }
         catch (...)
         {
-            // Handle exceptions if necessary.
         }
     }
 }
