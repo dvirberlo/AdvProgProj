@@ -21,7 +21,7 @@ Run the app:
 
 ```bash
 cd src && mkdir build-main
-cd build-main && cmake .. && make
+cd build-main && cmake ../main && make
 ./main.out
 ```
 
@@ -29,6 +29,6 @@ Test the app:
 
 ```bash
 cd src && mkdir build-test
-cd build-test && cmake .. && make
+cd build-test && cmake ../test && make
 ./test.out
 ```
