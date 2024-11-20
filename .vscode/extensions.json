@@ -1,0 +1,12 @@
+{
+  "recommendations": [
+    "streetsidesoftware.code-spell-checker",
+    "editorconfig.editorconfig",
+    "eamodio.gitlens",
+    "visualstudioexptteam.vscodeintellicode",
+    "esbenp.prettier-vscode",
+    "fabiospampinato.vscode-todo-plus",
+    "ms-azuretools.vscode-docker",
+    "ms-vscode.cpptools-extension-pack"
+  ]
+}

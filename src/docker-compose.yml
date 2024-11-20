@@ -1,0 +1,9 @@
+services:
+  main:
+    build:
+      context: .
+      dockerfile: Dockerfile
+  test:
+    build:
+      context: .
+      dockerfile: test.Dockerfile
