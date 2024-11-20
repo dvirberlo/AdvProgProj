@@ -13,8 +13,3 @@ vector<string> ConsoleMenu::nextCommand()
     vector<string> splittedCommand = parser.parseString(fullCommand);
     return splittedCommand;
 }
-
-void ConsoleMenu::displayError(const std::string &error)
-{
-    std::cerr << error << std::endl;
-}
