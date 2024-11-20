@@ -5,6 +5,7 @@
 #include "ICommand.h"
 #include <map>
 #include <string>
+#include <vector>
 
 class App
 {
@@ -14,8 +15,8 @@ private:
 
 public:
     // Constructor
-    App(IMenu *menu, std::map<std::string, ICommand *> commands)
-        : menu(menu), commands(commands) {}
+    App(IMenu *menu, std::map<std::string, ICommand *> commands);
+
     // Method to run the application
     void run();
 };

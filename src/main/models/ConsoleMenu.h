@@ -1,3 +1,4 @@
+#pragma once
 #ifndef CONSOLEMENU_H
 #define CONSOLEMENU_H
 

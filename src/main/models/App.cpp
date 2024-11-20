@@ -1,44 +1,27 @@
-#include "Help.cpp"
+#include "App.h"
 #include <iostream>
-#include "IMenu.cpp"
-#include "ICommand.cpp"
-#include "ConsoleMenu.cpp"
-#include <map>
+#include <vector>
 #include <string>
-using namespace std;
-class App
-{
-private:
-    IMenu *menu;
-    map<string, ICommand *> commands; // Map of commands
 
-public:
-    // constructor
-    App(IMenu *menu, map<string, ICommand *> commands)
-        : menu(menu), commands(commands) {}
-    // The flow of the appliction is controlled by the run method
-    void run()
+using namespace std;
+
+App::App(IMenu *menu, map<string, ICommand *> commands)
+    : menu(menu), commands(commands) {}
+
+void App::run()
+{
+    while (true)
     {
-        while (true)
+        // Command is represented as a vector of strings.
+        vector<string> cmdStr = menu->nextCommand();
+        try
         {
-            // command is represented has a map from string : the command , to vector of args.
-            vector<string> cmdStr = menu->nextCommand();
-            try
-            {
-                // the command is in the first
-                commands[cmdStr[0]]->execute();
-            }
-            catch (...)
-            {
-            }
+            // The command is in the first element.
+            commands[cmdStr[0]]->execute();
+        }
+        catch (...)
+        {
+            // Handle exceptions if necessary.
         }
     }
-};
-int main()
-{
-    map<string, ICommand *> commands;
-    commands["help"] = new Help();
-    IMenu *menu = new ConsoleMenu();
-    App app = App(menu, commands);
-    app.run();
 }
