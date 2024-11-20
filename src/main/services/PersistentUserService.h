@@ -11,7 +11,7 @@
 
 using namespace std;
 
-class PersistentUserService : IUserService {
+class PersistentUserService : public IUserService {
    private:
     map<int, set<int>> userMap;
     string filepath;

@@ -1,12 +1,16 @@
 #ifndef COMMANDPARSER_H
 #define COMMANDPARSER_H
+
 #include <string>
 #include <vector>
 
-class CommandParser
-{
-public:
-    std::vector<std::string> parseString(const std::string &fullCommand);
+using namespace std;
+
+class CommandParser {
+   public:
+    vector<string> parseString(const string &fullCommand);
+
+    vector<int> convertToInt(const vector<string> &strings);
 };
 
 #endif
