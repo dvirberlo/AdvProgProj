@@ -15,8 +15,10 @@ using namespace std;
 // assumes the execution happen inside a build folder inside /src
 #define MOCK_FILE_PATH "../../data/mock_data.txt"
 
+void fileCleanup() { remove(MOCK_FILE_PATH); }
+
 TEST(PersistentUserService, Constructor) {
-    remove(MOCK_FILE_PATH);
+    fileCleanup();
     PersistentUserService userService(MOCK_FILE_PATH);
 
     map<int, set<int>> expectedUserMap;
@@ -24,10 +26,11 @@ TEST(PersistentUserService, Constructor) {
 
     vector<User> expectedUserList;
     EXPECT_EQ(userService.getAllUsers(), expectedUserList);
+    fileCleanup();
 };
 
 TEST(PersistentUserService, MarkAsWatched) {
-    remove(MOCK_FILE_PATH);
+    fileCleanup();
     PersistentUserService userService(MOCK_FILE_PATH);
     userService.markAsWatched(2, {101, 103});
     userService.markAsWatched(1, {100, 103});
@@ -46,10 +49,11 @@ TEST(PersistentUserService, MarkAsWatched) {
         {3, {100}},
     };
     EXPECT_EQ(userService.getAllUsers(), expectedUserList);
+    fileCleanup();
 };
 
 TEST(PersistentUserService, Persistence) {
-    remove(MOCK_FILE_PATH);
+    fileCleanup();
     PersistentUserService userService1(MOCK_FILE_PATH);
     userService1.markAsWatched(1, {100, 103});
 
@@ -64,4 +68,5 @@ TEST(PersistentUserService, Persistence) {
         {1, {100, 103}},
     };
     EXPECT_EQ(userService2.getAllUsers(), expectedUserList);
+    fileCleanup();
 };
