@@ -4,7 +4,7 @@
 using namespace std;
 vector<string> CommandParser::parseString(const std::string &fullCommand)
 {
-    if (fullCommand.empty())
+    if (fullCommand.empty() || fullCommand.find_first_not_of(' ') == std::string::npos)
     {
         vector<string> empty;
         return empty;

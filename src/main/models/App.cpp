@@ -12,8 +12,13 @@ void App::run()
     while (true)
     {
         vector<string> cmdStr = menu->nextCommand();
+        if (cmdStr.empty())
+        {
+            continue;
+        }
         // check if exist a entry in the commands map for that input
         auto it = commands.find(cmdStr[0]);
+
         // Remark : commands.end() mark the end of the map (pass the map range)
         if (it != commands.end())
         {
