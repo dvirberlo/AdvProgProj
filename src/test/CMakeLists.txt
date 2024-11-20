@@ -16,26 +16,15 @@ FetchContent_MakeAvailable(googletest)
 
 enable_testing()
 
-# List of source files:
-set(SOURCE_FILES
-  models/user.cpp
-)
-# List of test files:
-set(TEST_FILES
-  models/test_user.cpp
-)
+file(GLOB_RECURSE SRC_FILES ../main/*.cpp ../main/*.h)
+file(GLOB_RECURSE TEST_FILES ./*.cpp ./*.h)
 
-add_executable(
-  app.out
-  ${SOURCE_FILES}
-  main.cpp
-)
 
 add_executable(
   test.out
-  ${SOURCE_FILES}
+  ${SRC_FILES}
   ${TEST_FILES}
-  test.cpp
+  ../test.cpp
 )
 target_link_libraries(
   test.out

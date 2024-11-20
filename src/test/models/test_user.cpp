@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include "user.h"
+#include "../../main/models/user.h"
 
 TEST(User, Constructor) {
     User user(1);

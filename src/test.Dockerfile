@@ -10,6 +10,6 @@ RUN mkdir build
 
 WORKDIR /usr/src/build
 
-RUN cmake .. && make
+RUN cmake ../test && make
 
 CMD [ "./test.out" ]

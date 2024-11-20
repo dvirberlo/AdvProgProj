@@ -11,22 +11,24 @@ cd src
 docker-compose up --build
 ```
 
-(you can run only the app using `docker-compose up --build app` or only the tests `docker-compose up --build test`)
+(you can run the app using `docker-compose up --build main` or test it using `docker-compose up --build test`)
 
 ### Run locally:
 
 You can run the code directly on your Linux/WSL machine, if you wish:
 
-First, compile the project using CMake:
+Run the app:
 
 ```bash
-cd src && mkdir local-build
-cd local-build && cmake .. && make
+cd src && mkdir build-main
+cd build-main && cmake .. && make
+./main.out
 ```
 
-Then, you can run the app and the tests:
+Test the app:
 
 ```bash
-./app.out
+cd src && mkdir build-test
+cd build-test && cmake .. && make
 ./test.out
 ```

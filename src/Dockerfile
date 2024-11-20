@@ -10,6 +10,6 @@ RUN mkdir build
 
 WORKDIR /usr/src/build
 
-RUN cmake .. && make
+RUN cmake ../main && make
 
-CMD [ "./app.out" ]
+CMD [ "./main.out" ]
