@@ -1,9 +1,13 @@
 #include "CommandParser.h"
 #include <string>
 #include <vector>
-
-std::vector<std::string> CommandParser::parseString(const std::string &fullCommand)
+using namespace std;
+vector<string> CommandParser::parseString(const std::string &fullCommand)
 {
+    if (fullCommand.empty())
+    {
+        return {};
+    }
     std::vector<std::string> splitedCommand;
     size_t startPos = 0; // Start position for finding words
     size_t endPos = 0;   // End position of a found word
@@ -16,7 +20,7 @@ std::vector<std::string> CommandParser::parseString(const std::string &fullComma
         // Add the word to the vector
         splitedCommand.push_back(fullCommand.substr(endPos, startPos - endPos));
         // Update the start position for the next word
-        startPos = (startPos == std::string::npos) ? startPos : startPos + 1;
+        startPos = (startPos == string::npos) ? startPos : startPos + 1;
     }
     return splitedCommand;
 }

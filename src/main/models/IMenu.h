@@ -1,15 +1,13 @@
 #pragma once
 #ifndef IMENU_H
 #define IMENU_H
-
 #include <vector>
 #include <string>
-
+using namespace std;
 class IMenu
 {
 public:
-    virtual std::vector<std::string> nextCommand() = 0;
-    virtual void displayError(const std::string &error) = 0;
+    virtual vector<string> nextCommand() = 0;
     virtual ~IMenu() {}
 };
 

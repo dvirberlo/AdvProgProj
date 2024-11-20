@@ -1,7 +1,7 @@
 #include "Help.h"
 #include <iostream>
-
-void Help::execute()
+using namespace std;
+void Help::execute(vector<string> command)
 {
-    std::cout << "add [userid] [movieid1] [movieid2] ..\nrecommend [userid] [movieid]\nhelp\n";
+    cout << "add [userid] [movieid1] [movieid2] ..\nrecommend [userid] [movieid]\nhelp\n";
 }
