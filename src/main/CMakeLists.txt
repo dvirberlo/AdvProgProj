@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.14)
 project(AdvProgProj)
 
+set(CMAKE_BUILD_TYPE Debug)
+
 file(GLOB_RECURSE SRC_FILES ./*.cpp ./*.h)
 
 add_executable(
