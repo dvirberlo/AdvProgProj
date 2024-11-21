@@ -1,23 +1,23 @@
 #include "ConsoleMenu.h"
-#include "CommandParser.h"
+
 #include <iostream>
 #include <string>
-using namespace std;
+
+#include "CommandParser.h"
 #include "ConsoleMenu.h"
-#include "CommandParser.h"
-#include <iostream>
-#include <string>
 
 using namespace std;
 
-vector<string> ConsoleMenu::nextCommand()
-{
-    std::string fullCommand;
-    // Get the full input from stdin
-    std::getline(std::cin, fullCommand);
+ConsoleMenu::ConsoleMenu(CommandParser& commandParser)
+    : commandParser(commandParser) {}
 
-    CommandParser parser;
-    // The command will be processed by parser and returned as a vector of strings
-    vector<string> splittedCommand = parser.parseString(fullCommand);
+vector<string> ConsoleMenu::nextCommand() {
+    string fullCommand;
+    // Get the full input from stdin
+    getline(cin, fullCommand);
+
+    // The command will be processed by parser and returned as a vector of
+    // strings
+    vector<string> splittedCommand = commandParser.parseString(fullCommand);
     return splittedCommand;
 }
