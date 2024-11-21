@@ -118,19 +118,25 @@ std::map<int, int> RecommendEngine::SumOfSharedMovies(const std::map<int, std::s
 }
 
 //function to get recommendations for a user
-vector<int> RecommendEngine::getRecommendations(User& user, int movie)
+vector<int> RecommendEngine::getRecommendations(int user, int movie)
 {
     // Get all users and their watched movies
     map<int, set<int>> allUsers = userService->getAllUsersMap();
 
     // Calculate the sum of shared movies for the target movie and user
-    map<int, int> sumSharedMoviesMap = SumOfSharedMovies(allUsers, movie, user.getId());
+    map<int, int> sumSharedMoviesMap = SumOfSharedMovies(allUsers, movie, user);
 
-    // Sort the movies based on the shared movie count
-    vector<pair<int, int>> sortedMovies(sumSharedMoviesMap.begin(), sumSharedMoviesMap.end());
-    sort(sortedMovies.begin(), sortedMovies.end(), [](const pair<int, int>& a, const pair<int, int>& b) {
-        return a.second > b.second;  // Sort in descending order of shared movie count
-    });
+ // Sort the movies based on the shared movie count
+vector<pair<int, int>> sortedMovies(sumSharedMoviesMap.begin(), sumSharedMoviesMap.end());
+sort(sortedMovies.begin(), sortedMovies.end(), [](const pair<int, int>& a, const pair<int, int>& b) {
+    // First, compare by shared movie count in descending order
+    if (a.second == b.second) {
+        // If the shared movie count is the same, compare by movie ID in ascending order
+        return a.first < b.first;
+    }
+    // Otherwise, compare by shared movie count in descending order
+    return a.second > b.second;
+});
 
     // Collect the top N movie IDs (up to N movies)
     vector<int> topMovies;

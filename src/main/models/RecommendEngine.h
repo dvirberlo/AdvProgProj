@@ -5,18 +5,16 @@
 #include <set>
 #include <map>
 #include "User.h"
+#include "../services/IUserService.h"
 
 using namespace std;
 
-// Forward declarations of required classes and interfaces
-class Movie;
-class IUserService;
 
 class RecommendEngine {
 public:
     RecommendEngine(IUserService* userService);
 
-   vector<int> getRecommendations(User& user, int movie);
+   vector<int> getRecommendations(int user, int movie);
 
 private:
     IUserService* userService;

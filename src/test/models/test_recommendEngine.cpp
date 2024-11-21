@@ -38,7 +38,7 @@ TEST(RecommendationEngineTest, emptyRecommendations)
     User user1(1, moviesWatched);
 
     // Get recommendations for user1 with movie 104
-    std::vector<int> recommendations = recommendationEngine->getRecommendations(user1, 111);
+    std::vector<int> recommendations = recommendationEngine->getRecommendations(1, 111);
     // Define the expected list of recommended movies
     std::vector<int> expected = {};
     // Check if the recommendations match the expected output
@@ -81,17 +81,17 @@ TEST(RecommendationEngineTest, simpleRecommendations)
     User user2(2, moviesWatched_2);
 
     // Get recommendations for user1 with movie 104
-    std::vector<int> recommendations = recommendationEngine->getRecommendations(user1, 6);
+    std::vector<int> recommendations = recommendationEngine->getRecommendations(1, 6);
     // Define the expected list of recommended movies
     std::vector<int> expected = {7,8,9,1,2,3,4,5,10,11};
     // Check if the recommendations match the expected output
     EXPECT_EQ(recommendations, expected);
-    recommendations = recommendationEngine->getRecommendations(user1, 2);
+    recommendations = recommendationEngine->getRecommendations(1, 2);
     // Define the expected list of recommended movies
     std::vector<int> expected_2 = {1,3,4,5,6,7,8,9,10,11};
     // Check if the recommendations match the expected output
     EXPECT_EQ(recommendations, expected_2);
-    recommendations = recommendationEngine->getRecommendations(user2, 4);
+    recommendations = recommendationEngine->getRecommendations(2, 4);
     // Define the expected list of recommended movies
     std::vector<int> expected_3 = {2,5,6,1,3,7,8,9,10,11};
     // Check if the recommendations match the expected output
@@ -134,23 +134,20 @@ TEST(RecommendationEngineTest, complicatedRecommendations)
     // Create a set of movies that the user has watched
     std::set<int> moviesWatched = {100, 101, 102, 103};
 
-    // Create a new User object with ID 1 and the list of movies they have watched
-    User user1(1, moviesWatched);
-
     // Get recommendations for user1 with movie 104
-    std::vector<int> recommendations = recommendationEngine->getRecommendations(user1, 104);
+    std::vector<int> recommendations = recommendationEngine->getRecommendations(1, 104);
     // Define the expected list of recommended movies
     std::vector<int> expected_1 = {105, 100, 101, 106, 111, 102, 103, 110, 112, 113};
     // Check if the recommendations match the expected output
     EXPECT_EQ(recommendations, expected_1);
     // Get recommendations for user1 with movie 104
-    recommendations = recommendationEngine->getRecommendations(user1, 113);
+    recommendations = recommendationEngine->getRecommendations(1, 113);
     // Define the expected list of recommended movies
     std::vector<int> expected_2 = {100,103,112,104,105,107,110,111,115};
     // Check if the recommendations match the expected output
     EXPECT_EQ(recommendations, expected_2);
     // Get recommendations for user1 with movie 104
-    recommendations = recommendationEngine->getRecommendations(user1, 115);
+    recommendations = recommendationEngine->getRecommendations(1, 115);
     // Define the expected list of recommended movies
     std::vector<int> expected_3 = {100,103,105,107,112,113};
     // Check if the recommendations match the expected output
