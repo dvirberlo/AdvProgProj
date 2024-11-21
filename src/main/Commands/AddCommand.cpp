@@ -1,16 +1,13 @@
-
-#include "./AddCommand.h"
+#include "AddCommand.h"
 
 #include <iostream>
 
-#include "../models/CommandParser.h"
-#include "../services/IUserService.h"
-
+#include "../Users/IUserService.h"
+#include "CommandParser.h"
 using namespace std;
 
 AddCommand::AddCommand(IUserService& userService, CommandParser& commandParser)
     : userService(userService), commandParser(commandParser) {}
-
 void AddCommand::execute(const vector<string>& args) {
     // convert additional args (after "add") to integers
     vector<int> intArgs = commandParser.convertToInt(

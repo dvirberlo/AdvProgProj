@@ -2,12 +2,13 @@
 
 #include <algorithm>
 
-#include "../services/IUserService.h"
-#include "User.h"
+#include "../Users/IUserService.h"
+#include "../Users/User.h"
 #define N 10
 using namespace std;
 
-// Constructor to initialize the Recommendation Engine with user service and movie database
+// Constructor to initialize the Recommendation Engine with user service and
+// movie database
 RecommendEngine::RecommendEngine(IUserService* userService)
     : userService(userService) {}
 
@@ -16,8 +17,7 @@ int RecommendEngine::computeIntersect(const std::set<int>& UsrA, const std::set<
     // create a set to store the intersection of the two sets
     std::set<int> intersection;
     // Calculate the intersection of the two sets (shared movies)
-    std::set_intersection(UsrA.begin(), UsrA.end(),
-                          UsrB.begin(), UsrB.end(),
+    std::set_intersection(UsrA.begin(), UsrA.end(), UsrB.begin(), UsrB.end(),
                           std::inserter(intersection, intersection.begin()));
     return intersection.size();  // Return the number of shared movies
 }
@@ -68,7 +68,8 @@ std::map<int, int> RecommendEngine::SumOfSharedMovies(const std::map<int, std::s
     // for example for user 2 : user 1 (2 movies), user 3 (1 movie), user 4 (2 movies) and so on
     std::map<int, int> sharedMoviesMap = computeSharedMovies(dataMap, userId);
 
-    // Calculate the list of movies watched by the users who watched the target movie
+    // Calculate the list of movies watched by the users who watched the target
+    // movie
     std::set<int> unionMovies;
     for (int watcherId : usersWhoWatched) {
         // Skip the target user (userId) from the shared movie calculation
@@ -95,7 +96,8 @@ std::map<int, int> RecommendEngine::SumOfSharedMovies(const std::map<int, std::s
         // Get the list of users who watched the current movie
         std::vector<int> curWatchers = WhoWatchedMovie(dataMap, curMovie);
 
-        // Find the intersection of users who watched the target movie and the current movie
+        // Find the intersection of users who watched the target movie and the
+        // current movie
         std::vector<int> intersection;
         std::set_intersection(usersWhoWatched.begin(), usersWhoWatched.end(),
                               curWatchers.begin(), curWatchers.end(),
@@ -146,7 +148,9 @@ vector<int> RecommendEngine::getRecommendations(int user, int movie) {
     // Collect the top N movie IDs (up to N movies)
     vector<int> topMovies;
     for (size_t i = 0; i < N && i < sortedMovies.size(); ++i) {
-        topMovies.push_back(sortedMovies[i].first);  // Add only the movieId (first element of pair)
+        topMovies.push_back(
+            sortedMovies[i]
+                .first);  // Add only the movieId (first element of pair)
     }
 
     return topMovies;  // Return the list of top N movies

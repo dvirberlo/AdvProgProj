@@ -1,9 +1,9 @@
 #ifndef RECOMMEND_COMMAND_H
 #define RECOMMEND_COMMAND_H
 
-#include "../models/CommandParser.h"
-#include "../models/RecommendEngine.h"
-#include "./ICommand.h"
+#include "../Recommand-Engine/RecommendEngine.h"
+#include "CommandParser.h"
+#include "ICommand.h"
 
 using namespace std;
 

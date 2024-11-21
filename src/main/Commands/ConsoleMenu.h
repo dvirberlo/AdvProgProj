@@ -1,6 +1,6 @@
 #ifndef CONSOLEMENU_H
 #define CONSOLEMENU_H
-#include "./CommandParser.h"
+#include "CommandParser.h"
 #include "IMenu.h"
 class ConsoleMenu : public IMenu {
    private:

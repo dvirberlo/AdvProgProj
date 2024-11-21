@@ -1,10 +1,10 @@
 
-#include "./RecommendCommand.h"
+#include "RecommendCommand.h"
 
 #include <iostream>
 
-#include "../models/CommandParser.h"
-#include "../models/RecommendEngine.h"
+#include "../Recommand-Engine/RecommendEngine.h"
+#include "CommandParser.h"
 
 using namespace std;
 

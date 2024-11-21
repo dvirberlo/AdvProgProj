@@ -3,7 +3,7 @@
 #include <string>
 #include <vector>
 
-#include "../../main/models/CommandParser.h"
+#include "../../main/Commands/CommandParser.h"
 using namespace std;
 
 TEST(CommandParser, EmptyInput) {

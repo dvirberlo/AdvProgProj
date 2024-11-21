@@ -1,18 +1,18 @@
 #ifndef APP_H
 #define APP_H
-#include "IMenu.h"
-#include "ICommand.h"
 #include <map>
 #include <string>
 #include <vector>
-using namespace std;
-class App
-{
-private:
-    IMenu *menu;
-    std::map<std::string, ICommand *> commands; // Map of commands
 
-public:
+#include "../Commands/ICommand.h"
+#include "../Commands/IMenu.h"
+using namespace std;
+class App {
+   private:
+    IMenu *menu;
+    std::map<std::string, ICommand *> commands;  // Map of commands
+
+   public:
     // Constructor
     App(IMenu *menu, std::map<std::string, ICommand *> commands);
 
@@ -20,4 +20,4 @@ public:
     void run();
 };
 
-#endif // APP_H
+#endif  // APP_H

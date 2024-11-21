@@ -1,4 +1,4 @@
-#include "./PersistentUserService.h"
+#include "PersistentUserService.h"
 
 #include <algorithm>
 #include <fstream>
@@ -9,7 +9,7 @@
 #include <string>
 #include <vector>
 
-#include "../models/User.h"
+#include "User.h"
 
 using namespace std;
 
