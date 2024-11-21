@@ -5,9 +5,9 @@
 #include <set>
 #include <vector>
 
-#include "../../main/models/RecommendEngine.h"
-#include "../../main/models/User.h"
-#include "../../main/services/PersistentUserService.h"
+#include "../../main/Recommand-Engine/RecommendEngine.h"
+#include "../../main/Users/PersistentUserService.h"
+#include "../../main/Users/User.h"
 
 #define MOCK_FILE_PATH "test_data.txt"
 

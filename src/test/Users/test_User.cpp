@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include "../../main/models/User.h"
+#include "../../main/Users/User.h"
 
 TEST(User, Constructor) {
     int id1 = 1;
