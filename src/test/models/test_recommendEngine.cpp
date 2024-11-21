@@ -14,12 +14,12 @@ using namespace std;
 // Test case of empty file
 TEST(RecommendationEngineTest, emptyFile) {
     remove(MOCK_FILE_PATH);  // clean data file before and after every test
-    const std::string filename = "test_data.txt";
+    const std::string filename = MOCK_FILE_PATH;
     PersistentUserService *userService;
     RecommendEngine *recommendationEngine;
 
     // Initialize userService and recommendationEngine
-    userService = new PersistentUserService(filename);
+    userService = new PersistentUserService(MOCK_FILE_PATH);
     recommendationEngine = new RecommendEngine(userService);
 
     // Get recommendations for user1 with movie 104
@@ -34,21 +34,21 @@ TEST(RecommendationEngineTest, emptyFile) {
 // Test case of user or movie that not exist
 TEST(RecommendationEngineTest, notExistUser) {
     remove(MOCK_FILE_PATH);  // clean data file before and after every test
-    const std::string filename = "test_data.txt";
+    const std::string filename = MOCK_FILE_PATH;
     PersistentUserService *userService;
     RecommendEngine *recommendationEngine;
 
     // Writing provided user-movie data to the file
-    std::ofstream file(filename);
+    std::ofstream file(MOCK_FILE_PATH);
     if (file.is_open()) {
         file << "1:100,101,102,103,104,110,45,22,\n";
         file.close();
     } else {
-        std::cerr << "Error opening file for writing: " << filename << std::endl;
+        std::cerr << "Error opening file for writing: " << MOCK_FILE_PATH << std::endl;
     }
 
     // Initialize userService and recommendationEngine
-    userService = new PersistentUserService(filename);
+    userService = new PersistentUserService(MOCK_FILE_PATH);
     recommendationEngine = new RecommendEngine(userService);
 
     // Get recommendations for user1 with movie 104
@@ -62,21 +62,21 @@ TEST(RecommendationEngineTest, notExistUser) {
 // Test case of no exist movie
 TEST(RecommendationEngineTest, notExistMovie) {
     remove(MOCK_FILE_PATH);  // clean data file before and after every test
-    const std::string filename = "test_data.txt";
+    const std::string filename = MOCK_FILE_PATH;
     PersistentUserService *userService;
     RecommendEngine *recommendationEngine;
 
     // Writing provided user-movie data to the file
-    std::ofstream file(filename);
+    std::ofstream file(MOCK_FILE_PATH);
     if (file.is_open()) {
         file << "1:100,101,102,103,104,110,45,22,\n";
         file.close();
     } else {
-        std::cerr << "Error opening file for writing: " << filename << std::endl;
+        std::cerr << "Error opening file for writing: " <<MOCK_FILE_PATH << std::endl;
     }
 
     // Initialize userService and recommendationEngine
-    userService = new PersistentUserService(filename);
+    userService = new PersistentUserService(MOCK_FILE_PATH);
     recommendationEngine = new RecommendEngine(userService);
 
     // Get recommendations for user1 with movie 104
@@ -91,23 +91,23 @@ TEST(RecommendationEngineTest, notExistMovie) {
 // Test simple case of reccomendations
 TEST(RecommendationEngineTest, simpleRecommendations) {
     remove(MOCK_FILE_PATH);  // clean data file before and after every test
-    const std::string filename = "test_data.txt";
+    const std::string filename = MOCK_FILE_PATH;
     PersistentUserService *userService;
     RecommendEngine *recommendationEngine;
 
     // Writing provided user-movie data to the file
-    std::ofstream file(filename);
+    std::ofstream file(MOCK_FILE_PATH);
     if (file.is_open()) {
         file << "1:4,2,5,6\n";
         file << "2:9,8,7,6,\n";
         file << "3:12,11,10,9,8,7,6,5,4,3,2,1,\n";
         file.close();
     } else {
-        std::cerr << "Error opening file for writing: " << filename << std::endl;
+        std::cerr << "Error opening file for writing: " << MOCK_FILE_PATH << std::endl;
     }
 
     // Initialize userService and recommendationEngine
-    userService = new PersistentUserService(filename);
+    userService = new PersistentUserService(MOCK_FILE_PATH);
     recommendationEngine = new RecommendEngine(userService);
 
     // Get recommendations for user1 with movie 104
@@ -137,7 +137,7 @@ TEST(RecommendationEngineTest, complicatedRecommendations) {
     RecommendEngine *recommendationEngine;
 
     // Writing provided user-movie data to the file
-    std::ofstream file(filename);
+    std::ofstream file(MOCK_FILE_PATH);
     if (file.is_open()) {
         file << "1:100,101,102,103,\n";
         file << "2:101,102,104,105,106,\n";
@@ -152,11 +152,11 @@ TEST(RecommendationEngineTest, complicatedRecommendations) {
         file << "11,100,101,102,103,\n";
         file.close();
     } else {
-        std::cerr << "Error opening file for writing: " << filename << std::endl;
+        std::cerr << "Error opening file for writing: " << MOCK_FILE_PATH << std::endl;
     }
 
     // Initialize userService and recommendationEngine
-    userService = new PersistentUserService(filename);
+    userService = new PersistentUserService(MOCK_FILE_PATH);
     recommendationEngine = new RecommendEngine(userService);
 
     // Get recommendations for user1 with movie 104
