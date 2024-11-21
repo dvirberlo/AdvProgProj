@@ -9,8 +9,7 @@
 
 using namespace std;
 // Test case of no reccomendations
-TEST(RecommendationEngineTest, emptyRecommendations)
-{
+TEST(RecommendationEngineTest, emptyRecommendations){
     const std::string filename = "test_data.txt";
     PersistentUserService *userService;
     RecommendEngine *recommendationEngine;
@@ -40,8 +39,7 @@ TEST(RecommendationEngineTest, emptyRecommendations)
 }
 
 // Test simple case of reccomendations
-TEST(RecommendationEngineTest, simpleRecommendations)
-{
+TEST(RecommendationEngineTest, simpleRecommendations){
     const std::string filename = "test_data.txt";
     PersistentUserService *userService;
     RecommendEngine *recommendationEngine;
@@ -67,24 +65,23 @@ TEST(RecommendationEngineTest, simpleRecommendations)
     // Get recommendations for user1 with movie 104
     std::vector<int> recommendations = recommendationEngine->getRecommendations(1, 6);
     // Define the expected list of recommended movies
-    std::vector<int> expected = {7,8,9,1,3,10,11,12};
+    std::vector<int> expected = {7, 8, 9, 1, 3, 10, 11, 12};
     // Check if the recommendations match the expected output
     EXPECT_EQ(recommendations, expected);
     recommendations = recommendationEngine->getRecommendations(1, 2);
     // Define the expected list of recommended movies
-    std::vector<int> expected_2 = {1,3,7,8,9,10,11,12};
+    std::vector<int> expected_2 = {1, 3, 7, 8, 9, 10, 11, 12};
     // Check if the recommendations match the expected output
     EXPECT_EQ(recommendations, expected_2);
     recommendations = recommendationEngine->getRecommendations(2, 4);
     // Define the expected list of recommended movies
-    std::vector<int> expected_3 = {2,5,1,3,10,11,12};
+    std::vector<int> expected_3 = {2, 5, 1, 3, 10, 11, 12};
     // Check if the recommendations match the expected output
     EXPECT_EQ(recommendations, expected_3);
 }
 
 // // Test more complex case of reccomendations
-TEST(RecommendationEngineTest, complicatedRecommendations)
-{
+TEST(RecommendationEngineTest, complicatedRecommendations){
     const std::string filename = "test_data.txt";
     PersistentUserService *userService;
     RecommendEngine *recommendationEngine;
@@ -118,19 +115,19 @@ TEST(RecommendationEngineTest, complicatedRecommendations)
     // Get recommendations for user1 with movie 104
     std::vector<int> recommendations = recommendationEngine->getRecommendations(1, 104);
     // Define the expected list of recommended movies
-    std::vector<int> expected_1 = {105, 106, 111, 110, 112, 113,107,108,109,114};
+    std::vector<int> expected_1 = {105, 106, 111, 110, 112, 113, 107, 108, 109, 114};
     // Check if the recommendations match the expected output
     EXPECT_EQ(recommendations, expected_1);
     // Get recommendations for user1 with movie 104
     recommendations = recommendationEngine->getRecommendations(1, 113);
     // Define the expected list of recommended movies
-    std::vector<int> expected_2 = {112,104,105,107,110,111,115};
+    std::vector<int> expected_2 = {112, 104, 105, 107, 110, 111, 115};
     // Check if the recommendations match the expected output
     EXPECT_EQ(recommendations, expected_2);
     // Get recommendations for user1 with movie 104
     recommendations = recommendationEngine->getRecommendations(1, 115);
     // Define the expected list of recommended movies
-    std::vector<int> expected_3 = {105,107,112,113};
+    std::vector<int> expected_3 = {105, 107, 112, 113};
     // Check if the recommendations match the expected output
     EXPECT_EQ(recommendations, expected_3);
 }
