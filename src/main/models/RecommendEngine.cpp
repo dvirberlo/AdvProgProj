@@ -10,8 +10,7 @@ RecommendEngine::RecommendEngine(IUserService* userService)
     : userService(userService) {}
 
 // Function to compute the number of shared movies between two users
-int RecommendEngine::computeIntersect(const std::set<int> &UsrA, const std::set<int> &UsrB)
-{
+int RecommendEngine::computeIntersect(const std::set<int> &UsrA, const std::set<int> &UsrB){
     // create a set to store the intersection of the two sets
     std::set<int> intersection;
     // Calculate the intersection of the two sets (shared movies)
@@ -22,8 +21,7 @@ int RecommendEngine::computeIntersect(const std::set<int> &UsrA, const std::set<
 }
 
 // Function to compute the number of shared movies between the target user and all other users
-std::map<int, int> RecommendEngine::computeSharedMovies(const std::map<int, std::set<int>> &dataMap, int targetUserId)
-{
+std::map<int, int> RecommendEngine::computeSharedMovies(const std::map<int, std::set<int>> &dataMap, int targetUserId){
     // Create a map to store the similarity between the target user and other users
     std::map<int, int> userSimilarityMap;
 
@@ -44,8 +42,7 @@ std::map<int, int> RecommendEngine::computeSharedMovies(const std::map<int, std:
 
 
 // Function to get a list of users who have watched a specific movie
-std::vector<int> RecommendEngine::WhoWatchedMovie(const std::map<int, std::set<int>> &dataMap, int targetMovieId)
-{
+std::vector<int> RecommendEngine::WhoWatchedMovie(const std::map<int, std::set<int>> &dataMap, int targetMovieId){
     std::vector<int> WhoWatched;
 
     // Iterate over each user and their watched movies
@@ -123,10 +120,16 @@ std::map<int, int> RecommendEngine::SumOfSharedMovies(const std::map<int, std::s
 }
 
 //function to get recommendations for a user
-vector<int> RecommendEngine::getRecommendations(int user, int movie)
-{
+vector<int> RecommendEngine::getRecommendations(int user, int movie){
+
     // Get all users and their watched movies
     map<int, set<int>> allUsers = userService->getAllUsersMap();
+
+     // Check if the allUsers map is empty
+    if (allUsers.empty()||allUsers.find(user) == allUsers.end()) {
+        // Return an empty list if no users are available
+        return {};
+    }
 
     // Calculate the sum of shared movies for the target movie and user
     map<int, int> sumSharedMoviesMap = SumOfSharedMovies(allUsers, movie, user);

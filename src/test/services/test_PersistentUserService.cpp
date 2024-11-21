@@ -7,7 +7,7 @@
 #include <string>
 #include <vector>
 
-#include "../../main/models/user.h"
+#include "../../main/models/User.h"
 #include "../../main/services/PersistentUserService.h"
 
 using namespace std;

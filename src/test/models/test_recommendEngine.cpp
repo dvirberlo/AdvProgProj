@@ -6,10 +6,63 @@
 #include "../../main/models/User.h"
 #include "../../main/services/PersistentUserService.h"
 #include "../../main/models/RecommendEngine.h"
+#define MOCK_FILE_PATH "test_data.txt"
 
 using namespace std;
-// Test case of no reccomendations
-TEST(RecommendationEngineTest, emptyRecommendations){
+// Test case of empty file
+TEST(RecommendationEngineTest, emptyFile){
+    remove(MOCK_FILE_PATH);  // clean data file before and after every test
+    const std::string filename = "test_data.txt";
+    PersistentUserService *userService;
+    RecommendEngine *recommendationEngine;
+
+    // Initialize userService and recommendationEngine
+    userService = new PersistentUserService(filename);
+    recommendationEngine = new RecommendEngine(userService);
+
+    // Get recommendations for user1 with movie 104
+    std::vector<int> recommendations = recommendationEngine->getRecommendations(1, 111);
+    // Define the expected list of recommended movies
+    std::vector<int> expected = {};
+    // Check if the recommendations match the expected output
+    EXPECT_EQ(recommendations, expected);
+    remove(MOCK_FILE_PATH);  // clean data file before and after every test
+}
+
+// Test case of user or movie that not exist
+TEST(RecommendationEngineTest, notExistUser){
+    remove(MOCK_FILE_PATH);  // clean data file before and after every test
+    const std::string filename = "test_data.txt";
+    PersistentUserService *userService;
+    RecommendEngine *recommendationEngine;
+
+    // Writing provided user-movie data to the file
+    std::ofstream file(filename);
+    if (file.is_open())
+    {
+        file << "1:100,101,102,103,104,110,45,22,\n";
+        file.close();
+    }
+    else
+    {
+        std::cerr << "Error opening file for writing: " << filename << std::endl;
+    }
+
+    // Initialize userService and recommendationEngine
+    userService = new PersistentUserService(filename);
+    recommendationEngine = new RecommendEngine(userService);
+
+    // Get recommendations for user1 with movie 104
+    std::vector<int> recommendations = recommendationEngine->getRecommendations(10, 111);
+    // Define the expected list of recommended movies
+    std::vector<int> expected = {};
+    EXPECT_EQ(recommendations, expected);
+    remove(MOCK_FILE_PATH);  // clean data file before and after every test
+}
+
+// Test case of no exist movie
+TEST(RecommendationEngineTest, notExistMovie){
+    remove(MOCK_FILE_PATH);  // clean data file before and after every test
     const std::string filename = "test_data.txt";
     PersistentUserService *userService;
     RecommendEngine *recommendationEngine;
@@ -36,10 +89,12 @@ TEST(RecommendationEngineTest, emptyRecommendations){
     std::vector<int> expected = {};
     // Check if the recommendations match the expected output
     EXPECT_EQ(recommendations, expected);
+    remove(MOCK_FILE_PATH);  // clean data file before and after every test
 }
 
 // Test simple case of reccomendations
 TEST(RecommendationEngineTest, simpleRecommendations){
+    remove(MOCK_FILE_PATH);  // clean data file before and after every test
     const std::string filename = "test_data.txt";
     PersistentUserService *userService;
     RecommendEngine *recommendationEngine;
@@ -78,10 +133,12 @@ TEST(RecommendationEngineTest, simpleRecommendations){
     std::vector<int> expected_3 = {2, 5, 1, 3, 10, 11, 12};
     // Check if the recommendations match the expected output
     EXPECT_EQ(recommendations, expected_3);
+    remove(MOCK_FILE_PATH);  // clean data file before and after every test
 }
 
 // // Test more complex case of reccomendations
 TEST(RecommendationEngineTest, complicatedRecommendations){
+    remove(MOCK_FILE_PATH);  // clean data file before and after every test
     const std::string filename = "test_data.txt";
     PersistentUserService *userService;
     RecommendEngine *recommendationEngine;
@@ -130,4 +187,5 @@ TEST(RecommendationEngineTest, complicatedRecommendations){
     std::vector<int> expected_3 = {105, 107, 112, 113};
     // Check if the recommendations match the expected output
     EXPECT_EQ(recommendations, expected_3);
+    remove(MOCK_FILE_PATH);  // clean data file before and after every test
 }
