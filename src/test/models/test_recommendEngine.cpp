@@ -34,9 +34,6 @@ TEST(RecommendationEngineTest, emptyRecommendations)
     // Create a set of movies that the user has watched
     std::set<int> moviesWatched = {100, 101, 102, 103,104,110,45,22};
 
-    // Create a new User object with ID 1 and the list of movies they have watched
-    User user1(1, moviesWatched);
-
     // Get recommendations for user1 with movie 104
     std::vector<int> recommendations = recommendationEngine->getRecommendations(1, 111);
     // Define the expected list of recommended movies
@@ -74,11 +71,6 @@ TEST(RecommendationEngineTest, simpleRecommendations)
     std::set<int> moviesWatched_1 = {2,4,5,6};
     // Create a set of movies that the user2 has watched
     std::set<int> moviesWatched_2 = {9,8,7,6};
-
-    // Create a new User object with ID 1 and the list of movies they have watched
-    User user1(1, moviesWatched_1);
-    // Create a new User object with ID 2 and the list of movies they have watched
-    User user2(2, moviesWatched_2);
 
     // Get recommendations for user1 with movie 104
     std::vector<int> recommendations = recommendationEngine->getRecommendations(1, 6);
