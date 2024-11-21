@@ -1,16 +1,18 @@
 #include <gtest/gtest.h>
+
 #include <fstream>
+#include <iostream>
 #include <set>
 #include <vector>
-#include <iostream>
+
+#include "../../main/models/RecommendEngine.h"
 #include "../../main/models/User.h"
 #include "../../main/services/PersistentUserService.h"
-#include "../../main/models/RecommendEngine.h"
 #define MOCK_FILE_PATH "test_data.txt"
 
 using namespace std;
 // Test case of empty file
-TEST(RecommendationEngineTest, emptyFile){
+TEST(RecommendationEngineTest, emptyFile) {
     remove(MOCK_FILE_PATH);  // clean data file before and after every test
     const std::string filename = "test_data.txt";
     PersistentUserService *userService;
@@ -30,7 +32,7 @@ TEST(RecommendationEngineTest, emptyFile){
 }
 
 // Test case of user or movie that not exist
-TEST(RecommendationEngineTest, notExistUser){
+TEST(RecommendationEngineTest, notExistUser) {
     remove(MOCK_FILE_PATH);  // clean data file before and after every test
     const std::string filename = "test_data.txt";
     PersistentUserService *userService;
@@ -38,13 +40,10 @@ TEST(RecommendationEngineTest, notExistUser){
 
     // Writing provided user-movie data to the file
     std::ofstream file(filename);
-    if (file.is_open())
-    {
+    if (file.is_open()) {
         file << "1:100,101,102,103,104,110,45,22,\n";
         file.close();
-    }
-    else
-    {
+    } else {
         std::cerr << "Error opening file for writing: " << filename << std::endl;
     }
 
@@ -61,7 +60,7 @@ TEST(RecommendationEngineTest, notExistUser){
 }
 
 // Test case of no exist movie
-TEST(RecommendationEngineTest, notExistMovie){
+TEST(RecommendationEngineTest, notExistMovie) {
     remove(MOCK_FILE_PATH);  // clean data file before and after every test
     const std::string filename = "test_data.txt";
     PersistentUserService *userService;
@@ -69,13 +68,10 @@ TEST(RecommendationEngineTest, notExistMovie){
 
     // Writing provided user-movie data to the file
     std::ofstream file(filename);
-    if (file.is_open())
-    {
+    if (file.is_open()) {
         file << "1:100,101,102,103,104,110,45,22,\n";
         file.close();
-    }
-    else
-    {
+    } else {
         std::cerr << "Error opening file for writing: " << filename << std::endl;
     }
 
@@ -93,7 +89,7 @@ TEST(RecommendationEngineTest, notExistMovie){
 }
 
 // Test simple case of reccomendations
-TEST(RecommendationEngineTest, simpleRecommendations){
+TEST(RecommendationEngineTest, simpleRecommendations) {
     remove(MOCK_FILE_PATH);  // clean data file before and after every test
     const std::string filename = "test_data.txt";
     PersistentUserService *userService;
@@ -101,15 +97,12 @@ TEST(RecommendationEngineTest, simpleRecommendations){
 
     // Writing provided user-movie data to the file
     std::ofstream file(filename);
-    if (file.is_open())
-    {
+    if (file.is_open()) {
         file << "1:4,2,5,6\n";
         file << "2:9,8,7,6,\n";
         file << "3:12,11,10,9,8,7,6,5,4,3,2,1,\n";
         file.close();
-    }
-    else
-    {
+    } else {
         std::cerr << "Error opening file for writing: " << filename << std::endl;
     }
 
@@ -137,7 +130,7 @@ TEST(RecommendationEngineTest, simpleRecommendations){
 }
 
 // // Test more complex case of reccomendations
-TEST(RecommendationEngineTest, complicatedRecommendations){
+TEST(RecommendationEngineTest, complicatedRecommendations) {
     remove(MOCK_FILE_PATH);  // clean data file before and after every test
     const std::string filename = "test_data.txt";
     PersistentUserService *userService;
@@ -145,8 +138,7 @@ TEST(RecommendationEngineTest, complicatedRecommendations){
 
     // Writing provided user-movie data to the file
     std::ofstream file(filename);
-    if (file.is_open())
-    {
+    if (file.is_open()) {
         file << "1:100,101,102,103,\n";
         file << "2:101,102,104,105,106,\n";
         file << "3:100,104,105,107,108,\n";
@@ -159,9 +151,7 @@ TEST(RecommendationEngineTest, complicatedRecommendations){
         file << "10,100,102,105,106,107,109,110,116,\n";
         file << "11,100,101,102,103,\n";
         file.close();
-    }
-    else
-    {
+    } else {
         std::cerr << "Error opening file for writing: " << filename << std::endl;
     }
 
