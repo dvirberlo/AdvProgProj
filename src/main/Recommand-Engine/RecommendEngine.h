@@ -8,8 +8,8 @@
 #include <unordered_set>
 #include <vector>
 
-#include "../services/IUserService.h"
-#include "User.h"
+#include "../Users/IUserService.h"
+#include "../Users/User.h"
 
 using namespace std;
 

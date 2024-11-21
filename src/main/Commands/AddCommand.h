@@ -1,8 +1,8 @@
 #ifndef ADDCOMMAND_H
 #define ADDCOMMAND_H
 
-#include "../models/CommandParser.h"
-#include "../services/IUserService.h"
+#include "../Commands/CommandParser.h"
+#include "../Users/IUserService.h"
 #include "./ICommand.h"
 
 using namespace std;

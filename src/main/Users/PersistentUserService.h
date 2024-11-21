@@ -6,8 +6,8 @@
 #include <string>
 #include <vector>
 
-#include "../models/User.h"
-#include "./IUserService.h"
+#include "IUserService.h"
+#include "User.h"
 
 using namespace std;
 
