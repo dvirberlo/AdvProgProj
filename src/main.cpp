@@ -8,6 +8,8 @@
 #include "./main/models/HelpCommand.h"
 #include "./main/models/ICommand.h"
 #include "./main/models/IMenu.h"
+#include "./main/models/RecommendCommand.h"
+#include "./main/models/RecommendEngine.h"
 #include "./main/services/IUserService.h"
 #include "./main/services/PersistentUserService.h"
 
@@ -23,6 +25,10 @@ int main() {
     IUserService *userService = new PersistentUserService(DATA_FILE_PATH);
     CommandParser commandParser;
     commands["add"] = new AddCommand(*userService, commandParser);
+
+    RecommendEngine recommendEngine(userService);
+    commands["recommend"] =
+        new RecommendCommand(recommendEngine, commandParser);
 
     IMenu *menu = new ConsoleMenu(commandParser);
 
