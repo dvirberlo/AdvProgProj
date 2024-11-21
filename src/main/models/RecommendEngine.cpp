@@ -86,6 +86,11 @@ std::map<int, int> RecommendEngine::SumOfSharedMovies(const std::map<int, std::s
 
     // Remove the target movie (movieId) from the unionMovies set
     unionMovies.erase(movieId);
+   //remove the list of movies that the user has watched
+    for (int movie : dataMap.at(userId)) {
+        unionMovies.erase(movie);
+    }
+
 
     // Initialize a map to store the sum of shared movies for each movie
     std::map<int, int> sumSharedMoviesMap;
