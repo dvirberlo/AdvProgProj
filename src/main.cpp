@@ -1,9 +1,9 @@
-#include "./main/models/ICommand.h"
-#include "./main/models/IMenu.h"
-#include "./main/models/App.h"
-#include "./main/models/Help.h"
-#include "./main/models/ConsoleMenu.h"
-#include "./main/models/CommandParser.h"
+#include "./main/Commands/ICommand.h"
+#include "./main/services/IMenu.h"
+#include "./main/flow/App.h"
+#include "./main/Commands/Help.h"
+#include "./main/services/ConsoleMenu.h"
+#include "./main/utilities/CommandParser.h"
 #include <string>
 #include <map>
 using namespace std;
