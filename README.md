@@ -8,10 +8,14 @@ You can run the code using Docker:
 
 ```bash
 cd src
-docker-compose up --build
+docker-compose run --build main
 ```
 
-(you can run the app using `docker-compose up --build main` or test it using `docker-compose up --build test`)
+you can test the app using
+
+```bash
+docker-compose up --build test
+```
 
 ### Run locally:
 
