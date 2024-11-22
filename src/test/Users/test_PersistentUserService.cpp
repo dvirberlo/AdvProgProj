@@ -8,7 +8,7 @@
 #include <vector>
 
 #include "../../main/Users/PersistentUserService.h"
-#include "../../main/Users/user.h"
+#include "../../main/Users/User.h"
 
 using namespace std;
 
