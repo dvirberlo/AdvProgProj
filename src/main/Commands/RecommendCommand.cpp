@@ -28,6 +28,6 @@ void RecommendCommand::execute(const vector<string>& args) {
     for (auto& movie : recommendedMovies) {
         cout << movie << " ";
     }
-    // write new line char
-    cout << endl;
+    // write new line char, only if there were recommendations
+    if (recommendedMovies.size() > 0) cout << endl;
 }
