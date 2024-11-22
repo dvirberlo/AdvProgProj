@@ -12,8 +12,7 @@
 
 using namespace std;
 
-// assumes the execution happen inside a build folder inside /src
-#define MOCK_FILE_PATH "../../data/mock_data.txt"
+#define MOCK_FILE_PATH "test_data.txt"
 
 TEST(PersistentUserService, Constructor) {
     remove(MOCK_FILE_PATH);  // clean data file before and after every test

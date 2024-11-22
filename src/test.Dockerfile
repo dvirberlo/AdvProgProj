@@ -2,14 +2,13 @@ FROM gcc:latest
 
 RUN apt-get update && apt-get install -y cmake
 
-COPY . /usr/src
+# assume Docker context (directory) is the root of the project
+COPY . /usr/project
 
-WORKDIR /usr/src
+WORKDIR /usr/project
 
-RUN mkdir build
+RUN mkdir src/build
+RUN cmake -S src/test -B src/build
+RUN make -C src/build
 
-WORKDIR /usr/src/build
-
-RUN cmake ../test && make
-
-CMD [ "./test.out" ]
+CMD [ "./src/build/test.out" ]

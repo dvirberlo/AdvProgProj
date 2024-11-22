@@ -1,9 +1,12 @@
 services:
   main:
     build:
-      context: .
-      dockerfile: Dockerfile
+      context: ..
+      dockerfile: src/Dockerfile
+    tty: true
+    stdin_open: true
+    init: true
   test:
     build:
-      context: .
-      dockerfile: test.Dockerfile
+      context: ..
+      dockerfile: src/test.Dockerfile
