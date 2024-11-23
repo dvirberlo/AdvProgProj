@@ -1,4 +1,4 @@
-name: CI Test with Docker Compose
+name: Build CI
 
 on:
   push:
@@ -24,24 +24,8 @@ jobs:
       # Build and run the tests
       - name: Run tests
         run: docker-compose -f src/docker-compose.yml build
-
-  test-docker:
-    runs-on: ubuntu-latest
-
-    steps:
-      # Checkout the repository
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      # Install Prerequisites
-      - name: Install Prerequisites
-        run: sudo apt-get update && sudo apt-get install -y docker docker-compose
-
-      # Build and run the tests
-      - name: Run tests
-        run: docker-compose -f src/docker-compose.yml up --abort-on-container-exit --build test
   
-  test:
+  build:
     runs-on: ubuntu-latest
 
     steps:
@@ -55,4 +39,4 @@ jobs:
 
       # Build and run the tests
       - name: Run tests
-        run: ./src/scripts/test.sh
+        run: ./src/scripts/build.sh main
