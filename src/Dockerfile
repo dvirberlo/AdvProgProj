@@ -7,8 +7,5 @@ COPY . /usr/project
 
 WORKDIR /usr/project
 
-RUN mkdir src/build
-RUN cmake -S src/main -B src/build
-RUN make -C src/build
-
-CMD [ "./src/build/main.out" ]
+CMD [ "./src/scripts/clean.sh" ]
+CMD [ "./src/scripts/run.sh" ]
