@@ -13,7 +13,7 @@ RecommendCommand::RecommendCommand(RecommendEngine& recommendEngine,
     : recommendEngine(recommendEngine), commandParser(commandParser) {}
 
 void RecommendCommand::execute(const vector<string>& args) {
-    // convert additional args (after "add") to integers
+    // convert additional args (after "recommend") to integers
     vector<int> intArgs = commandParser.convertToInt(
         vector<string>(args.begin() + 1, args.end()));
     // if thee are not enough exactly 2 valid, do nothing
@@ -28,6 +28,6 @@ void RecommendCommand::execute(const vector<string>& args) {
     for (auto& movie : recommendedMovies) {
         cout << movie << " ";
     }
-    // write new line char
-    cout << endl;
+    // write new line char, only if there were recommendations
+    if (recommendedMovies.size() > 0) cout << endl;
 }
