@@ -21,7 +21,7 @@ jobs:
       - name: Install Prerequisites
         run: sudo apt-get update && sudo apt-get install -y docker docker-compose
 
-      # Build and run the tests
+      # Build the Docker containers
       - name: Run tests
         run: docker-compose -f src/docker-compose.yml build
   
@@ -37,6 +37,6 @@ jobs:
       - name: Install Prerequisites
         run: sudo apt-get update && sudo apt-get install -y build-essential cmake make
 
-      # Build and run the tests
+      # Build the app
       - name: Run tests
         run: ./src/scripts/build.sh main
