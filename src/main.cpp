@@ -15,8 +15,8 @@
 
 using namespace std;
 
-// assumes the execution happen inside a build folder inside /src
-#define DATA_FILE_PATH "../../data/user_data.txt"
+// assumes the execution happen from the root directory of the project
+#define DATA_FILE_PATH "data/user_data.txt"
 
 int main() {
     map<string, ICommand *> commands;

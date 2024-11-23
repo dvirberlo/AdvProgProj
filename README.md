@@ -7,32 +7,47 @@
 You can run the code using Docker:
 
 ```bash
-cd src
-docker-compose run --build main
+docker-compose -f src/docker-compose.yml run --build main
 ```
 
 you can test the app using
 
 ```bash
-docker-compose up --build test
+docker-compose -f src/docker-compose.yml run --build test
 ```
 
 ### Run locally:
 
-You can run the code directly on your Linux/WSL machine, if you wish:
+For faster development iteration, you can also run the code directly on your Linux/WSL machine:
 
-Run the app:
+First, install CMake (command for Debian based distributions)
 
 ```bash
-cd src && mkdir build-main
-cd build-main && cmake ../main && make
-./main.out
+sudo apt-get update
+sudo apt-get install cmake
 ```
 
-Test the app:
+You can run the app with
 
 ```bash
-cd src && mkdir build-test
-cd build-test && cmake ../test && make
-./test.out
+mkdir src/build-main
+cmake -S src/main -B src/build-main
+make -C src/build-main
+./src/build-main/main.out
+```
+
+You can test the app with
+
+```bash
+mkdir src/build-test
+cmake -S src/test -B src/build-test
+make -C src/build-test
+./src/build-test/test.out
+```
+
+Or from the root directory of the project, run our provided scripts
+
+```bash
+./src/scripts/run.sh # run the app
+./src/scripts/test.sh # test the app
 ```
