@@ -5,7 +5,7 @@
 TEST(User, Constructor) {
     int id1 = 1;
     User user1(id1, set<int>());
-    EXPECT_EQ(user1.getId(), 100);
+    EXPECT_EQ(user1.getId(), id1);
     EXPECT_EQ(user1.getMoviesWatched().size(), 0);
 
     int id2 = 2;
