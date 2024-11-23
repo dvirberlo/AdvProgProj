@@ -1,0 +1,26 @@
+name: CI Test with Docker Compose
+
+on:
+  push:
+    branches:
+      - main # Run on pushes to the main branch
+  pull_request:
+    branches:
+      - main # Run on PRs targeting the main branch
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the repository
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Set up Docker
+      - name: Set up Docker
+        uses: docker/setup-buildx-action@v3
+
+      # Build and run Docker Compose test
+      - name: Run tests using Docker Compose
+        run: docker-compose -f src/docker-compose.yml run --build test
