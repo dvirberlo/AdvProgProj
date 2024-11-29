@@ -51,3 +51,26 @@ Or from the root directory of the project, run our provided scripts
 ./src/scripts/run.sh # run the app
 ./src/scripts/test.sh # test the app
 ```
+
+
+## Short explanation about the program
+
+This program implements a movie recommendation system in C++ using the Command Line Interface (CLI). It allows users to input commands for managing and recommending movies based on user preferences.
+
+The system supports three commands:
+
+add [userid] [movieid1] [movieid2] ...: This command associates a user with one or more movies they have watched. The data is saved to a file for persistent storage.
+recommend [userid] [movieid]: Given a user ID and a movie ID, the system provides up to 10 recommendations for other movies, based on users with similar tastes (using a similarity algorithm).
+help: Displays a list of available commands.
+The program loads and saves data to files, ensuring that recommendations remain consistent even after restarting the program. Invalid commands or incorrect input are ignored.
+
+The system runs continuously, processing commands without termination.
+
+## Test example:
+![tests_1](https://github.com/user-attachments/assets/8c53c9c8-1ced-4e75-8ed1-86d46d683fb7)
+
+![tests_2](https://github.com/user-attachments/assets/d4110d24-4c5a-4ef2-af71-f68434357548)
+
+## Output example:
+
+![output example ](https://github.com/user-attachments/assets/eb143f57-9d86-44b4-abed-5c679119baa5)
