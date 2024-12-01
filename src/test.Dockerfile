@@ -3,7 +3,7 @@ FROM gcc:latest
 RUN apt-get update && apt-get install -y cmake
 
 # copy project into container (assume Docker context (directory) is the root of the project)
-COPY . /usr/project
+COPY . /usr/project/src
 
 WORKDIR /usr/project
 
