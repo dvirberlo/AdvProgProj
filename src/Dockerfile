@@ -8,7 +8,10 @@ COPY . /usr/project/src
 WORKDIR /usr/project
 
 # clean
-RUN "./src/scripts/clean.sh"
+RUN ./src/scripts/clean.sh
+
+# build
+RUN ./src/scripts/build.sh main
 
 # run
-CMD [ "./src/scripts/run.sh" ]
+CMD [ "./src/build-main/main.out" ]
