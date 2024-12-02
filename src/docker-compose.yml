@@ -1,12 +1,14 @@
 services:
   main:
     build:
-      context: ..
-      dockerfile: src/Dockerfile
+      context: .
+      dockerfile: Dockerfile
     tty: true
     stdin_open: true
     init: true
+    volumes:
+      - ../data:/usr/project/data
   test:
     build:
-      context: ..
-      dockerfile: src/test.Dockerfile
+      context: .
+      dockerfile: test.Dockerfile

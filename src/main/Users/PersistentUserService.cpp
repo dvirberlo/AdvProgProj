@@ -26,7 +26,7 @@ PersistentUserService::PersistentUserService(string path) : IUserService() {
             file.close();
         }
     } catch (...) {
-        cerr << "deserialize user map file failed" << endl;
+        // do nothing. on error we leave the users data empty
     }
 }
 
@@ -45,7 +45,7 @@ void PersistentUserService::markAsWatched(int userId, set<int> movies) {
         serializeMap(userMap, file);
         file.close();
     } catch (...) {
-        cerr << "serialize user map into file failed" << endl;
+        // do nothing. on error we leave the users data file outdated
     }
 }
 
