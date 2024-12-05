@@ -2,7 +2,9 @@
 #include <string>
 
 #include "./main/App/App.h"
-#include "./main/Commands/AddCommand.h"
+#include "./main/Commands/PostCommand.h"
+#include "./main/Commands/PatchCommand.h"
+#include "./main/Commands/DeleteCommand.h"
 #include "./main/Commands/CommandParser.h"
 #include "./main/Commands/ConsoleMenu.h"
 #include "./main/Commands/HelpCommand.h"
@@ -25,10 +27,9 @@ int main() {
 
     IUserService *userService = new PersistentUserService(DATA_FILE_PATH);
     CommandParser commandParser;
-    //commands["add"] = new AddCommand(*userService, commandParser);
-     commands["POST"] = new AddCommand(*userService, commandParser);
-    //commands["DELETE"] = new DeleteCommand(*userService, commandParser);
-
+    commands["POST"] = new PostCommand(*userService, commandParser);
+    commands["PATCH"] = new PatchCommand(*userService, commandParser);
+    commands["DELETE"] = new DeleteCommand(*userService, commandParser);
     RecommendEngine recommendEngine(userService);
     commands["GET"] =
         new RecommendCommand(recommendEngine, commandParser);

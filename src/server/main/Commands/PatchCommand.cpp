@@ -1,4 +1,4 @@
-#include "AddCommand.h"
+#include "PatchCommand.h"
 
 #include <iostream>
 
@@ -6,9 +6,9 @@
 #include "CommandParser.h"
 using namespace std;
 
-AddCommand::AddCommand(IUserService& userService, CommandParser& commandParser)
+PatchCommand::PatchCommand(IUserService& userService, CommandParser& commandParser)
     : userService(userService), commandParser(commandParser) {}
-void AddCommand::execute(const vector<string>& args) {
+void PatchCommand::execute(const vector<string>& args) {
     // convert additional args (after "add") to integers
     vector<int> intArgs = commandParser.convertToInt(
         vector<string>(args.begin() + 1, args.end()));
