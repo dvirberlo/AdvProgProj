@@ -39,4 +39,4 @@ jobs:
 
       # Build the app
       - name: Run tests
-        run: ./src/scripts/build.sh main
+        run: ./src/server/scripts/build.sh server/main

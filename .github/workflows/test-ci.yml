@@ -23,7 +23,7 @@ jobs:
 
       # Build and run the tests
       - name: Run tests
-        run: docker-compose -f src/docker-compose.yml up --abort-on-container-exit --build test
+        run: docker-compose -f src/docker-compose.yml up --abort-on-container-exit --build server-test
   
   test:
     runs-on: ubuntu-latest
@@ -39,4 +39,4 @@ jobs:
 
       # Build and run the tests
       - name: Run tests
-        run: ./src/scripts/test.sh
+        run: ./src/server/scripts/test.sh
