@@ -1,5 +1,5 @@
 services:
-  main:
+  server-main:
     build:
       context: .
       dockerfile: Dockerfile
@@ -8,7 +8,7 @@ services:
     init: true
     volumes:
       - ../data:/usr/project/data
-  test:
+  server-test:
     build:
       context: .
       dockerfile: test.Dockerfile
