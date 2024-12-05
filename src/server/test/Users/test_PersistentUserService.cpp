@@ -152,3 +152,13 @@ TEST(PersistentUserService, Deserialization) {
     EXPECT_EQ(userService.getAllUsers(), expectedUserList);
     remove(MOCK_FILE_PATH);  // clean data file before and after every test
 };
+
+TEST(PersistentUserService, UserExists) {
+    remove(MOCK_FILE_PATH);  // clean data file before and after every test
+    PersistentUserService userService(MOCK_FILE_PATH);
+    userService.markAsWatched(1, {100, 103});
+
+    EXPECT_TRUE(userService.userExists(1));
+    EXPECT_FALSE(userService.userExists(2));
+    remove(MOCK_FILE_PATH);  // clean data file before and after every test
+};

@@ -138,3 +138,6 @@ map<int, set<int>> deserializeMap(istream& inputStream) {
     return map;
 }
 
+bool PersistentUserService::userExists(int userId) {
+    return userMap.find(userId) != userMap.end();
+}
