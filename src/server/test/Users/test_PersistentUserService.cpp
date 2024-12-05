@@ -51,6 +51,45 @@ TEST(PersistentUserService, MarkAsWatched) {
     remove(MOCK_FILE_PATH);  // clean data file before and after every test
 };
 
+TEST(PersistentUserService, MarkAsUnwatched) {
+    remove(MOCK_FILE_PATH);  // clean data file before and after every test
+    PersistentUserService userService(MOCK_FILE_PATH);
+    userService.markAsWatched(2, {101, 103});
+    userService.markAsWatched(1, {100, 103});
+    userService.markAsWatched(3, {100});
+    userService.markAsUnwatched(2, {101});
+
+    map<int, set<int>> expectedUserMap = {
+        {1, {100, 103}},
+        {2, {103}},
+        {3, {100}},
+    };
+    EXPECT_EQ(userService.getAllUsersMap(), expectedUserMap);
+
+    vector<User> expectedUserList = {
+        {1, {100, 103}},
+        {2, {103}},
+        {3, {100}},
+    };
+    EXPECT_EQ(userService.getAllUsers(), expectedUserList);
+
+    // markAsUnwatched should delete the user if they have no more movies
+    userService.markAsUnwatched(2, {103});
+        expectedUserMap = {
+        {1, {100, 103}},
+        {3, {100}},
+    };
+    EXPECT_EQ(userService.getAllUsersMap(), expectedUserMap);
+
+        expectedUserList = {
+        {1, {100, 103}},
+        {3, {100}},
+    };
+    EXPECT_EQ(userService.getAllUsers(), expectedUserList);
+
+    remove(MOCK_FILE_PATH);  // clean data file before and after every test
+};
+
 TEST(PersistentUserService, Persistence) {
     remove(MOCK_FILE_PATH);  // clean data file before and after every test
     PersistentUserService userService1(MOCK_FILE_PATH);

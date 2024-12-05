@@ -12,6 +12,7 @@
 #include "./main/Recommand-Engine/RecommendEngine.h"
 #include "./main/Users/IUserService.h"
 #include "./main/Users/PersistentUserService.h"
+//#include "./main/Commands/DeleteCommand.h"
 
 using namespace std;
 
@@ -24,10 +25,12 @@ int main() {
 
     IUserService *userService = new PersistentUserService(DATA_FILE_PATH);
     CommandParser commandParser;
-    commands["add"] = new AddCommand(*userService, commandParser);
+    //commands["add"] = new AddCommand(*userService, commandParser);
+     commands["POST"] = new AddCommand(*userService, commandParser);
+    //commands["DELETE"] = new DeleteCommand(*userService, commandParser);
 
     RecommendEngine recommendEngine(userService);
-    commands["recommend"] =
+    commands["GET"] =
         new RecommendCommand(recommendEngine, commandParser);
 
     IMenu *menu = new ConsoleMenu(commandParser);
@@ -35,3 +38,4 @@ int main() {
     App app = App(menu, commands);
     app.run();
 }
+

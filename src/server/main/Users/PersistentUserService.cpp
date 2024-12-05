@@ -49,6 +49,36 @@ void PersistentUserService::markAsWatched(int userId, set<int> movies) {
     }
 }
 
+void PersistentUserService::markAsUnwatched(int userId, set<int> movies) {
+    // Check if the user exists in the map
+    auto userIt = userMap.find(userId);
+    if (userIt == userMap.end()) {
+        // User does not exist, nothing to do
+        return;
+    }
+
+    // Remove the given movies from the user's set
+    set<int>& userMovies = userIt->second; // Reference to the set of movies
+    for (int movie : movies) {
+        userMovies.erase(movie); // Remove each movie
+    }
+
+    // If the user has no more movies, delete the user
+    if (userMovies.empty()) {
+        userMap.erase(userIt); // Remove the user from the map
+    }
+
+    // Serialize userMap and write to filepath:
+    try {
+        ofstream file(filepath);
+        if (!file) throw "Could not open file";
+        serializeMap(userMap, file); // Save the updated userMap
+        file.close();
+    } catch (...) {
+        // If an error occurs, leave the users' data file outdated (no changes saved)
+    }
+}
+
 vector<User> PersistentUserService::getAllUsers() {
     // iterate through the userMap and convert it to a list of User objects
     vector<User> users;
@@ -107,3 +137,4 @@ map<int, set<int>> deserializeMap(istream& inputStream) {
     }
     return map;
 }
+

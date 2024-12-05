@@ -19,6 +19,7 @@ class PersistentUserService : public IUserService {
    public:
     PersistentUserService(string path);
     void markAsWatched(int userId, set<int> movies) override;
+    void markAsUnwatched(int userId, set<int> movies) override;
     vector<User> getAllUsers() override;
     map<int, set<int>> getAllUsersMap() override;
 };
