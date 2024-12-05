@@ -7,13 +7,13 @@
 You can run the code using Docker:
 
 ```bash
-docker-compose -f src/docker-compose.yml run --build main
+docker-compose -f src/docker-compose.yml run --build server-main
 ```
 
 you can test the app using
 
 ```bash
-docker-compose -f src/docker-compose.yml run --build test
+docker-compose -f src/docker-compose.yml run --build server-test
 ```
 
 ### Run locally:
@@ -27,31 +27,13 @@ sudo apt-get update
 sudo apt-get install cmake
 ```
 
-You can run the app with
+From the root directory of the project, you can run our provided scripts
 
 ```bash
-mkdir src/build-main
-cmake -S src/main -B src/build-main
-make -C src/build-main
-./src/build-main/main.out
-```
-
-You can test the app with
-
-```bash
-mkdir src/build-test
-cmake -S src/test -B src/build-test
-make -C src/build-test
-./src/build-test/test.out
-```
-
-Or from the root directory of the project, run our provided scripts
-
-```bash
-./src/scripts/run.sh # run the app
+./src/server/scripts/run.sh # run the app
 
 
-./src/scripts/test.sh # test the app
+./src/server/scripts/test.sh # test the app
 ```
 
 ## Short explanation about the program
