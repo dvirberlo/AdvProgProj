@@ -1,6 +1,6 @@
 #!/bin/bash
 
 # build ./src/test
-./src/scripts/build.sh test
+./src/server/scripts/build.sh server/test
 # run the compiled executable
-./src/build-test/test.out
+./src/build-server/test/test.out
