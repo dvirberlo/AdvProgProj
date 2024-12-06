@@ -1,5 +1,5 @@
-#ifndef patch_COMMAND_H
-#define patch_COMMAND_H
+#ifndef PATCH_COMMAND_H
+#define PATCH_COMMAND_H
 
 #include "../Commands/CommandParser.h"
 #include "../Users/IUserService.h"

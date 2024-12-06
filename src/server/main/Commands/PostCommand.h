@@ -1,5 +1,5 @@
-#ifndef POSTCOMMAND_H
-#define POSTCOMMAND_H
+#ifndef POST_COMMAND_H
+#define POST_COMMAND_H
 
 #include "../Commands/CommandParser.h"
 #include "../Users/IUserService.h"
