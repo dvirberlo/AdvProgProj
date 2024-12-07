@@ -8,7 +8,5 @@ string HelpCommand::execute(const vector<string>& args) {
                     "PATCH, arguments: [userid] [movieid1] [movieid2] ...\n"
                     "POST, arguments: [userid] [movieid1] [movieid2] ...\n"
                     "help";
-    // Print the commands
-    cout << output << endl;
     return output;
 }

@@ -13,6 +13,6 @@ std::string StatusCodeFactory::getStatusMessage(int statusCode) {
     if (it != statusCodes.end()) {
         return it->second;
     } else {
-        return "Unknown Status";
+        return "Unknown Status\n";
     }
 }
