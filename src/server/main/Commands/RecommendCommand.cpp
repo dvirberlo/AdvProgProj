@@ -1,10 +1,10 @@
-
 #include "RecommendCommand.h"
 
 #include <iostream>
 
 #include "../Recommand-Engine/RecommendEngine.h"
 #include "CommandParser.h"
+#include "StatusCodeFactory.h"
 
 using namespace std;
 
@@ -13,8 +13,6 @@ RecommendCommand::RecommendCommand(RecommendEngine& recommendEngine,
     : recommendEngine(recommendEngine), commandParser(commandParser) {}
 
 string RecommendCommand::execute(const vector<string>& args) {
-    //temporal output
-    string output = "RECOMMEND command executed\n";
 
     // convert additional args (after "recommend") to integers
     vector<int> intArgs = commandParser.convertToInt(
@@ -22,7 +20,7 @@ string RecommendCommand::execute(const vector<string>& args) {
     // if thee are not enough exactly 2 valid, do nothing
     if (intArgs.size() != 2) 
     // return 400 message
-    return output;
+    return StatusCodeFactory::getStatusMessage(400);
 
     int userId = intArgs[0];
     int movieId = intArgs[1];
@@ -31,12 +29,13 @@ string RecommendCommand::execute(const vector<string>& args) {
     //if there is no recommendations return 404 message
     if (recommendedMovies.size() == 0) 
     //return 404 message
-    return output;      
+    return StatusCodeFactory::getStatusMessage(404); 
 
-    // print all the recommended movies by order, with space as separator:
+    // prepare the output message
+    string output = StatusCodeFactory::getStatusMessage(200) + "\n";
     for (auto& movie : recommendedMovies) {
-        cout << movie << " ";
-    }
-    //return 200 message
-    return output;
+            output += to_string(movie) + " ";  
+        }
+    output += "\n";
+    return output;    
 }
