@@ -63,11 +63,6 @@ void PersistentUserService::markAsUnwatched(int userId, set<int> movies) {
         userMovies.erase(movie); // Remove each movie
     }
 
-    // If the user has no more movies, delete the user
-    if (userMovies.empty()) {
-        userMap.erase(userIt); // Remove the user from the map
-    }
-
     // Serialize userMap and write to filepath:
     try {
         ofstream file(filepath);
@@ -140,4 +135,24 @@ map<int, set<int>> deserializeMap(istream& inputStream) {
 
 bool PersistentUserService::userExists(int userId) {
     return userMap.find(userId) != userMap.end();
+}
+bool PersistentUserService::moviesExist(int userId, set<int> movies) {
+    // Check if the user exists in the map
+    auto userIt = userMap.find(userId);
+    if (userIt == userMap.end()) {
+        // User does not exist, so the movies do not exist
+        return false;
+    }
+
+    // Check if all movies exist in the user's set
+    set<int>& userMovies = userIt->second; // Reference to the set of movies
+    for (int movie : movies) {
+        if (userMovies.find(movie) == userMovies.end()) {
+            // Movie does not exist in the user's set
+            return false;
+        }
+    }
+
+    // All movies exist in the user's set
+    return true;
 }

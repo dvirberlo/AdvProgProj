@@ -100,9 +100,5 @@ TEST(AddAndDeleteCommand, addAndDeleteMovies) {
         {1, {101}},
     };
     EXPECT_EQ(userService.getAllUsersMap(), expectedUserMap);
-    args = {"DELETE", "1", "101"};
-    deleteCommand->execute({args});
-    expectedUserMap ={};
-    EXPECT_EQ(userService.getAllUsersMap(), expectedUserMap);
     remove(MOCK_FILE_PATH);  // clean data file before and after every test
 };

@@ -14,7 +14,7 @@ class PostCommand : public ICommand {
 
    public:
     PostCommand(IUserService& userService, CommandParser& commandParser);
-    void execute(const vector<string>& args) override;
+    string execute(const vector<string>& args) override;
 };
 
 #endif

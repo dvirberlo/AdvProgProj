@@ -14,7 +14,7 @@ class DeleteCommand : public ICommand {
 
    public:
     DeleteCommand(IUserService& userService, CommandParser& commandParser);
-    void execute(const vector<string>& args) override;
+    string execute(const vector<string>& args) override;
 };
 
 #endif

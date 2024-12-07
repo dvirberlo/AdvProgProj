@@ -2,14 +2,13 @@
 
 #include <iostream>
 using namespace std;
-void HelpCommand::execute(const vector<string>& args) {
-    vector <string> output={"DELETE, arguments: [userid] [movieid1] [movieid2] ...",
-                            "GET, arguments: [userid] [movieid]",
-                            "PATCH, arguments: [userid] [movieid1] [movieid2] ...",
-                            "POST, arguments: [userid] [movieid1] [movieid2] ...",
-                            "help"};
+string HelpCommand::execute(const vector<string>& args) {
+    string output = "DELETE, arguments: [userid] [movieid1] [movieid2] ...\n"
+                    "GET, arguments: [userid] [movieid]\n"
+                    "PATCH, arguments: [userid] [movieid1] [movieid2] ...\n"
+                    "POST, arguments: [userid] [movieid1] [movieid2] ...\n"
+                    "help";
     // Print the commands
-    for (auto i : output) {
-        cout << i << endl;
-    }
+    cout << output << endl;
+    return output;
 }
