@@ -101,6 +101,7 @@ void Server::run() {
         if (clientSocket < 0) {
             std::cerr << "Problem with client connecting!";
             close(clientSocket);
+            continue;
         }
         // Handle the client in a separate thread
         std::thread clientThread(&Server::handleClient, this, clientSocket);
