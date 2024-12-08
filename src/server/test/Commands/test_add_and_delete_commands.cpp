@@ -48,12 +48,10 @@ TEST(PatchCommand, addMovies) {
     PersistentUserService userService(MOCK_FILE_PATH);
     CommandParser commandParser;
     ICommand * patchCommand= new PatchCommand(userService, commandParser);
-    ICommand * postCommand= new PostCommand(userService, commandParser);
 
-    vector<string> args = {"POST", "1", "100", "101"};
-    postCommand->execute(args);
+    userService.markAsWatched(1, {100, 101});
 
-    args= {"PATCH", "1", "102"};
+    vector<string> args= {"PATCH", "1", "102"};
     patchCommand->execute(args);
 
     args= {"PATCH", "2", "102"};
@@ -92,9 +90,8 @@ TEST(AddAndDeleteCommand, addAndDeleteMovies) {
     CommandParser commandParser;
     ICommand * addCommand= new PostCommand(userService, commandParser);
     ICommand * deleteCommand= new DeleteCommand(userService, commandParser);
-    vector<string> args = {"POST", "1", "100", "101"};
-    addCommand->execute(args);
-    args = {"DELETE", "1", "100"};
+    userService.markAsWatched(1, {100, 101});
+    vector<string> args = {"DELETE", "1", "100"};
     deleteCommand->execute({args});
     map<int, set<int>> expectedUserMap = {
         {1, {101}},

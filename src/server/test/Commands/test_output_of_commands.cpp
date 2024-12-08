@@ -21,7 +21,7 @@ TEST(HelpCommand, helpOutput) {
                             "GET, arguments: [userid] [movieid]\n"
                             "PATCH, arguments: [userid] [movieid1] [movieid2] ...\n"
                             "POST, arguments: [userid] [movieid1] [movieid2] ...\n"
-                            "help";
+                            "help\n";
     EXPECT_EQ(output, expectedOutput);
 }
 #define MOCK_FILE_PATH "test_data.txt"

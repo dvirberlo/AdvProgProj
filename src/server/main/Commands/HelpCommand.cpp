@@ -7,6 +7,6 @@ string HelpCommand::execute(const vector<string>& args) {
                     "GET, arguments: [userid] [movieid]\n"
                     "PATCH, arguments: [userid] [movieid1] [movieid2] ...\n"
                     "POST, arguments: [userid] [movieid1] [movieid2] ...\n"
-                    "help";
+                    "help\n";
     return output;
 }
