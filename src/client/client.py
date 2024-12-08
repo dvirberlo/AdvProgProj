@@ -16,11 +16,11 @@ def main():
         print(f"Failed to connect to {dest_ip}:{dest_port}", file=sys.stderr)
         sys.exit(1)
     # The client will keep sending messages to the server until the client is terminated by the user himself
-    msg = input()
+    
     while True:
+        msg = input()
         sock.send(bytes(msg, 'utf-8'))
         data = sock.recv(MAXIMUM_BYTES_PER_MSG)
         print(data.decode('utf-8'))
-        msg = input()
 if __name__ == "__main__":
     main()
