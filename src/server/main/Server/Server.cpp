@@ -61,6 +61,9 @@ void Server ::handleClient(int clientSocket) {
             int sentBytes =
                 send(clientSocket, error.c_str(), error.length(), 0);
         }
+        // this clears the buffer : buffer of course is a pointer to the first
+        // element then we give it a point to the first element
+        std::fill(buffer, buffer + BUFFER_SIZE, '\0');
     }
 }
 
