@@ -12,26 +12,25 @@
 #include <thread>
 using namespace std;
 #define BUFFER_SIZE 4096
-#define SERVER_PORT 8080
-// שיניתי את החתימה של excute
-// כך שהיא לא תכיל קונסט ונוכל לשנות את הוקטור סטרינגים שאנחנו מקבלים: כרגע
-// שיניתי רק את הפונקציה הלפ שתחזיר בתא הראשון של הוקטור את הסטרינג אותו אנו
-// שולחים ללקוח
-// כרגע אני לא משתמש בכלל בתפריט הוא אינו נזקק ואני בכלל לא רואה סיבה להשתמש בו
-Server::Server(IMenu* menu, const std::map<std::string, ICommand*>& commands)
-    : menu(menu), commands(commands) {}
+Server::Server(IMenu* menu, const std::map<std::string, ICommand*>& commands,
+               const int port)
+    : menu(menu), commands(commands), port(port) {}
 
 void Server ::handleClient(int clientSocket) {
     CommandParser* commandParser = new CommandParser();
+    // Read from the client
+    char buffer[BUFFER_SIZE];
     while (true) {
-        // Read from the client
-        char buffer[BUFFER_SIZE];
         int expectedDataLen = sizeof(buffer);
         int readBytes = recv(clientSocket, buffer, expectedDataLen, 0);
         if (readBytes == 0) {
             // connection is closed
+            // note that in this exercise we assume that the client will never
+            // close the connection
+            return;
         } else if (readBytes < 0) {
             cout << "error reading from client" << endl;
+            return;
         }
         // Convert the buffer to a string : the command
         std::string inputCommand(buffer);
@@ -66,9 +65,7 @@ void Server ::handleClient(int clientSocket) {
 }
 
 void Server::run() {
-    // debug
-    cout << "Server is running" << endl;
-    const int serverPort = SERVER_PORT;
+    const int serverPort = this->port;
     int serverSocket = socket(AF_INET, SOCK_STREAM, 0);
     if (serverSocket == -1) {
         std::cerr << "Can't create a socket";
@@ -86,11 +83,13 @@ void Server::run() {
     if (check < 0) {
         std::cerr << "Can't bind to IP/port";
         close(serverSocket);
+        exit(1);
     }
     // Start listening : SOMAXCONN is the maximum number of connections
     if (listen(serverSocket, SOMAXCONN) == -1) {
         std::cerr << "Can't listen";
         close(serverSocket);
+        exit(1);
     }
 
     while (true) {

@@ -17,9 +17,11 @@ class Server {
    private:
     IMenu *menu;
     std::map<std::string, ICommand *> commands;
+    int const port;
 
    public:
-    Server(IMenu *menu, const std::map<std::string, ICommand *> &commands);
+    Server(IMenu *menu, const std::map<std::string, ICommand *> &commands,
+           const int port);
 
     // Method to run the application
     void run();

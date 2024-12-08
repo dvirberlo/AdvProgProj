@@ -14,6 +14,7 @@
 #include "./main/Server/Server.h"
 #include "./main/Users/IUserService.h"
 #include "./main/Users/PersistentUserService.h"
+#define SERVER_PORT 8080
 
 using namespace std;
 
@@ -35,6 +36,6 @@ int main() {
     IMenu *menu = new ConsoleMenu(commandParser);
     // Create the server and run it
 
-    Server server = Server(menu, commands);
+    Server server = Server(menu, commands, SERVER_PORT);
     server.run();
 }
