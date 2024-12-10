@@ -10,7 +10,6 @@
 #include "./main/Commands/PatchCommand.h"
 #include "./main/Commands/PostCommand.h"
 #include "./main/Commands/RecommendCommand.h"
-#include "./main/Recommand-Engine/RecommendEngine.h"
 #include "./main/Server/Server.h"
 #include "./main/Users/IUserService.h"
 #include "./main/Users/PersistentUserService.h"
@@ -30,8 +29,7 @@ int main() {
     commands["POST"] = new PostCommand(*userService, commandParser);
     commands["PATCH"] = new PatchCommand(*userService, commandParser);
     commands["DELETE"] = new DeleteCommand(*userService, commandParser);
-    RecommendEngine recommendEngine(userService);
-    commands["GET"] = new RecommendCommand(recommendEngine, commandParser);
+    commands["GET"] = new RecommendCommand(*userService, commandParser);
 
     IMenu *menu = new ConsoleMenu(commandParser);
     // Create the server and run it

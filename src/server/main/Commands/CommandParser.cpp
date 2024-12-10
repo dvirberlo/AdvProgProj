@@ -2,6 +2,7 @@
 
 #include <string>
 #include <vector>
+#include <stdexcept>
 
 using namespace std;
 
@@ -32,14 +33,31 @@ vector<string> CommandParser::parseString(const string &fullCommand) {
  * converts a list of string into integers.
  * if the strings do not represent integers, returns an empty list.
  */
-vector<int> CommandParser::convertToInt(const vector<string> &strings) {
-    vector<int> result;
+// Helper function to trim whitespace from both ends of a string
+std::string trim(const std::string& str) {
+    size_t start = str.find_first_not_of(" \t\n\r\f\v");
+    size_t end = str.find_last_not_of(" \t\n\r\f\v");
+    return (start == std::string::npos) ? "" : str.substr(start, end - start + 1);
+}
+
+std::vector<int> CommandParser::convertToInt(const std::vector<std::string> &strings) {
+    std::vector<int> result;
     try {
-        for (const string &str : strings) {
-            result.push_back(stoi(str));
+        for (const std::string &str : strings) {
+            std::string trimmedStr = trim(str);
+            size_t pos;
+            int num = std::stoi(trimmedStr, &pos);
+            if (pos != trimmedStr.length()) {
+                // If there are non-numeric characters after the number, return an empty vector
+                return {};
+            }
+            result.push_back(num);
         }
-    } catch (...) {
-        // if some args are not numbers we return an empty list
+    } catch (const std::invalid_argument& e) {
+        // If the string is not a valid number, return an empty vector
+        return {};
+    } catch (const std::out_of_range& e) {
+        // If the number is out of range, return an empty vector
         return {};
     }
     return result;

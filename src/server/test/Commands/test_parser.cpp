@@ -55,4 +55,12 @@ TEST(CommandParser, convertToInt) {
     vector<string> input3 = {"1", "2", "hello", "4"};
     vector<int> expected3 = {};
     EXPECT_EQ(parser.convertToInt(input3), expected3);
+
+    vector<string> input4 = {"1", "2", "3", "4", "5.5"};
+    vector<int> expected4 = {};
+    EXPECT_EQ(parser.convertToInt(input4), expected4);
+
+    vector<string> input5 = {"1", "2", "3", "4", "+5"};
+    vector<int> expected5 = {1, 2, 3, 4, 5};
+    EXPECT_EQ(parser.convertToInt(input5), expected5);
 }

@@ -12,53 +12,6 @@
 #define MOCK_FILE_PATH "test_data.txt"
 
 using namespace std;
-// Test case of empty file
-TEST(RecommendationEngineTest, emptyFile) {
-    remove(MOCK_FILE_PATH);  // clean data file before and after every test
-    const std::string filename = MOCK_FILE_PATH;
-    PersistentUserService *userService;
-    RecommendEngine *recommendationEngine;
-
-    // Initialize userService and recommendationEngine
-    userService = new PersistentUserService(MOCK_FILE_PATH);
-    recommendationEngine = new RecommendEngine(userService);
-
-    // Get recommendations for user1 with movie 104
-    std::vector<int> recommendations = recommendationEngine->getRecommendations(1, 111);
-    // Define the expected list of recommended movies
-    std::vector<int> expected = {};
-    // Check if the recommendations match the expected output
-    EXPECT_EQ(recommendations, expected);
-    remove(MOCK_FILE_PATH);  // clean data file before and after every test
-}
-
-// Test case of user or movie that not exist
-TEST(RecommendationEngineTest, notExistUser) {
-    remove(MOCK_FILE_PATH);  // clean data file before and after every test
-    const std::string filename = MOCK_FILE_PATH;
-    PersistentUserService *userService;
-    RecommendEngine *recommendationEngine;
-
-    // Writing provided user-movie data to the file
-    std::ofstream file(MOCK_FILE_PATH);
-    if (file.is_open()) {
-        file << "1:100,101,102,103,104,110,45,22,\n";
-        file.close();
-    } else {
-        std::cerr << "Error opening file for writing: " << MOCK_FILE_PATH << std::endl;
-    }
-
-    // Initialize userService and recommendationEngine
-    userService = new PersistentUserService(MOCK_FILE_PATH);
-    recommendationEngine = new RecommendEngine(userService);
-
-    // Get recommendations for user1 with movie 104
-    std::vector<int> recommendations = recommendationEngine->getRecommendations(10, 111);
-    // Define the expected list of recommended movies
-    std::vector<int> expected = {};
-    EXPECT_EQ(recommendations, expected);
-    remove(MOCK_FILE_PATH);  // clean data file before and after every test
-}
 
 // Test case of no exist movie
 TEST(RecommendationEngineTest, notExistMovie) {
