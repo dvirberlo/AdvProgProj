@@ -6,7 +6,7 @@
 using namespace std;
 class HelpCommand : public ICommand {
    public:
-    void execute(const vector<string>& args) override;
+    string execute(const vector<string>& args) override;
 };
 
 #endif

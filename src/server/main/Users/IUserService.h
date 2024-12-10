@@ -16,6 +16,7 @@ class IUserService {
     virtual vector<User> getAllUsers() = 0;
     virtual map<int, set<int>> getAllUsersMap() = 0;
     virtual bool userExists(int userId) = 0;
+    virtual bool moviesExist(int userId, set<int> movies) = 0;
 };
 
 #endif

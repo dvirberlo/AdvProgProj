@@ -15,7 +15,7 @@ class RecommendCommand : public ICommand {
    public:
     RecommendCommand(RecommendEngine& recommendEngine,
                      CommandParser& commandParser);
-    void execute(const vector<string>& args) override;
+    string execute(const vector<string>& args) override;
 };
 
 #endif

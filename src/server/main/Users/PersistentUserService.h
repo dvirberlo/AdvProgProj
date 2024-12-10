@@ -21,6 +21,7 @@ class PersistentUserService : public IUserService {
     void markAsWatched(int userId, set<int> movies) override;
     void markAsUnwatched(int userId, set<int> movies) override;
     bool userExists(int userId) override;
+    bool moviesExist(int userId, set<int> movies) override;
     vector<User> getAllUsers() override;
     map<int, set<int>> getAllUsersMap() override;
 };

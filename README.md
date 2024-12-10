@@ -36,29 +36,52 @@ From the root directory of the project, you can run our provided scripts
 ./src/server/scripts/test.sh # test the app
 ```
 
+## Questions:
+
+1. Did the fact that the names of the commands changed required you to touch the code that should be "closed
+to changes but open to expansion"?no, we used a porlymorphic commands map, so we could just change the keys of them in our commands map.
+
+
+2. Did the fact that new commands were added require you to touch the code that should be "closed
+to changes but open to expansion"? No. Using the commands map we have mentioned above, we could just create new commands classes that implements `ICommand` and add them to new entries in our commands map.
+
+
+3. Did the fact that the command output changed require you to touch the code that should be "closed
+to changes but open to expansion"? No, Since we used polymorphic `ICommand` interface, we could just locally modify the implementation of the commands that needed to be changed, without any bigger API changes.
+
+
+4. Did the fact that the input and output came from sockets instead of the command line require you to touch the code that should be "closed to changes but open to expansion"? Yes, we had to change the signature of the execute function in the ICommand interface so that each function returns a string instead of void. This fix will ensure that all the output that the server produces will be sent directly as a string to the client.
+
 ## Short explanation about the program
 
-This program implements a movie recommendation system in C++ using the Command Line Interface (CLI). It allows users to input commands for managing and recommending movies based on user preferences.
+This program is movie recommendation system, allows clients to interact with a server for movie recommendations and user management. Communication between the client and server is done via sockets, and all commands and responses are formatted with newline characters. The system supports the following commands:
 
-The system supports three commands:
+1. **POST add [userid] [movieid1] [movieid2] ...**: This command associates a user with one or more movies they have watched. It will create a new user if they don't exist. 
 
-add [userid] [movieid1] [movieid2] ...:
-This command associates a user with one or more movies they have watched. The data is saved to a file for persistent storage.
+2. **PATCH add [userid] [movieid1] [movieid2] ...**: This command works similarly to the `POST add` command but will only succeed if the user already exists. 
 
-recommend [userid] [movieid]:
-Given a user ID and a movie ID, the system provides up to 10 recommendations for other movies, based on users with similar tastes (using a similarity algorithm).
+3. **DELETE [userid] [movieid1] [movieid2] ...**: This command removes one or more movies from the user's watched list.
 
-help: Displays a list of available commands.
+4. **GET [userid] [movieid]**: This command provides movie recommendations based on the user’s preferences. It recommends movies based on the user's watched movies and similar users' watches
 
-The program loads and saves data to files, ensuring that recommendations remain consistent even after restarting the program. Invalid commands or incorrect input are ignored.
+5. **help**: This command displays a list of available commands and their parameters. Commands that require arguments will have their parameters listed.
 
-The system runs continuously, processing commands without termination.
+**Error Handling**: 
+Upon successful execution of a command, the server responds with an appropriate status code and message indicating the success of the operation. If a logically incorrect command is received (e.g., trying to add or delete a non-existent user, or requesting recommendations for a user who has no watched movies), the response is:  
+  ```
+  404 Not Found
+  ```  
+- Any incorrectly formatted or unsupported command will result in the response:  
+  ```
+  400 Bad Request
+  ```
+7. **Program Continuity**: 
+
+The client and server programs run continuously, and never stop.
 
 ## Test example:
-![tests_1](https://github.com/user-attachments/assets/8c53c9c8-1ced-4e75-8ed1-86d46d683fb7)
-
-![tests_2](https://github.com/user-attachments/assets/d4110d24-4c5a-4ef2-af71-f68434357548)
+//images of tests
 
 ## Output example:
 
-![output example ](https://github.com/user-attachments/assets/eb143f57-9d86-44b4-abed-5c679119baa5)
+//images of output

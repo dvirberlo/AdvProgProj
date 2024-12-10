@@ -5,7 +5,7 @@
 using namespace std;
 class ICommand {
    public:
-    virtual void execute(const vector<string>& args) = 0;
+    virtual string execute(const vector<string>& args) = 0;
     virtual ~ICommand() = default;
 };
 
