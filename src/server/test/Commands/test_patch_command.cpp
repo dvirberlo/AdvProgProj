@@ -67,4 +67,4 @@ TEST(PatchCommand, patchOutput) {
     EXPECT_EQ(output, expectedOutput);
 
     remove(MOCK_FILE_PATH);  // clean data file before and after every test
-};s
+};
