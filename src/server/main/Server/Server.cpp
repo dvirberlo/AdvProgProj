@@ -6,6 +6,7 @@
 #include <string.h>
 #include <sys/socket.h>
 #include <unistd.h>
+#include "../Commands/StatusCodeFactory.h"
 
 #include <iostream>
 #include <string>
@@ -42,12 +43,8 @@ void Server ::handleClient(int clientSocket) {
 
         // Remark : commands.end() mark the end of the map (pass the map range)
         if (it != commands.end()) {
-            commands[splittedCommand[0]]->execute(
-                splittedCommand);  // Execute the command safely
-            // Send the result to the client : remark we didnt change yet the
-            // Command API which means for this moment we just send simple
-            // string indicate we got the command
-            string response = "We got the command";
+            //execute the command and send the result to the client
+            string response = commands[splittedCommand[0]]->execute(splittedCommand); 
             int sentBytes =
                 send(clientSocket, response.c_str(), response.size(), 0);
 
@@ -57,7 +54,7 @@ void Server ::handleClient(int clientSocket) {
             }
         } else {
             // Send an error message to the client: command invalid
-            string error = "400 Bad Request";
+            string error = StatusCodeFactory::getStatusMessage(400);
             int sentBytes =
                 send(clientSocket, error.c_str(), error.length(), 0);
         }
