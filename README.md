@@ -43,7 +43,7 @@ From the root directory of the project, you can run our provided scripts
 ```
 Client: First, run the server as described above. Then, navigate to the client folder and execute the following:
 ```bash
-python3 cllient 127.0.0.1 8080
+python3 cllient.py 127.0.0.1 8080
 ```
 Note: When running locally, ensure that the server is hosted on your own localhost. For now, port 8080 is the designated port for the server to listen on.
 ## Questions:
