@@ -1,4 +1,5 @@
 #include <map>
+#include <memory>
 #include <string>
 
 #include "./main/Commands/CommandParser.h"
@@ -10,9 +11,12 @@
 #include "./main/Commands/PatchCommand.h"
 #include "./main/Commands/PostCommand.h"
 #include "./main/Commands/RecommendCommand.h"
+#include "./main/Executor/Executor.h"
+#include "./main/Executor/SimpleExecutor.h"
 #include "./main/Server/Server.h"
 #include "./main/Users/IUserService.h"
 #include "./main/Users/PersistentUserService.h"
+
 #define SERVER_PORT 8080
 
 using namespace std;
@@ -34,6 +38,7 @@ int main() {
     IMenu *menu = new ConsoleMenu(commandParser);
     // Create the server and run it
 
-    Server server = Server(menu, commands, SERVER_PORT);
+    unique_ptr<Executor> executor = make_unique<SimpleExecutor>();
+    Server server = Server(menu, commands, move(executor), SERVER_PORT);
     server.run();
 }

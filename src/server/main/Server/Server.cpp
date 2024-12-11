@@ -6,62 +6,30 @@
 #include <string.h>
 #include <sys/socket.h>
 #include <unistd.h>
-#include "../Commands/StatusCodeFactory.h"
 
 #include <iostream>
+#include <memory>
 #include <string>
 #include <thread>
+
+#include "../Commands/StatusCodeFactory.h"
+#include "../Executor/Executor.h"
+#include "../Executor/SimpleExecutor.h"
+#include "./ClientSession.h"
+
 using namespace std;
 #define BUFFER_SIZE 4096
-Server::Server(IMenu* menu, const std::map<std::string, ICommand*>& commands,
-               const int port)
-    : menu(menu), commands(commands), port(port) {}
+Server::Server(IMenu* menu, std::map<std::string, ICommand*>& commands,
+               unique_ptr<Executor> executor, const int port)
+    : menu(menu), commands(commands), executor(move(executor)), port(port) {}
 
 void Server ::handleClient(int clientSocket) {
-    CommandParser* commandParser = new CommandParser();
-    // Read from the client
-    char buffer[BUFFER_SIZE];
-    while (true) {
-        int expectedDataLen = sizeof(buffer);
-        int readBytes = recv(clientSocket, buffer, expectedDataLen, 0);
-        if (readBytes == 0) {
-            // connection is closed
-            // note that in this exercise we assume that the client will never
-            // close the connection
-            return;
-        } else if (readBytes < 0) {
-            cout << "error reading from client" << endl;
-            return;
-        }
-        // Convert the buffer to a string : the command
-        std::string inputCommand(buffer);
-        // Parse the command using the command parser
-        vector<string> splittedCommand =
-            commandParser->parseString(inputCommand);
-        // Find the command in the map
-        auto it = commands.find(splittedCommand[0]);
+    CommandParser commandParser;
 
-        // Remark : commands.end() mark the end of the map (pass the map range)
-        if (it != commands.end()) {
-            //execute the command and send the result to the client
-            string response = commands[splittedCommand[0]]->execute(splittedCommand); 
-            int sentBytes =
-                send(clientSocket, response.c_str(), response.size(), 0);
+    shared_ptr<ClientSession> clientSession =
+        make_shared<ClientSession>(this->commands, commandParser, clientSocket);
 
-            if (sentBytes < 0) {
-                cout << "error sending to client" << endl;
-                return;
-            }
-        } else {
-            // Send an error message to the client: command invalid
-            string error = StatusCodeFactory::getStatusMessage(400);
-            int sentBytes =
-                send(clientSocket, error.c_str(), error.length(), 0);
-        }
-        // this clears the buffer : buffer of course is a pointer to the first
-        // element then we give it a point to the first element
-        std::fill(buffer, buffer + BUFFER_SIZE, '\0');
-    }
+    this->executor->execute(clientSession);
 }
 
 void Server::run() {

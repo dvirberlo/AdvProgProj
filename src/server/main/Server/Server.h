@@ -1,27 +1,24 @@
 #ifndef SERVER_H
 #define SERVER_H
 
-#include <arpa/inet.h>
-#include <netinet/in.h>
-#include <stdio.h>
-#include <sys/socket.h>
-#include <unistd.h>
-
 #include <map>
+#include <memory>
 #include <string>
 
 #include "../Commands/CommandParser.h"
 #include "../Commands/ICommand.h"
 #include "../Commands/IMenu.h"
+#include "../Executor/Executor.h"
 class Server {
    private:
     IMenu *menu;
     std::map<std::string, ICommand *> commands;
     int const port;
+    unique_ptr<Executor> executor;
 
    public:
-    Server(IMenu *menu, const std::map<std::string, ICommand *> &commands,
-           const int port);
+    Server(IMenu *menu, std::map<std::string, ICommand *> &commands,
+           unique_ptr<Executor> executor, const int port);
 
     // Method to run the application
     void run();
