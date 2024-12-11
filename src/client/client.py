@@ -21,6 +21,6 @@ def main():
         msg = input()
         sock.send(bytes(msg, 'utf-8'))
         data = sock.recv(MAXIMUM_BYTES_PER_MSG)
-        print(data.decode('utf-8'))
+        print(data.decode('utf-8'), end='')  # Use end='' to avoid extra newline
 if __name__ == "__main__":
     main()

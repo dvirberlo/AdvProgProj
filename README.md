@@ -50,7 +50,7 @@ to changes but open to expansion"? No. Using the commands map we have mentioned 
 to changes but open to expansion"? No, Since we used polymorphic `ICommand` interface, we could just locally modify the implementation of the commands that needed to be changed, without any bigger API changes.
 
 
-4. Did the fact that the input and output came from sockets instead of the command line require you to touch the code that should be "closed to changes but open to expansion"? Yes, we had to change the signature of the execute function in the ICommand interface so that each function returns a string instead of void. This fix will ensure that all the output that the server produces will be sent directly as a string to the client.
+4. Did the fact that the input and output came from sockets instead of the command line require you to touch the code that should be "closed to changes but open to expansion"? Yes, we had to change the signature of the execute function in the `ICommand` interface so that each function returns a string instead of void. This fix will ensure that all the output that the server produces will be sent directly as a string to the client.
 
 ## Short explanation about the program
 
@@ -71,11 +71,11 @@ Upon successful execution of a command, the server responds with an appropriate 
   ```
   404 Not Found
   ```  
-- Any incorrectly formatted or unsupported command will result in the response:  
+Any incorrectly formatted or unsupported command will result in the response:  
   ```
   400 Bad Request
   ```
-7. **Program Continuity**: 
+**Program Continuity**: 
 
 The client and server programs run continuously, and never stop.
 
