@@ -133,3 +133,21 @@ TEST(RecommendationEngineTest, complicatedRecommendations) {
     EXPECT_EQ(recommendations, expected_3);
     remove(MOCK_FILE_PATH);  // clean data file before and after every test
 }
+TEST(RecommendationEngineTest, notExistUser) {
+    remove(MOCK_FILE_PATH);  // clean data file before and after every test
+    const std::string filename = MOCK_FILE_PATH;
+    PersistentUserService *userService;
+    RecommendEngine *recommendationEngine;
+    std::ofstream file(MOCK_FILE_PATH);
+    if (file.is_open()) {
+        file << "1:100,101,102,103,104,110,45,22,\n";
+        file.close();
+    } else {
+        std::cerr << "Error opening file for writing: " << MOCK_FILE_PATH << std::endl;
+    }
+    userService = new PersistentUserService(MOCK_FILE_PATH);
+    recommendationEngine = new RecommendEngine(userService);
+    //check if exception is thrown
+    EXPECT_THROW(recommendationEngine->getRecommendations(111, 104), std::invalid_argument);
+    remove(MOCK_FILE_PATH);  // clean data file before and after every test
+}

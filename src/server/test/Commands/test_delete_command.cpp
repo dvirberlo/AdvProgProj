@@ -44,7 +44,7 @@ TEST(DeleteCommand, deleteOutput) {
     EXPECT_EQ(output, expectedOutput);
 
     // Test the case of deleting not existing movie
-    output = command->execute({"DELETE", "1","101" "100"});
+    output = command->execute({"DELETE", "1","101", "100"});
     expectedOutput = "404 Not Found\n";
     EXPECT_EQ(output, expectedOutput);
     //test that 101 from the last test is still there
