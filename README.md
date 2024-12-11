@@ -4,11 +4,17 @@
 
 ### Run using Docker (recommended)
 
-You can run the code using Docker:
+You can run the code using Docker in thefollowing way:
+1. To run the server, execute:
 
 ```bash
-docker-compose -f src/docker-compose.yml run --build server-main
+docker-compose -f src/docker-compose.yml up --build --remove-orphans server-main
 ```
+2.To run the client excute:
+```bash
+docker-compose -f src/docker-compose.yml run --build client-main server-main 8080
+```
+Note : First run the Server then run the client.
 
 you can test the app using
 
