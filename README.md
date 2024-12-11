@@ -10,7 +10,7 @@ You can run the code using Docker in thefollowing way:
 ```bash
 docker-compose -f src/docker-compose.yml up --build --remove-orphans server-main
 ```
-2.To run the client excute:
+2. To run the client, execute:
 ```bash
 docker-compose -f src/docker-compose.yml run --build client-main server-main 8080
 ```
