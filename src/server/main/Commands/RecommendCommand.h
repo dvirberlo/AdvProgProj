@@ -9,11 +9,11 @@ using namespace std;
 
 class RecommendCommand : public ICommand {
    private:
-    RecommendEngine& recommendEngine;
+     IUserService& userService;
     CommandParser& commandParser;
 
    public:
-    RecommendCommand(RecommendEngine& recommendEngine,
+    RecommendCommand(IUserService& userService,
                      CommandParser& commandParser);
     string execute(const vector<string>& args) override;
 };
