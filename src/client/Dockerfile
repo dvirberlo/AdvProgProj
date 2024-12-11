@@ -4,4 +4,4 @@ FROM  python:3
 WORKDIR /client
 # Copy the client files to the container
 COPY . /client
-CMD ["python3", "client.py"]
+ENTRYPOINT ["python3", "client.py"]
