@@ -1,4 +1,5 @@
 #include "RecommendCommand.h"
+#include "../Users/IUserService.h"
 
 #include <iostream>
 
@@ -8,9 +9,9 @@
 
 using namespace std;
 
-RecommendCommand::RecommendCommand(RecommendEngine &recommendEngine,
+RecommendCommand::RecommendCommand(IUserService& userService,
                                    CommandParser &commandParser)
-    : recommendEngine(recommendEngine), commandParser(commandParser) {}
+    : userService(userService), commandParser(commandParser) {}
 
 string RecommendCommand::execute(const vector<string> &args) {
 
@@ -24,12 +25,15 @@ string RecommendCommand::execute(const vector<string> &args) {
 
     int userId = intArgs[0];
     int movieId = intArgs[1];
-    vector<int> recommendedMovies =
-        recommendEngine.getRecommendations(userId, movieId);
-    // if there is no recommendations return 404 message
-    if (recommendedMovies.size() == 0)
+    // check if the user exists
+    if (!userService.userExists(userId)){
         // return 404 message
         return StatusCodeFactory::getStatusMessage(404);
+    }
+    //create the recommend engine
+    RecommendEngine recommendEngine(&userService);
+    vector<int> recommendedMovies =
+        recommendEngine.getRecommendations(userId, movieId);
 
     // prepare the output message
     string output = StatusCodeFactory::getStatusMessage(200) + "\n";

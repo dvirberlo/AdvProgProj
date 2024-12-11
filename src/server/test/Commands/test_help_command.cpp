@@ -12,4 +12,10 @@ TEST(HelpCommand, helpOutput) {
                             "POST, arguments: [userid] [movieid1] [movieid2] ...\n"
                             "help\n";
     EXPECT_EQ(output, expectedOutput);
+    // Test the case of more than 1 arguments
+    args.push_back("arg1");
+    args.push_back("arg2");
+    output = helpCommand.execute(args);
+    expectedOutput = "400 Bad Request\n"; 
+    EXPECT_EQ(output, expectedOutput);
 }

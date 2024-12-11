@@ -124,12 +124,6 @@ vector<int> RecommendEngine::getRecommendations(int user, int movie) {
     // Get all users and their watched movies
     map<int, set<int>> allUsers = userService->getAllUsersMap();
 
-    // Check if the allUsers map is empty
-    if (allUsers.empty() || allUsers.find(user) == allUsers.end()) {
-        // Return an empty list if no users are available
-        return {};
-    }
-
     // Calculate the sum of shared movies for the target movie and user
     map<int, int> sumSharedMoviesMap = SumOfSharedMovies(allUsers, movie, user);
 
