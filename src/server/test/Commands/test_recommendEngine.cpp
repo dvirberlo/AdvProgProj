@@ -42,7 +42,7 @@ TEST(RecommendationEngineTest, notExistMovie) {
     remove(MOCK_FILE_PATH);  // clean data file before and after every test
 }
 
-// Test simple case of reccomendations
+// Test simple case of recommendations
 TEST(RecommendationEngineTest, simpleRecommendations) {
     remove(MOCK_FILE_PATH);  // clean data file before and after every test
     const std::string filename = MOCK_FILE_PATH;
@@ -83,7 +83,7 @@ TEST(RecommendationEngineTest, simpleRecommendations) {
     remove(MOCK_FILE_PATH);  // clean data file before and after every test
 }
 
-// // Test more complex case of reccomendations
+// // Test more complex case of recommendations
 TEST(RecommendationEngineTest, complicatedRecommendations) {
     remove(MOCK_FILE_PATH);  // clean data file before and after every test
     const std::string filename = "test_data.txt";

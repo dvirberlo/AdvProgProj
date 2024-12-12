@@ -49,7 +49,7 @@ Note: When running locally, ensure that the server is hosted on your own localho
 ## Questions:
 
 1. Did the fact that the names of the commands changed required you to touch the code that should be "closed
-to changes but open to expansion"?no, we used a porlymorphic commands map, so we could just change the keys of them in our commands map.
+to changes but open to expansion"?no, we used a polymorphic commands map, so we could just change the keys of them in our commands map.
 
 
 2. Did the fact that new commands were added require you to touch the code that should be "closed
