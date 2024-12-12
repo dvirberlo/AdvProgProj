@@ -10,8 +10,8 @@
 using namespace std;
 
 RecommendCommand::RecommendCommand(IUserService& userService,
-                                   CommandParser &commandParser)
-    : userService(userService), commandParser(commandParser) {}
+                                   CommandParser &commandParser,RecommendEngine &recommendEngine)
+    : userService(userService), commandParser(commandParser), recommendEngine(recommendEngine) {}
 
 string RecommendCommand::execute(const vector<string> &args) {
 
@@ -30,8 +30,7 @@ string RecommendCommand::execute(const vector<string> &args) {
         // return 404 message
         return StatusCodeFactory::getStatusMessage(404);
     }
-    //create the recommend engine
-    RecommendEngine recommendEngine(&userService);
+    // get the recommended movies
     vector<int> recommendedMovies =
         recommendEngine.getRecommendations(userId, movieId);
 
