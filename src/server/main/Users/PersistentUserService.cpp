@@ -16,8 +16,14 @@ using namespace std;
 void serializeMap(const map<int, set<int>>& map, ostream& outputStream);
 map<int, set<int>> deserializeMap(istream& inputStream);
 
-PersistentUserService::PersistentUserService(string path) : IUserService() {
-    filepath = path;
+/**
+ * Note: this method locks the map mutex
+ */
+PersistentUserService::PersistentUserService(string path)
+    : IUserService(), filepath(path) {
+    // lock the user map mutex
+    lock_guard<std::mutex> lock(this->mapMutex);
+
     // deserialize userMap from filepath, if exists:
     try {
         ifstream file(filepath);
@@ -30,7 +36,13 @@ PersistentUserService::PersistentUserService(string path) : IUserService() {
     }
 }
 
+/**
+ * Note: this method locks the map mutex
+ */
 void PersistentUserService::markAsWatched(int userId, set<int> movies) {
+    // lock the user map mutex
+    lock_guard<std::mutex> lock(this->mapMutex);
+
     if (userMap.find(userId) == userMap.end()) {
         // userId does not exist in userTable, creates an entry with the movies
         userMap[userId] = set<int>(movies);
@@ -49,7 +61,13 @@ void PersistentUserService::markAsWatched(int userId, set<int> movies) {
     }
 }
 
+/**
+ * Note: this method locks the map mutex
+ */
 void PersistentUserService::markAsUnwatched(int userId, set<int> movies) {
+    // lock the user map mutex
+    lock_guard<std::mutex> lock(this->mapMutex);
+
     // Check if the user exists in the map
     auto userIt = userMap.find(userId);
     if (userIt == userMap.end()) {
@@ -58,23 +76,30 @@ void PersistentUserService::markAsUnwatched(int userId, set<int> movies) {
     }
 
     // Remove the given movies from the user's set
-    set<int>& userMovies = userIt->second; // Reference to the set of movies
+    set<int>& userMovies = userIt->second;  // Reference to the set of movies
     for (int movie : movies) {
-        userMovies.erase(movie); // Remove each movie
+        userMovies.erase(movie);  // Remove each movie
     }
 
     // Serialize userMap and write to filepath:
     try {
         ofstream file(filepath);
         if (!file) throw "Could not open file";
-        serializeMap(userMap, file); // Save the updated userMap
+        serializeMap(userMap, file);  // Save the updated userMap
         file.close();
     } catch (...) {
-        // If an error occurs, leave the users' data file outdated (no changes saved)
+        // If an error occurs, leave the users' data file outdated
+        // (no changes saved)
     }
 }
 
+/**
+ * Note: this method locks the map mutex
+ */
 vector<User> PersistentUserService::getAllUsers() {
+    // lock the user map mutex
+    lock_guard<std::mutex> lock(this->mapMutex);
+
     // iterate through the userMap and convert it to a list of User objects
     vector<User> users;
     for (auto it = userMap.begin(); it != userMap.end(); ++it) {
@@ -85,7 +110,13 @@ vector<User> PersistentUserService::getAllUsers() {
     return users;
 }
 
+/**
+ * Note: this method locks the map mutex
+ */
 map<int, set<int>> PersistentUserService::getAllUsersMap() {
+    // lock the user map mutex
+    lock_guard<std::mutex> lock(this->mapMutex);
+
     return map<int, set<int>>(userMap);
 }
 
@@ -133,10 +164,23 @@ map<int, set<int>> deserializeMap(istream& inputStream) {
     return map;
 }
 
+/**
+ * Note: this method locks the map mutex
+ */
 bool PersistentUserService::userExists(int userId) {
+    // lock the user map mutex
+    lock_guard<std::mutex> lock(this->mapMutex);
+
     return userMap.find(userId) != userMap.end();
 }
+
+/**
+ * Note: this method locks the map mutex
+ */
 bool PersistentUserService::moviesExist(int userId, set<int> movies) {
+    // lock the user map mutex
+    lock_guard<std::mutex> lock(this->mapMutex);
+
     // Check if the user exists in the map
     auto userIt = userMap.find(userId);
     if (userIt == userMap.end()) {
@@ -145,7 +189,7 @@ bool PersistentUserService::moviesExist(int userId, set<int> movies) {
     }
 
     // Check if all movies exist in the user's set
-    set<int>& userMovies = userIt->second; // Reference to the set of movies
+    set<int>& userMovies = userIt->second;  // Reference to the set of movies
     for (int movie : movies) {
         if (userMovies.find(movie) == userMovies.end()) {
             // Movie does not exist in the user's set
