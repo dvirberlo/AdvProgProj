@@ -4,7 +4,7 @@
 
 ### Run using Docker (recommended)
 
-You can run the code using Docker in thefollowing way:
+You can run the code using Docker in the following way:
 1. To run the server, execute:
 
 ```bash
@@ -41,9 +41,9 @@ From the root directory of the project, you can run our provided scripts
 
 ./src/server/scripts/test.sh # test the app
 ```
-Client: First, run the server as described above. Then, navigate to the client folder and execute the following:
+Client: First, run the server as described above. Then, navigate to the root directory folder and execute the following:
 ```bash
-python3 client.py 127.0.0.1 8080
+python3 src/client/client.py 127.0.0.1 8080
 ```
 Note: When running locally, ensure that the server is hosted on your own localhost. For now, port 8080 is the designated port for the server to listen on.
 ## Questions:
