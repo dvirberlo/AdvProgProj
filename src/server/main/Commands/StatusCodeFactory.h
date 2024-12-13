@@ -5,12 +5,12 @@
 #include <unordered_map>
 
 class StatusCodeFactory {
-public:
+   public:
     static std::string getStatusMessage(int code);
-    
-private:
+
+   private:
     // Prevent instantiation
     StatusCodeFactory() = delete;
 };
 
-#endif 
+#endif

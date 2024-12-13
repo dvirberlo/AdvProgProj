@@ -13,10 +13,10 @@
 #include "./main/Commands/RecommendCommand.h"
 #include "./main/Executor/Executor.h"
 #include "./main/Executor/SimpleExecutor.h"
+#include "./main/Recommand-Engine/RecommendEngine.h"
 #include "./main/Server/Server.h"
 #include "./main/Users/IUserService.h"
 #include "./main/Users/PersistentUserService.h"
-#include "./main/Recommand-Engine/RecommendEngine.h"
 
 #define SERVER_PORT 8080
 
@@ -35,7 +35,8 @@ int main() {
     commands["PATCH"] = new PatchCommand(*userService, commandParser);
     commands["DELETE"] = new DeleteCommand(*userService, commandParser);
     RecommendEngine recommendEngine(userService);
-    commands["GET"] = new RecommendCommand(*userService, commandParser,recommendEngine);
+    commands["GET"] =
+        new RecommendCommand(*userService, commandParser, recommendEngine);
 
     IMenu *menu = new ConsoleMenu(commandParser);
     // Create the server and run it

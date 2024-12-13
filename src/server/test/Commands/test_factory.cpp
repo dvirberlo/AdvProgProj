@@ -1,4 +1,5 @@
 #include <gtest/gtest.h>
+
 #include "../../main/Commands/StatusCodeFactory.h"
 
 TEST(StatusCodes, getStatusMessage) {

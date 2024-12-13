@@ -26,7 +26,8 @@ TEST(RecommendationEngineTest, notExistMovie) {
         file << "1:100,101,102,103,104,110,45,22,\n";
         file.close();
     } else {
-        std::cerr << "Error opening file for writing: " <<MOCK_FILE_PATH << std::endl;
+        std::cerr << "Error opening file for writing: " << MOCK_FILE_PATH
+                  << std::endl;
     }
 
     // Initialize userService and recommendationEngine
@@ -34,7 +35,8 @@ TEST(RecommendationEngineTest, notExistMovie) {
     recommendationEngine = new RecommendEngine(userService);
 
     // Get recommendations for user1 with movie 104
-    std::vector<int> recommendations = recommendationEngine->getRecommendations(1, 111);
+    std::vector<int> recommendations =
+        recommendationEngine->getRecommendations(1, 111);
     // Define the expected list of recommended movies
     std::vector<int> expected = {};
     // Check if the recommendations match the expected output
@@ -57,7 +59,8 @@ TEST(RecommendationEngineTest, simpleRecommendations) {
         file << "3:12,11,10,9,8,7,6,5,4,3,2,1,\n";
         file.close();
     } else {
-        std::cerr << "Error opening file for writing: " << MOCK_FILE_PATH << std::endl;
+        std::cerr << "Error opening file for writing: " << MOCK_FILE_PATH
+                  << std::endl;
     }
 
     // Initialize userService and recommendationEngine
@@ -65,7 +68,8 @@ TEST(RecommendationEngineTest, simpleRecommendations) {
     recommendationEngine = new RecommendEngine(userService);
 
     // Get recommendations for user1 with movie 104
-    std::vector<int> recommendations = recommendationEngine->getRecommendations(1, 6);
+    std::vector<int> recommendations =
+        recommendationEngine->getRecommendations(1, 6);
     // Define the expected list of recommended movies
     std::vector<int> expected = {7, 8, 9, 1, 3, 10, 11, 12};
     // Check if the recommendations match the expected output
@@ -106,7 +110,8 @@ TEST(RecommendationEngineTest, complicatedRecommendations) {
         file << "11,100,101,102,103,\n";
         file.close();
     } else {
-        std::cerr << "Error opening file for writing: " << MOCK_FILE_PATH << std::endl;
+        std::cerr << "Error opening file for writing: " << MOCK_FILE_PATH
+                  << std::endl;
     }
 
     // Initialize userService and recommendationEngine
@@ -114,9 +119,11 @@ TEST(RecommendationEngineTest, complicatedRecommendations) {
     recommendationEngine = new RecommendEngine(userService);
 
     // Get recommendations for user1 with movie 104
-    std::vector<int> recommendations = recommendationEngine->getRecommendations(1, 104);
+    std::vector<int> recommendations =
+        recommendationEngine->getRecommendations(1, 104);
     // Define the expected list of recommended movies
-    std::vector<int> expected_1 = {105, 106, 111, 110, 112, 113, 107, 108, 109, 114};
+    std::vector<int> expected_1 = {105, 106, 111, 110, 112,
+                                   113, 107, 108, 109, 114};
     // Check if the recommendations match the expected output
     EXPECT_EQ(recommendations, expected_1);
     // Get recommendations for user1 with movie 104
@@ -143,11 +150,13 @@ TEST(RecommendationEngineTest, notExistUser) {
         file << "1:100,101,102,103,104,110,45,22,\n";
         file.close();
     } else {
-        std::cerr << "Error opening file for writing: " << MOCK_FILE_PATH << std::endl;
+        std::cerr << "Error opening file for writing: " << MOCK_FILE_PATH
+                  << std::endl;
     }
     userService = new PersistentUserService(MOCK_FILE_PATH);
     recommendationEngine = new RecommendEngine(userService);
-    //check if exception is thrown
-    EXPECT_THROW(recommendationEngine->getRecommendations(111, 104), std::invalid_argument);
+    // check if exception is thrown
+    EXPECT_THROW(recommendationEngine->getRecommendations(111, 104),
+                 std::invalid_argument);
     remove(MOCK_FILE_PATH);  // clean data file before and after every test
 }
