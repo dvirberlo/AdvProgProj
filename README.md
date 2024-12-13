@@ -66,13 +66,13 @@ to changes but open to expansion"? No, Since we used polymorphic `ICommand` inte
 
 This program is movie recommendation system, allows clients to interact with a server for movie recommendations and user management. Communication between the client and server is done via sockets, and all commands and responses are formatted with newline characters. The system supports the following commands:
 
-1. **POST [userid] [movieid1] [movieid2] ...**: This command associates a user with one or more movies they have watched. It will create a new user if they don't exist. 
+1. **POST [userid] [movieId1] [movieId2] ...**: This command associates a user with one or more movies they have watched. It will create a new user if they don't exist. 
 
-2. **PATCH [userid] [movieid1] [movieid2] ...**: This command works similarly to the `POST` command but will only succeed if the user already exists. 
+2. **PATCH [userid] [movieId1] [movieId2] ...**: This command works similarly to the `POST` command but will only succeed if the user already exists. 
 
-3. **DELETE [userid] [movieid1] [movieid2] ...**: This command removes one or more movies from the user's watched list.
+3. **DELETE [userid] [movieId1] [movieId2] ...**: This command removes one or more movies from the user's watched list.
 
-4. **GET [userid] [movieid]**: This command provides movie recommendations based on the user’s preferences. It recommends movies based on the user's watched movies and similar users' watches
+4. **GET [userid] [movieId]**: This command provides movie recommendations based on the user’s preferences. It recommends movies based on the user's watched movies and similar users' watches
 
 5. **help**: This command displays a list of available commands and their parameters. Commands that require arguments will have their parameters listed.
 
