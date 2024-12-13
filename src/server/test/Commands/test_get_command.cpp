@@ -10,12 +10,13 @@ using namespace std;
 
 TEST(RecommendCommand, recommendOutput) {
     remove(MOCK_FILE_PATH);  // clean data file before and after every test
-    PersistentUserService userService(MOCK_FILE_PATH);
+    IUserService *userService = new PersistentUserService(MOCK_FILE_PATH);
     CommandParser commandParser;
-    ICommand * command= new RecommendCommand(userService, commandParser);
-    userService.markAsWatched(1, {2,4,5,6});
-    userService.markAsWatched(2, {6,7,8,9});
-    userService.markAsWatched(3, {1,2,3,4,5,6,7,8,9,10,11,12});
+    RecommendEngine recommendEngine(userService);
+    ICommand * command= new RecommendCommand(*userService, commandParser, recommendEngine);
+    userService->markAsWatched(1, {2,4,5,6});
+    userService->markAsWatched(2, {6,7,8,9});
+    userService->markAsWatched(3, {1,2,3,4,5,6,7,8,9,10,11,12});
     string output = command->execute({"GET", "1", "6"});
     string expectedOutput = "200 OK\n\n7 8 9 1 3 10 11 12\n";
     EXPECT_EQ(output, expectedOutput);
@@ -59,9 +60,10 @@ TEST(RecommendCommand, recommendOutput) {
 };
 TEST(RecommendCommand, emptyFileOutput){
     remove(MOCK_FILE_PATH);  // clean data file before and after every test
-    PersistentUserService userService(MOCK_FILE_PATH);
+    IUserService *userService = new PersistentUserService(MOCK_FILE_PATH);
     CommandParser commandParser;
-    ICommand * command= new RecommendCommand(userService, commandParser);
+    RecommendEngine recommendEngine(userService);
+    ICommand * command= new RecommendCommand(*userService, commandParser, recommendEngine);
     string output = command->execute({"GET", "1", "6"});
     string expectedOutput = "404 Not Found\n";
     EXPECT_EQ(output, expectedOutput);
