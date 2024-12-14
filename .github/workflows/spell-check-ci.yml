@@ -22,12 +22,12 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '22'
+          node-version: "22"
 
       # Install cspell (globally)
       - name: Install cspell
-        run: npm install -g cspell 
-      
+        run: npm install -g cspell
+
       # Run CSpell spell checker on any file with the specified extensions
       - name: Run spell check on the relevant files
         run: cspell "**/*.{cpp,h,py,md,txt,Docker,yml,txt,js,ts,sh}"
