@@ -14,4 +14,4 @@ RUN ./src/scripts/clean.sh
 RUN ./src/scripts/build.sh main
 
 # run
-CMD [ "./src/build-main/main.out" ]
+ENTRYPOINT [ "./src/build-main/main.out" ]
