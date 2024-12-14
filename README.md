@@ -136,7 +136,7 @@ npx prettier . --write
 # install Clang Format
 sudo apt-get install clang-format
 # check all the files using Clang Format
-clang-format --dry-run --Werror $(find . -name "*.cpp" -o -name "*.h")
+clang-format --dry-run $(find . -name "*.cpp" -o -name "*.h")
 # format all the files using Clang Format
 clang-format -i $(find . -name "*.cpp" -o -name "*.h")
 ```
