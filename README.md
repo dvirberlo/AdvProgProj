@@ -5,15 +5,20 @@
 ### Run using Docker (recommended)
 
 You can run the code using Docker in the following way:
+(replace `8080` with any available port you want)
+
 1. To run the server, execute:
 
 ```bash
-docker-compose -f src/docker-compose.yml up --build --remove-orphans server-main
+docker-compose -f src/docker-compose.yml run --build --remove-orphans --service-ports --rm server-main --name server-main server-main 8080
 ```
+
 2. To run the client, execute:
+
 ```bash
-docker-compose -f src/docker-compose.yml run --build client-main server-main 8080
+docker-compose -f src/docker-compose.yml run --build --remove-orphans --service-ports client-main server-main 8080
 ```
+
 Note : First run the Server then run the client.
 
 you can test the app using
