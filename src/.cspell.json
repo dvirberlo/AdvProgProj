@@ -1,7 +1,3 @@
 {
-    "words": [
-        "googletest",
-        "gtest",
-        "movieid",
-    ]
+  "words": ["googletest", "gtest", "movieid"]
 }

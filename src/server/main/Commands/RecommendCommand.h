@@ -7,14 +7,13 @@
 
 using namespace std;
 
-class RecommendCommand : public ICommand
-{
-private:
+class RecommendCommand : public ICommand {
+   private:
     IUserService &userService;
     CommandParser &commandParser;
     RecommendEngine &recommendEngine;
 
-public:
+   public:
     RecommendCommand(IUserService &userService, CommandParser &commandParser,
                      RecommendEngine &recommendEngine);
     string execute(const vector<string> &args) override;

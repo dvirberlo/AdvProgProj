@@ -24,7 +24,7 @@ jobs:
       # Build the Docker containers
       - name: Run tests
         run: docker-compose -f src/docker-compose.yml build
-  
+
   build:
     runs-on: ubuntu-latest
 
