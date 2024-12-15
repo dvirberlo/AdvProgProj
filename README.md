@@ -73,11 +73,11 @@ The client and server programs run continuously, and never stop.
 
 ## Test example:
 
-//images of tests
+![tests_ex2](https://github.com/user-attachments/assets/6e8dd650-e2a3-4b45-9280-b7672a86adf1)
 
 ## Output example:
 
-//images of output
+![run_ex2](https://github.com/user-attachments/assets/ad518298-8149-4344-93cf-d105b4dc2ac1)
 
 ## Development
 
