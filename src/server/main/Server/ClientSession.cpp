@@ -63,11 +63,9 @@ void ClientSession::run() {
         // Parse the command using the command parser
         vector<string> splittedCommand =
             this->commandParser.parseString(inputCommand);
-        // Find the command in the map
-        auto it = this->commands.find(splittedCommand[0]);
-
         // Remark : commands.end() mark the end of the map (pass the map range)
-        if (it != this->commands.end()) {
+        if (splittedCommand.size() > 0 &&
+            this->commands.find(splittedCommand[0]) != this->commands.end()) {
             // execute the command and send the result to the client
             string response =
                 this->commands[splittedCommand[0]]->execute(splittedCommand);
@@ -84,8 +82,5 @@ void ClientSession::run() {
             int sentBytes =
                 send(this->clientSocket, error.c_str(), error.length(), 0);
         }
-        // this clears the buffer : buffer of course is a pointer to the first
-        // element then we give it a point to the first element
-        std::fill(buffer, buffer + BUFFER_SIZE, '\0');
     }
 }
