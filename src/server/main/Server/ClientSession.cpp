@@ -15,7 +15,7 @@
 #include "../Commands/StatusCodeFactory.h"
 #include "../Executor/Runnable.h"
 
-#define BUFFER_SIZE 4096
+#define BUFFER_SIZE 16384
 
 using namespace std;
 
