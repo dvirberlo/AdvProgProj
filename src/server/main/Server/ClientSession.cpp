@@ -5,7 +5,6 @@
 #include <sys/socket.h>
 #include <unistd.h>
 
-#include <cstring>
 #include <iostream>
 #include <string>
 #include <vector>
@@ -28,42 +27,25 @@ ClientSession::ClientSession(map<string, ICommand*>& commands,
       clientSocket(clientSocket) {}
 
 void ClientSession::run() {
+    char buffer[BUFFER_SIZE];
     while (true) {
-        char buffer[BUFFER_SIZE] = {0};
-        std::string inputCommand = "";
-        while (true) {
-            char buffer[BUFFER_SIZE] = {0};
-            int expectedDataLen = sizeof(buffer);
-            int readBytes =
-                recv(this->clientSocket, buffer, expectedDataLen, 0);
-            if (readBytes == 0) {
-                // connection is closed
-                // note that in this exercise we assume that the client will
-                // never close the connection
-                return;
-            } else if (readBytes < 0) {
-                cout << "error reading from client" << endl;
-                return;
-            } else {
-                // Convert the buffer to a string : the command, concat the
-                // result to data already received .
-                inputCommand += std::string(buffer);
-                if (inputCommand.find("\n") != std::string::npos) {
-                    // Find the position of the newline character
-                    size_t newlinePos = inputCommand.find("\n");
-                    // Remove the newline character
-                    inputCommand = inputCommand.erase(newlinePos, 1);
-                    break;
-                } else {
-                    // Continue reading from the client
-                    continue;
-                }
-            }
+        int expectedDataLen = sizeof(buffer);
+        int readBytes = recv(this->clientSocket, buffer, expectedDataLen, 0);
+        if (readBytes == 0) {
+            // connection is closed
+            // note that in this exercise we assume that the client will never
+            // close the connection
+            return;
+        } else if (readBytes < 0) {
+            cout << "error reading from client" << endl;
+            return;
         }
-
+        // Convert the buffer to a string : the command
+        std::string inputCommand(buffer);
         // Parse the command using the command parser
         vector<string> splittedCommand =
             this->commandParser.parseString(inputCommand);
+
         // Remark : commands.end() mark the end of the map (pass the map range)
         if (splittedCommand.size() > 0 &&
             this->commands.find(splittedCommand[0]) != this->commands.end()) {
@@ -83,5 +65,8 @@ void ClientSession::run() {
             int sentBytes =
                 send(this->clientSocket, error.c_str(), error.length(), 0);
         }
+        // this clears the buffer : buffer of course is a pointer to the first
+        // element then we give it a point to the first element
+        std::fill(buffer, buffer + BUFFER_SIZE, '\0');
     }
 }
