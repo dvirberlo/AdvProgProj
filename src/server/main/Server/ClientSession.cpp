@@ -16,7 +16,7 @@
 #include "../Commands/StatusCodeFactory.h"
 #include "../Executor/Runnable.h"
 
-#define BUFFER_SIZE 4098
+#define BUFFER_SIZE 4096
 
 using namespace std;
 
@@ -28,8 +28,8 @@ ClientSession::ClientSession(map<string, ICommand*>& commands,
       clientSocket(clientSocket) {}
 
 void ClientSession::run() {
-    char buffer[BUFFER_SIZE];
     while (true) {
+        char buffer[BUFFER_SIZE] = {0};
         std::string inputCommand = "";
         while (true) {
             int expectedDataLen = sizeof(buffer);
@@ -54,8 +54,7 @@ void ClientSession::run() {
                     inputCommand = inputCommand.erase(newlinePos, 1);
                     break;
                 } else {
-                    // Clear the buffer : ready for new data
-                    memset(buffer, 0, sizeof(buffer));
+                    // Continue reading from the client
                     continue;
                 }
             }
