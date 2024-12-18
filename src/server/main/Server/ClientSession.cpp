@@ -32,6 +32,7 @@ void ClientSession::run() {
         char buffer[BUFFER_SIZE] = {0};
         std::string inputCommand = "";
         while (true) {
+            char buffer[BUFFER_SIZE] = {0};
             int expectedDataLen = sizeof(buffer);
             int readBytes =
                 recv(this->clientSocket, buffer, expectedDataLen, 0);
