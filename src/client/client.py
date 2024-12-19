@@ -19,7 +19,8 @@ def main():
     
     while True:
         msg = input()
-        sock.send(bytes(msg, 'utf-8'))
+        # send the message to the server, add a newline character to the end of the message
+        sock.sendall(bytes(msg + '\n', 'utf-8'))
         data = sock.recv(MAXIMUM_BYTES_PER_MSG)
         print(data.decode('utf-8'), end='')  # Use end='' to avoid extra newline
 if __name__ == "__main__":

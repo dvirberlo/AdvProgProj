@@ -5,6 +5,7 @@
 #include <sys/socket.h>
 #include <unistd.h>
 
+#include <cstring>
 #include <iostream>
 #include <string>
 #include <vector>
@@ -27,47 +28,58 @@ ClientSession::ClientSession(map<string, ICommand*>& commands,
       clientSocket(clientSocket) {}
 
 void ClientSession::run() {
-    char buffer[BUFFER_SIZE];
     while (true) {
-        int expectedDataLen = sizeof(buffer);
-        int readBytes = recv(this->clientSocket, buffer, expectedDataLen, 0);
-        if (readBytes == 0) {
-            // connection is closed
-            // note that in this exercise we assume that the client will never
-            // close the connection
-            return;
-        } else if (readBytes < 0) {
-            cout << "error reading from client" << endl;
-            return;
-        }
-        // Convert the buffer to a string : the command
-        std::string inputCommand(buffer);
-        // Parse the command using the command parser
-        vector<string> splittedCommand =
-            this->commandParser.parseString(inputCommand);
-        // Find the command in the map
-        auto it = this->commands.find(splittedCommand[0]);
+        std::string inputCommand;
 
-        // Remark : commands.end() mark the end of the map (pass the map range)
-        if (it != this->commands.end()) {
-            // execute the command and send the result to the client
-            string response =
+        // Read one full command line (until '\n')
+        while (true) {
+            char buffer[BUFFER_SIZE] = {0};
+            int readBytes = recv(this->clientSocket, buffer, sizeof(buffer), 0);
+
+            if (readBytes == 0) {
+                // Client closed connection
+                return;
+            } else if (readBytes < 0) {
+                std::cerr << "Error reading from client" << std::endl;
+                return;
+            } else {
+                // Append received data to inputCommand
+                inputCommand += std::string(buffer, readBytes);
+
+                // Check if we have a newline
+                size_t newlinePos = inputCommand.find('\n');
+                if (newlinePos != std::string::npos) {
+                    // Remove newline character
+                    inputCommand.erase(newlinePos, 1);
+                    break;
+                }
+            }
+        }
+
+        // Parse the command using the command parser
+        std::vector<std::string> splittedCommand =
+            this->commandParser.parseString(inputCommand);
+
+        if (!splittedCommand.empty() &&
+            this->commands.find(splittedCommand[0]) != this->commands.end()) {
+            // Execute the command and send the result to the client
+            std::string response =
                 this->commands[splittedCommand[0]]->execute(splittedCommand);
             int sentBytes =
                 send(this->clientSocket, response.c_str(), response.size(), 0);
-
             if (sentBytes < 0) {
-                cout << "error sending to client" << endl;
+                std::cerr << "Error sending to client" << std::endl;
                 return;
             }
         } else {
-            // Send an error message to the client: command invalid
-            string error = StatusCodeFactory::getStatusMessage(400);
+            // Send an error message (bad command)
+            std::string error = StatusCodeFactory::getStatusMessage(400);
             int sentBytes =
                 send(this->clientSocket, error.c_str(), error.length(), 0);
+            if (sentBytes < 0) {
+                std::cerr << "Error sending to client" << std::endl;
+                return;
+            }
         }
-        // this clears the buffer : buffer of course is a pointer to the first
-        // element then we give it a point to the first element
-        std::fill(buffer, buffer + BUFFER_SIZE, '\0');
     }
 }
