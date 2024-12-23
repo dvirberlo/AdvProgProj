@@ -13,7 +13,7 @@
 #include "./main/Commands/PostCommand.h"
 #include "./main/Commands/RecommendCommand.h"
 #include "./main/Executor/Executor.h"
-#include "./main/Executor/SimpleExecutor.h"
+#include "./main/Executor/PoolExecutor.h"
 #include "./main/Recommand-Engine/RecommendEngine.h"
 #include "./main/Server/Server.h"
 #include "./main/Users/IUserService.h"
@@ -45,7 +45,7 @@ int main(int argc, char* argv[]) {
     IMenu* menu = new ConsoleMenu(commandParser);
     // Create the server and run it
 
-    unique_ptr<Executor> executor = make_unique<SimpleExecutor>();
+    unique_ptr<Executor> executor = make_unique<PoolExecutor>();
     Server server = Server(menu, commands, move(executor), serverPort);
     server.run();
 }
