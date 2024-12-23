@@ -95,7 +95,7 @@ sudo apt-get install cmake
 From the root directory of the project, you can run our provided scripts
 
 ```bash
-./src/server/scripts/run.sh # run the app
+./src/server/scripts/run.sh 8080 # run the app with port 8080
 
 
 ./src/server/scripts/test.sh # test the app
