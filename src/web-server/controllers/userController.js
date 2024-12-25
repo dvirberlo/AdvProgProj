@@ -30,7 +30,7 @@ const createUser = async (req, res) => {
       return res.status(409).json({ error: error.message });
 
     console.error("userController: createUser internal error:", error);
-    return res.status(500).send({ error: "Internal Server Error" });
+    return res.status(500).json({ error: "Internal Server Error" });
   }
 };
 
@@ -49,7 +49,7 @@ const getUser = async (req, res) => {
     return res.status(200).json(UserService.censoredUser(user));
   } catch (error) {
     console.error("userController: getUser internal error:", error);
-    return res.status(500).send({ error: "Internal Server Error" });
+    return res.status(500).json({ error: "Internal Server Error" });
   }
 };
 

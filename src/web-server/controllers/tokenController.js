@@ -21,7 +21,7 @@ const getToken = async (req, res) => {
     return res.status(200).json({ _id: userId });
   } catch (error) {
     console.error("tokenController: getToken internal error:", error);
-    return res.status(500).send({ error: "Internal Server Error" });
+    return res.status(500).json({ error: "Internal Server Error" });
   }
 };
 
