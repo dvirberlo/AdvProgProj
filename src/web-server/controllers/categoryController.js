@@ -2,18 +2,17 @@ const categoryService = require("../services/categoryService");
 const createCategory = async (req, res) => {
   let category;
   try {
-     category = await categoryService.createCategory(
+    category = await categoryService.createCategory(
       req.body.name,
       req.body.promoted
     );
-  
   } catch (error) {
     return res.status(400).json({ error: error.message });
   }
   return res.status(201).json(category);
 };
 const getCategories = async (req, res) => {
-  res.json(await categoryService.getCategories());
+  res.json.status(200)(await categoryService.getCategories());
 };
 const getCategoryById = async (req, res) => {
   const category = await categoryService.getCategoryById(req.params.id);
