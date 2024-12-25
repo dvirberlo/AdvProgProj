@@ -5,26 +5,22 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
     minlength: 1,
-    maxlength: 20,
   },
   lastName: {
     type: String,
     required: true,
     minlength: 1,
-    maxlength: 20,
   },
   username: {
     type: String,
     required: true,
     unique: true,
     minlength: 1,
-    maxlength: 20,
   },
   password: {
     type: String,
     required: true,
     minlength: 1,
-    maxlength: 20,
     select: false,
   },
   legacyId: {
