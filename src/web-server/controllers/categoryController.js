@@ -13,7 +13,7 @@ const createCategory = async (req, res) => {
 };
 const getCategories = async (req, res) => {
   try{
-    res.json.status(200)(await categoryService.getCategories());
+    res.status(200).json.(await categoryService.getCategories());
   }
   catch(error){
     console.error("categoryController: getCategories internal error:", error);
