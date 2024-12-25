@@ -1,8 +1,8 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
-// Load environment variables
-require("custom-env").env(process.env.NODE_ENV, "./config");
+// Load environment variables (default to "local")
+require("custom-env").env(process.env.NODE_ENV ?? "local", "./config");
 
 // Connect to MongoDB
 mongoose
