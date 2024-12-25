@@ -21,12 +21,13 @@ const createUser = async (req, res) => {
     );
     return res.status(201).json(UserService.censoredUser(user));
   } catch (error) {
-    if (
-      error instanceof mongoose.Error.ValidationError ||
-      (error instanceof mongoose.mongo.MongoError &&
-        error?.code === DUPLICATE_KEY_ERROR_CODE)
-    )
+    if (error instanceof mongoose.Error.ValidationError)
       return res.status(400).json({ error: error.message });
+    if (
+      error instanceof mongoose.mongo.MongoError &&
+      error?.code === DUPLICATE_KEY_ERROR_CODE
+    )
+      return res.status(409).json({ error: error.message });
 
     console.error("userController: createUser internal error:", error);
     return res.status(500).send({ error: "Internal Server Error" });
