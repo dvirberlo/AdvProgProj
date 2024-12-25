@@ -13,7 +13,6 @@ const createCategory = async (name, promoted) => {
     } else {
       throw new Error("Error creating category: " + error.message);
     }
-    
   }
   return await category.save();
 };
