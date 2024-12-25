@@ -7,6 +7,9 @@ const createCategory = async (req, res) => {
       req.body.promoted
     );
   } catch (error) {
+    if (error.message === "This category already exists") {
+      return res.status(409).json({ error: error.message });
+    }
     return res.status(400).json({ error: error.message });
   }
   return res.status(201).json(category);
@@ -43,6 +46,9 @@ const updateCategory = async (req, res) => {
       req.params.id
     );
   } catch (error) {
+    if (error.message === "This category already exists") {
+      return res.status(409).json({ error: error.message });
+    }
     return res.status(400).json({ error: error.message });
   }
 
