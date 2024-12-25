@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 // Define the Category schema
-const Category = new Schema({
+const categorySchema = new Schema({
   // we use name field
   name: {
     type: String,
@@ -25,4 +25,4 @@ const Category = new Schema({
     }
   },
 });
-module.exports = mongoose.model("Category", Category);
+module.exports = mongoose.model("Category", categorySchema);

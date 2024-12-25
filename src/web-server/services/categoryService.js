@@ -1,4 +1,4 @@
-const { get } = require("mongoose");
+const mongoose = require("mongoose");
 const Category = require("../models/categoryModel");
 // Define the error code for duplicate key
 let ERROR_DUP_KEY = 11000;
@@ -17,35 +17,41 @@ const createCategory = async (name, promoted) => {
   return await category.save();
 };
 const getCategoryById = async (id) => {
+  if (!mongoose.isValidObjectId(id)) {return null;}
   const category = await Category.findById(id);
   if (!category) {
     return null;
   }
   return category;
 };
+
+
 const getCategories = async () => {
   return await Category.find({});
 };
 
-const updateCategory = async (name, promoted, id) => {
-  const category = await getCategoryById(id); // Retrieve the category by ID
-  console.log(category);
+const updateCategory = async (id, updates) => {
+  // Retrieve the category by ID
+  const category = await getCategoryById(id);
   if (!category) {
-    // If no category is found, you might want to handle this case, e.g., return null or throw an error
-    return null; // Or throw new Error('Category not found');
+    return null;
   }
 
-  // Update the properties
-  category.name = name;
-  category.promoted = promoted;
+  // Update only provided fields
+  // (Check for undefined to avoid overwriting with empty if field wasn't sent)
+  if (typeof updates.name !== 'undefined') {
+    category.name = updates.name;
+  }
+  if (typeof updates.promoted !== 'undefined') {
+    category.promoted = updates.promoted;
+  }
 
   // Save the updated category
   try {
     const updatedCategory = await category.save();
-    console.log(updatedCategory);
     return updatedCategory;
   } catch (error) {
-    throw new Error("Error updating category: " + error.message);
+    throw new Error(error.message);
   }
 };
 const deleteCategory = async (id) => {

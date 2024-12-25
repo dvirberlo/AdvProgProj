@@ -1,8 +1,9 @@
 const mongoose = require("mongoose");
-const Category = mongoose.model("Category", categorySchema);
 const Schema = mongoose.Schema;
+require('mongoose-int32');
+const Category = require('./categoryModel');
 // Define the Category schema
-const Movie = new Schema({
+const movieSchema = new Schema({
   // we use name field
   name: {
     type: String,
@@ -20,10 +21,15 @@ const Movie = new Schema({
     type: [{ type: Schema.Types.ObjectId, ref: "Category" }], 
     default: [],
   },
+  releaseDate: {
+    type: Date,
+    default: Date.now,
+  },
   legacyId:{
     type: mongoose.Schema.Types.Int32,
     required: true,
     unique: true,
-  }
+  },
+ 
 });
-module.exports = mongoose.model("Movie", Movie);
+module.exports = mongoose.model("Movie", movieSchema);
