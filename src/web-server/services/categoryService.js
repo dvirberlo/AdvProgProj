@@ -1,4 +1,5 @@
 const { get } = require("mongoose");
+const mongoose = require("mongoose");
 const Category = require("../models/categoryModel");
 // Define the error code for duplicate key
 let ERROR_DUP_KEY = 11000;
@@ -17,6 +18,9 @@ const createCategory = async (name, promoted) => {
   return await category.save();
 };
 const getCategoryById = async (id) => {
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return null;
+  }
   const category = await Category.findById(id);
   if (!category) {
     return null;
@@ -29,7 +33,6 @@ const getCategories = async () => {
 
 const updateCategory = async (name, promoted, id) => {
   const category = await getCategoryById(id); // Retrieve the category by ID
-  console.log(category);
   if (!category) {
     // If no category is found, you might want to handle this case, e.g., return null or throw an error
     return null; // Or throw new Error('Category not found');
@@ -42,7 +45,6 @@ const updateCategory = async (name, promoted, id) => {
   // Save the updated category
   try {
     const updatedCategory = await category.save();
-    console.log(updatedCategory);
     return updatedCategory;
   } catch (error) {
     throw new Error("Error updating category: " + error.message);

@@ -41,6 +41,7 @@ const updateCategory = async (req, res) => {
 };
 const deleteCategory = async (req, res) => {
   const category = await categoryService.deleteCategory(req.params.id);
+  console.log(category);
   if (!category) {
     return res.status(404).json({ error: "category not found" });
   }
