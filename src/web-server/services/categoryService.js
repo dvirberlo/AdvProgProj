@@ -1,4 +1,3 @@
-const { get } = require("mongoose");
 const mongoose = require("mongoose");
 const Category = require("../models/categoryModel");
 // Define the error code for duplicate key
