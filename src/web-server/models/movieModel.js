@@ -18,6 +18,12 @@ const Movie = new Schema({
   categories: {
     // Array of Category references
     type: [{ type: Schema.Types.ObjectId, ref: "Category" }], 
+    default: [],
   },
+  legacyId:{
+    type: mongoose.Schema.Types.Int32,
+    required: true,
+    unique: true,
+  }
 });
-module.exports = mongoose.model("Category", Category);
+module.exports = mongoose.model("Movie", Movie);
