@@ -83,6 +83,8 @@ The client and server programs run continuously, and never stop.
 
 ### Run the code locally
 
+#### Recommendation Server
+
 For faster development iteration, you can also run the code directly on your Linux/WSL machine:
 
 First, install CMake (command for Debian based distributions)
@@ -101,13 +103,35 @@ From the root directory of the project, you can run our provided scripts
 ./src/server/scripts/test.sh # test the app
 ```
 
-Client: First, run the server as described above. Then, navigate to the root directory folder and execute the following:
+#### Python Recommendation Client
+
+First, run the server as described above. Then, navigate to the root directory folder and execute the following:
 
 ```bash
 python3 src/client/client.py 127.0.0.1 8080
 ```
 
 Note: When running locally, ensure that the server is hosted on your own localhost. For now, port 8080 is the designated port for the server to listen on.
+
+#### Web Server
+
+First, install [NodeJS](https://nodejs.org) and [MongoDB](https://www.mongodb.com/docs/manual/installation).
+
+Second, create an environment file `.env.local` inside `src/web-server/config` folder, with MongoDB `CONNECTION_STRING` and `PORT` for the server.
+The file should look like this:
+
+```env
+CONNECTION_STRING=mongodb://localhost:27017
+PORT=3000
+```
+
+Once everything is installed and configured, you can enter the Web Server's folder and run it:
+
+```bash
+cd src/web-server
+npm install # install required npm packages
+npm start # start the web server
+```
 
 ### Code Style and Format
 
