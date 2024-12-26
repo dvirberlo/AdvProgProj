@@ -1,3 +1,20 @@
 {
-  "words": ["googletest", "gtest", "movieid"]
+  "words": [
+    "googletest",
+    "gtest",
+    "movieid",
+    "Retriable",
+    "Oplog",
+    "Retargetting",
+    "Uncatchable",
+    "Linearizable",
+    "FTDC",
+    "Reentrancy",
+    "OCSP",
+    "Delisted",
+    "Deleter",
+    "Reshard",
+    "Resharding",
+    "Retryable"
+  ]
 }
