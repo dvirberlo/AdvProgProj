@@ -3,7 +3,7 @@ var router = express.Router();
 const recommendController = require("../controllers/recommendController");
 
 router
-  .route("/:id/recommend")
+  .route("/")
   .get(recommendController.getRecommendations)
   .post(recommendController.addWatch);
 
