@@ -74,21 +74,24 @@ const deleteWatch = async (userId, movieId) => {
 };
 
 const parseRecommendations = (response) => {
-      const cleanedResponse = response.replace(/^200 OK\n\n?/, "").trim();
-      if (cleanedResponse.length === 0) {
-        return [];
-      }
-      const movieArray = cleanedResponse.split(' ').map(movie => movie.trim()).filter(movie => movie.length > 0);
-      return movieArray;
-    }
+  const cleanedResponse = response.replace(/^200 OK\n\n?/, "").trim();
+  if (cleanedResponse.length === 0) {
+    return [];
+  }
+  const movieArray = cleanedResponse
+    .split(" ")
+    .map((movie) => movie.trim())
+    .filter((movie) => movie.length > 0);
+  return movieArray;
+};
 
-const createWatch=async(userId, movieId)=>{
-    const watch= new Watch({
-        watcher: userId,
-        movie: movieId,
-    });
-    return await watch.save();
-}
+const createWatch = async (userId, movieId) => {
+  const watch = new Watch({
+    watcher: userId,
+    movie: movieId,
+  });
+  return await watch.save();
+};
 
 module.exports = {
   getRecommendations,
@@ -96,5 +99,5 @@ module.exports = {
   patchWatch,
   deleteWatch,
   parseRecommendations,
-createWatch,
+  createWatch,
 };

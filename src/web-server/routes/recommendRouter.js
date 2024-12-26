@@ -1,5 +1,5 @@
 const express = require("express");
-var router = express.Router(mergeParams = true);
+var router = express.Router((mergeParams = true));
 const recommendController = require("../controllers/recommendController");
 
 router
