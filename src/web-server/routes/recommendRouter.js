@@ -3,7 +3,7 @@ var router = express.Router(mergeParams = true);
 const recommendController = require("../controllers/recommendController");
 
 router
-  .route("/:id")
+  .route("/")
   .get(recommendController.getRecommendations)
   .post(recommendController.addWatch);
 
