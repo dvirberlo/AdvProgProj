@@ -1,6 +1,7 @@
 const express = require("express");
 
 const RecommendRouter = require("./recommendRouter");
+const MovieSearchRouter = require("./movieSearchRouter");
 const movieController = require("../controllers/movieController");
 
 var router = express.Router();
@@ -17,5 +18,6 @@ router
   .put(movieController.updateMovie);
 
 router.use("/:id/recommend", RecommendRouter);
+router.use("/search", MovieSearchRouter);
 
 module.exports = router;
