@@ -36,12 +36,15 @@ const addWatch = async (req, res) => {
             return res.status(400).json({error : 'Token-ID header is missing'});
         }
 
-        // Call the addWatch function from the service layer
-        const addWatchResponse = await recommendService.addWatch(userId, req.params.id);
+        // try to add the movie to the watch list with postWatch
+        var addWatchResponse = await recommendService.postWatch(userId, req.params.id);
+        // If the movie is already in the watch list, try to add it with patchWatch
+        if (addWatchResponse == "404 Not Found\n") {
+            addWatchResponse = await recommendService.patchWatch(userId, req.params.id);
+        }
 
-        // Handle different response codes based on the server's response
         if (addWatchResponse === "201 Created\n") {
-            return res.status(201).json({message : `Added movie ${req.params.id} to the watch list for user ${userId}`});
+            return res.status(201).json({message : `user ${userId} created. movie ${req.params.id} added to watch list`});
         } else if (addWatchResponse === "204 No Content\n") {
             return res.status(204).json();
         } else if (addWatchResponse === "400 Bad Request\n") {

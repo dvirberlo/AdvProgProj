@@ -27,20 +27,23 @@ const sendRequest = (command, userId, movieId, port = PORT) => {
 };
 
 // Service function for adding a movie to the watch list
-const addWatch = async (userId, movieId) => {
+const postWatch = async (userId, movieId) => {
     try {
-        // Try sending a POST request first
-        let response = await sendRequest('POST', userId, movieId);
+        const response = await sendRequest('POST', userId, movieId);
 
-        // If the POST request fails with a 404 Not Found, try sending a PATCH request
-        if (response === "404 Not Found\n") {
-            response = await sendRequest('PATCH', userId, movieId);
-        }
-
-        // Return the response from either POST or PATCH
         return response;
     } catch (error) {
-        console.error('Error in add Watch:', error);
+        console.error('Error in post Watch:', error);
+        throw error;
+    }
+};
+const patchWatch = async (userId, movieId) => {
+    try {
+        const response = await sendRequest('PATCH', userId, movieId);
+
+        return response;
+    } catch (error) {
+        console.error('Error in patch Watch:', error);
         throw error;
     }
 };
@@ -71,6 +74,7 @@ const deleteWatch = async (userId, movieId) => {
 
 module.exports = {
     getRecommendations,
-    addWatch,
+    postWatch,
+    patchWatch,
     deleteWatch
 };
