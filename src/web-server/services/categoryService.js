@@ -12,19 +12,19 @@ const createCategory = async (name, promoted) => {
     } else {
       throw new Error("Error creating category: " + error.message);
     }
-    
   }
   return await category.save();
 };
 const getCategoryById = async (id) => {
-  if (!mongoose.isValidObjectId(id)) {return null;}
+  if (!mongoose.isValidObjectId(id)) {
+    return null;
+  }
   const category = await Category.findById(id);
   if (!category) {
     return null;
   }
   return category;
 };
-
 
 const getCategories = async () => {
   return await Category.find({});
@@ -39,10 +39,10 @@ const updateCategory = async (id, updates) => {
 
   // Update only provided fields
   // (Check for undefined to avoid overwriting with empty if field wasn't sent)
-  if (typeof updates.name !== 'undefined') {
+  if (typeof updates.name !== "undefined") {
     category.name = updates.name;
   }
-  if (typeof updates.promoted !== 'undefined') {
+  if (typeof updates.promoted !== "undefined") {
     category.promoted = updates.promoted;
   }
 

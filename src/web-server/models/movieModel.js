@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const Category = require('./categoryModel');
+const Category = require("./categoryModel");
 const movieSchema = new Schema({
   // we use name field
   name: {
@@ -16,18 +16,17 @@ const movieSchema = new Schema({
   },
   categories: {
     // Array of Category references
-    type: [{ type: Schema.Types.ObjectId, ref: "Category" }], 
+    type: [{ type: Schema.Types.ObjectId, ref: "Category" }],
     default: [],
   },
   releaseDate: {
     type: Date,
     default: Date.now,
   },
-  legacyId:{
+  legacyId: {
     type: mongoose.Schema.Types.Int32,
     required: true,
     unique: true,
   },
- 
 });
 module.exports = mongoose.model("Movie", movieSchema);

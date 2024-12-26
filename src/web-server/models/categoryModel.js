@@ -22,7 +22,7 @@ const categorySchema = new Schema({
         return typeof v === "boolean";
       },
       message: "Promoted must be a boolean",
-    }
+    },
   },
 });
 module.exports = mongoose.model("Category", categorySchema);

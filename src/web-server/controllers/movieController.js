@@ -2,7 +2,11 @@ const movieService = require("../services/movieService");
 const createMovie = async (req, res) => {
   let movie;
   try {
-    movie = await movieService.createMovie(req.body.name, req.body.categories, req.body.releaseDate);
+    movie = await movieService.createMovie(
+      req.body.name,
+      req.body.categories,
+      req.body.releaseDate
+    );
   } catch (error) {
     return res.status(400).json({ error: error.message });
   }
@@ -45,14 +49,18 @@ const getMovieById = async (req, res) => {
   }
 };
 const updateMovie = async (req, res) => {
-  if(!req.body.categories){
-    return res.status(400).json({ error: "Categories is required in Put command" });
+  if (!req.body.categories) {
+    return res
+      .status(400)
+      .json({ error: "Categories is required in Put command" });
   }
-  if(!req.body.name){
+  if (!req.body.name) {
     return res.status(400).json({ error: "Name is required in Put command" });
   }
-  if(!req.body.releaseDate){
-    return res.status(400).json({ error: "releaseDate is required in Put command" });
+  if (!req.body.releaseDate) {
+    return res
+      .status(400)
+      .json({ error: "releaseDate is required in Put command" });
   }
   let movie;
   try {

@@ -2,7 +2,7 @@ const Movie = require("../models/movieModel");
 const mongoose = require("mongoose");
 // Define the error code for duplicate key
 let ERROR_DUP_KEY = 11000;
-const createMovie = async (name, categories,releaseDate) => {
+const createMovie = async (name, categories, releaseDate) => {
   try {
     movie = await Movie.create({
       name: name,
@@ -33,7 +33,9 @@ function getRandomInt32() {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 const getMovieById = async (id) => {
-  if (!mongoose.isValidObjectId(id)) {return null;}
+  if (!mongoose.isValidObjectId(id)) {
+    return null;
+  }
   const movie = await Movie.findById(id);
   if (!movie) {
     return null;
@@ -56,7 +58,7 @@ const deleteMovie = async (id) => {
 const updateMovie = async (name, categories, releaseDate, id) => {
   const movie = await getMovieById(id); // Retrieve the movie by ID
   if (!movie) {
-    return null; 
+    return null;
   }
 
   // Update the properties
@@ -71,7 +73,7 @@ const updateMovie = async (name, categories, releaseDate, id) => {
   } catch (error) {
     throw new Error("Error updating movie: " + error.message);
   }
-}
+};
 module.exports = {
   createMovie,
   getMovies,
