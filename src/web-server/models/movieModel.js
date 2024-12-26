@@ -1,8 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-require('mongoose-int32');
 const Category = require('./categoryModel');
-// Define the Category schema
 const movieSchema = new Schema({
   // we use name field
   name: {
