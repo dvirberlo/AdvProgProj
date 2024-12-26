@@ -7,6 +7,7 @@ const movieSchema = new Schema({
     type: String,
     required: [true, "Name is required"],
     unique: true,
+    minlength: 1,
     validate: {
       validator: function (v) {
         return typeof v === "string";
@@ -16,7 +17,7 @@ const movieSchema = new Schema({
   },
   categories: {
     // Array of Category references
-    type: [{ type: Schema.Types.ObjectId, ref: "Category" }],
+    type: [{ type: Schema.Types.ObjectId, ref: Category.modelName }],
     default: [],
   },
   releaseDate: {
