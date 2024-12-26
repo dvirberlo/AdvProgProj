@@ -14,16 +14,7 @@ const getRecommendations = async (req, res) => {
         if (recommendations.startsWith("200 OK\n")) {
             // Remove '200 OK\n' and any following newlines
             const cleanedResponse = recommendations.replace(/^200 OK\n\n?/, '').trim();
-            if (cleanedResponse.length === 0) {
-                return res.status(200).json({
-                    message : `No recommendations for user ${userId} for movie ${req.params.id}.`
-                });
-            } else {
-                // If the cleaned response contains recommendations
-                return res.status(200).json({
-                    message : `Recommendations for user ${userId} for movie ${req.params.id} are: ${cleanedResponse}`
-                });
-            }
+            return res.status(200).json({recommendation : `${cleanedResponse}`});
         } else if (recommendations == "400 Bad Request\n") {
             return res.status(400).json();
         } else if (recommendations == "404 Not Found\n") {
