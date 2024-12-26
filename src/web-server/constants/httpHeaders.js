@@ -1,3 +1,3 @@
 module.exports = {
-  TOKEN__ID_HEADER: "token-d",
+  TOKEN_ID_HEADER: "token-d",
 };
