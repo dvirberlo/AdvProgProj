@@ -8,7 +8,6 @@ const getRecommendations = async (req, res) => {
         if (!userId) {
             return res.status(400).json({error : 'Token-ID header is missing'});
         }
-        // check that the token-id is in the mongo database?
 
         const recommendations = await recommendService.getRecommendations(userId, req.params.id);
 
@@ -45,7 +44,6 @@ const addWatch = async (req, res) => {
         if (!userId) {
             return res.status(400).json({error : 'Token-ID header is missing'});
         }
-        // check that the token-id is in the mongo database?
 
         // Call the addWatch function from the service layer
         const addWatchResponse = await recommendService.addWatch(userId, req.params.id);
