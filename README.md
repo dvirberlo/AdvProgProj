@@ -128,7 +128,7 @@ This API integrates with an internal recommendation system implemented in C++. T
 
 ## Output example:
 
-//example of crul requests
+//example of curl requests
 
 ## Development
 
