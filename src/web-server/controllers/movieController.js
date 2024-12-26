@@ -21,10 +21,8 @@ const getMovies = async (req, res) => {
   }
 };
 const deleteMovie = async (req, res) => {
-  console.log("here");
   try {
     const movie = await movieService.deleteMovie(req.params.id);
-    console.log(movie);
     if (!movie) {
       return res.status(404).json({ error: "Movie not found" });
     }
@@ -37,7 +35,6 @@ const deleteMovie = async (req, res) => {
 const getMovieById = async (req, res) => {
   try {
     const movie = await movieService.getMovieById(req.params.id);
-    console.log(movie);
     if (!movie) {
       return res.status(404).json({ error: "Movie not found" });
     } else {
