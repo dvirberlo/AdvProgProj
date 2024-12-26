@@ -1,6 +1,9 @@
 const express = require("express");
-var router = express.Router();
+
+const RecommendRouter = require("./recommendRouter");
 const movieController = require("../controllers/movieController");
+
+var router = express.Router();
 // Get all categories and create a new category
 router
   .route("/")
@@ -12,4 +15,7 @@ router
   .get(movieController.getMovieById)
   .delete(movieController.deleteMovie)
   .put(movieController.updateMovie);
+
+router.use("/:id/recommend", RecommendRouter);
+
 module.exports = router;
