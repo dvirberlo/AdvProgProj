@@ -58,7 +58,19 @@ const getRecommendations = async (userId, movieId) => {
     }
 };
 
+const deleteWatch = async (userId, movieId) => {
+    try {
+        const response = await sendRequest('DELETE', userId, movieId);
+
+        return response;
+    } catch (error) {
+        console.error('Error in deleteWatch:', error);
+        throw error;
+    }
+};
+
 module.exports = {
     getRecommendations,
-    addWatch
+    addWatch,
+    deleteWatch
 };
