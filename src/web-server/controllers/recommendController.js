@@ -1,13 +1,14 @@
 const recommendService = require("../services/recommendService");
 const userService = require("../services/userService");
 const movieService = require("../services/movieService");
+const TokenId="token-id";
 // Controller function to get recommendations
 const getRecommendations = async (req, res) => {
   /**
    * temporary solution to get userId.
    * TODO: get userId from a global file
    */
-  const userId = req.headers["token-id"];
+  const userId = req.headers[TokenId];
   if (!userId) {
     return res.status(400).json({ error: "Token-ID header is missing" });
   }
@@ -75,7 +76,7 @@ const addWatch = async (req, res) => {
    * Temporary solution to get userId.
    * TODO: get userId from a global file
    */
-  const userId = req.headers["token-id"]; // Get userId from token header
+  const userId = req.headers[TokenId]; // Get userId from token header
   if (!userId) {
     return res.status(400).json({ error: "Token-ID header is missing" });
   }
