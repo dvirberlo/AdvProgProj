@@ -1,4 +1,5 @@
 const net = require("net");
+const Watch = require("../models/watchModel");
 const PORT = 8080;
 const IP = "127.0.0.1";
 
@@ -72,9 +73,31 @@ const deleteWatch = async (userId, movieId) => {
   }
 };
 
+const parseRecommendations = (response) => {
+  const cleanedResponse = response.replace(/^200 OK\n\n?/, "").trim();
+  if (cleanedResponse.length === 0) {
+    return [];
+  }
+  const movieArray = cleanedResponse
+    .split(" ")
+    .map((movie) => movie.trim())
+    .filter((movie) => movie.length > 0);
+  return movieArray;
+};
+
+const createWatch = async (userId, movieId) => {
+  const watch = new Watch({
+    watcher: userId,
+    movie: movieId,
+  });
+  return await watch.save();
+};
+
 module.exports = {
   getRecommendations,
   postWatch,
   patchWatch,
   deleteWatch,
+  parseRecommendations,
+  createWatch,
 };
