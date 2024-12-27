@@ -27,57 +27,108 @@ you can test the app using
 docker-compose -f src/docker-compose.yml run --build server-test
 ```
 
-## Questions:
-
-1. Did the fact that the names of the commands changed required you to touch the code that should be "closed
-   to changes but open to expansion"?no, we used a polymorphic commands map, so we could just change the keys of them in our commands map.
-
-2. Did the fact that new commands were added require you to touch the code that should be "closed
-   to changes but open to expansion"? No. Using the commands map we have mentioned above, we could just create new commands classes that implements `ICommand` and add them to new entries in our commands map.
-
-3. Did the fact that the command output changed require you to touch the code that should be "closed
-   to changes but open to expansion"? No, Since we used polymorphic `ICommand` interface, we could just locally modify the implementation of the commands that needed to be changed, without any bigger API changes.
-
-4. Did the fact that the input and output came from sockets instead of the command line require you to touch the code that should be "closed to changes but open to expansion"? Yes, we had to change the signature of the execute function in the `ICommand` interface so that each function returns a string instead of void. This fix will ensure that all the output that the server produces will be sent directly as a string to the client.
-
 ## Short explanation about the program
 
-This program is movie recommendation system, allows clients to interact with a server for movie recommendations and user management. Communication between the client and server is done via sockets, and all commands and responses are formatted with newline characters. The system supports the following commands:
+This repository contains the implementation of a Movie Recommendation System API, which provides various functionalities for user registration, login, movie categorization, movie management, and user-based movie recommendations.
+The API is designed to handle movie recommendations for authenticated users and interact with an internal recommendation system written in C++. This system provides movie recommendations based on the user's preferences and the movies they have watched.
 
-1. **POST [userid] [movieId1] [movieId2] ...**: This command associates a user with one or more movies they have watched. It will create a new user if they don't exist.
+### Features
 
-2. **PATCH [userid] [movieId1] [movieId2] ...**: This command works similarly to the `POST` command but will only succeed if the user already exists.
+#### User Authentication and Registration:
 
-3. **DELETE [userid] [movieId1] [movieId2] ...**: This command removes one or more movies from the user's watched list.
+- Register new users.
+- Login and retrieve authentication tokens.
+- Retrieve user details based on a unique user ID.
 
-4. **GET [userid] [movieId]**: This command provides movie recommendations based on the user’s preferences. It recommends movies based on the user's watched movies and similar users' watches
+#### Categories Management:
 
-5. **help**: This command displays a list of available commands and their parameters. Commands that require arguments will have their parameters listed.
+- Create, read, update, and delete movie categories.
+- Retrieve all categories or a specific category by ID.
+  
+#### Movies Management:
 
-**Error Handling**:
-Upon successful execution of a command, the server responds with an appropriate status code and message indicating the success of the operation. If a logically incorrect command is received (e.g., trying to add or delete a non-existent user, or requesting recommendations for a user who has no watched movies), the response is:
+- Retrieve movies by category.
+- Add new movies to the system.
+- Update or delete existing movies.
+- Search for movies by query.
 
-```
-404 Not Found
-```
+#### Recommendations:
 
-Any incorrectly formatted or unsupported command will result in the response:
+- Retrieve recommended movies based on user preferences.
+- Add movies to a user’s watch list.
+- The recommendations are fetched from an internal recommendation system implemented in C++.
 
-```
-400 Bad Request
-```
+### API Endpoints
+#### 1. User Management
 
-**Program Continuity**:
+**POST** `/api/users`
+Creates a new user in the system.
 
-The client and server programs run continuously, and never stop.
+**GET** `/api/users/:id`
+Retrieves user details based on the provided user ID (:id).
 
-## Test example:
+**POST** `/api/tokens`
+Logs in a user by verifying the username and password.
 
-![tests_ex2](https://github.com/user-attachments/assets/6e8dd650-e2a3-4b45-9280-b7672a86adf1)
+#### 2. Categories Management
+
+**GET** `/api/categories`
+Retrieves all categories.
+
+**POST** `/api/categories`
+Creates a new category.
+
+**GET** `/api/categories/:id`
+Retrieves the category details by ID.
+
+**PATCH** `/api/categories/:id`
+Updates the category based on its ID.
+
+**DELETE** `/api/categories/:id`
+Deletes the category by ID.
+
+#### 3. Movies Management
+
+**GET** `/api/movies`
+Retrieves a list of movies based on the user's viewing history and category preferences.
+
+**POST** `/api/movies`
+Adds a new movie to the system.
+
+**GET** `/api/movies/:id`
+Retrieves the details of a specific movie by ID.
+
+**PUT** `/api/movies/:id`
+Updates an existing movie by ID.
+
+**DELETE** `/api/movies/:id`
+Deletes a movie by ID.
+
+#### 4. Movie Recommendations
+
+**GET** `/api/movies/:id/recommend/`
+Retrieves recommended movies based on the user’s viewing history and the current movie’s ID from the internal recommendation system (written in C++).
+
+**POST** `/api/movies/:id/recommend/`
+Adds the current movie to the user’s watch list.
+
+#### 5. Movie Search
+
+**GET** `/api/movies/search/:query/`
+Searches for movies based on the given query string.
+
+
+### Authentication
+
+All requests that require the user to be authenticated must include the Token-ID header.
+
+### Integration with the Recommendation System
+
+This API integrates with an internal recommendation system implemented in C++. The system provides movie suggestions based on the user's historical data and interactions with the movies in the system. When a request is made to fetch recommendations for a movie, the backend will send the request to the recommendation system, receive the recommended movies, and forward them to the user.
 
 ## Output example:
 
-![run_ex2](https://github.com/user-attachments/assets/ad518298-8149-4344-93cf-d105b4dc2ac1)
+//example of curl requests
 
 ## Development
 
