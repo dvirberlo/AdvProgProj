@@ -4,6 +4,8 @@ const Watch = require("../models/watchModel");
 const Category = require("../models/categoryModel");
 const Recommend = require("./recommendService");
 const User = require("./userService");
+// Define the maximum number of movies to return in the get function, at a time the exercise is asking for 20
+const MAX_MOVIES = 20;
 
 // Define the error code for duplicate key
 let ERROR_DUP_KEY = 11000;
@@ -91,7 +93,7 @@ const getMovies = async (userId) => {
       // Shuffle the unwatched movies for randomness
       const shuffledUnwatchedMovies = shuffle(unwatchedMovies);
       // Keep only the first 20
-      const limitedUnwatchedMovies = shuffledUnwatchedMovies.slice(0, 20);
+      const limitedUnwatchedMovies = shuffledUnwatchedMovies.slice(0, MAX_MOVIES);
 
       // Only add a category if there's at least one unwatched movie
       if (limitedUnwatchedMovies.length > 0) {
@@ -106,7 +108,7 @@ const getMovies = async (userId) => {
     watchedMovies.sort((a, b) => a.date - b.date);
 
     // Take only the last 20
-    watchedMovies = watchedMovies.slice(-20);
+    watchedMovies = watchedMovies.slice(-MAX_MOVIES);
 
     // Create a "Watched Movies" category in results
     results["Watched Movies"] = watchedMovies.map((watch) => watch.movie._id);
