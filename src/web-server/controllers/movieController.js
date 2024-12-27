@@ -13,13 +13,23 @@ const createMovie = async (req, res) => {
   return res.status(201).json(movie);
 };
 const getMovies = async (req, res) => {
+  // not necessary for that exercise but good practice
+  if (!req.headers["token-id"]) {
+    return res.status(400).json({ error: "Token is required" });
+  }
   try {
-    res.status(200).json(await movieService.getMovies());
+    let movies = await movieService.getMovies(req.headers["token-id"]);
+    if (!movies) {
+      return res.status(404).json({ error: "Movies not found" });
+    } else {
+      return res.json(movies);
+    }
   } catch (error) {
     console.error("movieController: getMovies internal error:", error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
+
 const deleteMovie = async (req, res) => {
   try {
     const movie = await movieService.deleteMovie(req.params.id);
@@ -28,8 +38,15 @@ const deleteMovie = async (req, res) => {
     }
     return res.status(204).json({}); // return empty response
   } catch (error) {
-    console.error("movieController: deleteMovie internal error:", error);
-    res.status(500).json({ error: "Internal Server Error" });
+    if (error.message === "Movie not found") {
+      return res.status(404).json({ error: "Movie not found" });
+    }
+    if (error.message === "Bad Request") {
+      return res.status(400).json({ error: "Bad Request" });
+    } else {
+      console.error("movieController: deleteMovie internal error:", error);
+      res.status(500).json({ error: "Internal Server Error" });
+    }
   }
 };
 const getMovieById = async (req, res) => {
