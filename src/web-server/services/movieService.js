@@ -103,7 +103,7 @@ const getMovies = async (userId) => {
 
     // Now we add a special entry for the last 20 movies the user has watched
     let watchedMovies = await Watch.find({ watcher: userId }).populate("movie");
-    
+
     // Sort by date (assuming `a.date` and `b.date` are valid date fields in the Watch model)
     watchedMovies.sort((a, b) => a.date - b.date);
 
@@ -120,7 +120,6 @@ const getMovies = async (userId) => {
     throw error;
   }
 };
-
 
 const deleteMovie = async (id) => {
   if (!mongoose.isValidObjectId(id)) {
