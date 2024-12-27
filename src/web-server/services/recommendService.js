@@ -1,7 +1,9 @@
 const net = require("net");
 const Watch = require("../models/watchModel");
-const PORT = 8080;
-const IP = "127.0.0.1";
+// Load environment variables (default to "local")
+require("custom-env").env(process.env.NODE_ENV ?? "local", "./config");   
+const PORT = process.env.RECOMMEND_PORT;
+const IP = process.env.RECOMMEND_IP;
 
 // Generic function to send requests to the C++ server
 const sendRequest = (command, userId, movieId, port = PORT) => {
