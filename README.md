@@ -123,6 +123,8 @@ The file should look like this:
 ```env
 CONNECTION_STRING=mongodb://localhost:27017
 PORT=3000
+RECOMMEND_IP="127.0.0.1"
+RECOMMEND_PORT=8080
 ```
 
 Once everything is installed and configured, you can enter the Web Server's folder and run it:
