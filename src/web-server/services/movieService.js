@@ -145,7 +145,7 @@ const deleteMovie = async (id) => {
     await Watch.deleteMany({ movie: movie._id });
     // Delete the movie from the Movie collection!
     await movie.deleteOne({ _id: id });
-    // Now we update the files database and
+    // Now we delete the files in the database 
     for (const watcherId of watcherIds) {
       if (!mongoose.isValidObjectId(watcherId)) {
         // check if valid ObjectId : if not valid, skip
