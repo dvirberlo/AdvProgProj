@@ -24,7 +24,7 @@ const getRecommendations = async (req, res) => {
 
     userLegacyId = user.legacyId;
   } catch (error) {
-    console.error("userController: getUser internal error:", error);
+    console.error("recommendController: getUser internal error:", error);
     return res.status(500).json({ error: "Internal Server Error" });
   }
 
@@ -90,7 +90,7 @@ const addWatch = async (req, res) => {
     // Get the user's legacy ID
     userLegacyId = user.legacyId;
   } catch (error) {
-    console.error("userController: getUser internal error:", error);
+    console.error("recommendController: getUser internal error:", error);
     return res.status(500).json({ error: "Internal Server Error" });
   }
 
