@@ -8,13 +8,17 @@ const Category = require("../models/categoryModel");
  */
 const searchMovies = async (query) => {
   const matches = [];
-  if (typeof query === "string") {
-    matches.push(...(await Movie.find({ name: query })));
+  // create case insensitive regular expression for query
+  const regex = new RegExp(query, "i");
 
-    const category = await Category.findOne({ name: query });
-    if (category != null)
+  if (typeof query === "string") {
+    matches.push(...(await Movie.find({ name: { $regex: regex } })));
+
+    const categories = await Category.find({ name: { $regex: regex } });
+    const categoriesIds = categories.map((category) => category._id);
+    if (categoriesIds.length > 0)
       matches.push(
-        ...(await Movie.find({ categories: { $in: category._id } }))
+        ...(await Movie.find({ categories: { $in: categoriesIds } }))
       );
   }
   if (!isNaN(new Date(query))) {
