@@ -56,8 +56,6 @@ function shuffle(array) {
   return array;
 }
 const getMovies = async (userId) => {
-  console.log("in get movies");
-
   // Validate userId
   if (!mongoose.isValidObjectId(userId)) {
     return null;
