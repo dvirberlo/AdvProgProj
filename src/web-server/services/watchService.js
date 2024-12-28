@@ -29,4 +29,19 @@ const updateWatchDate = async (userId, movieId) => {
   }
 };
 
-module.exports = { createWatch, updateWatchDate };
+const isUserWatched = async (userId) => {
+  try {
+    const watchRecord = await Watch.findOne({ watcher: userId });
+    if (watchRecord) {
+      return true;
+    }
+    return false;
+  } catch (error) {
+    console.error("Error checking if user has watched any movie:", error);
+    throw new Error(
+      "Unable to check if user has watched any movie: " + error.message,
+    );
+  }
+};
+
+module.exports = { createWatch, updateWatchDate, isUserWatched };

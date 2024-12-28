@@ -44,6 +44,18 @@ const getRecommendations = async (req, res) => {
   }
 
   try {
+    const hasWatched = await watchService.isUserWatched(userId);
+
+    if (!hasWatched) {
+      // If the user hasn't watched any movie, return an empty array with status 200
+      return res.status(200).json({ recommendations: [] });
+    }
+  } catch (error) {
+    console.error("Error while checking watch status:", error);
+    return res.status(500).json({ error: error.message });
+  }
+
+  try {
     // Get recommendations based on user legacyId and movie legacyId
     const recommendations = await recommendService.getRecommendations(
       userLegacyId,
