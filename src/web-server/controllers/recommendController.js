@@ -1,13 +1,14 @@
 const recommendService = require("../services/recommendService");
 const userService = require("../services/userService");
 const movieService = require("../services/movieService");
+const watchService = require("../services/watchService");
 const TokenId="token-id";
 // Controller function to get recommendations
 const getRecommendations = async (req, res) => {
 
   const userId = req.headers[TokenId];
   if (!userId) {
-    return res.status(400).json({ error: "Token-ID header is missing" });
+    return res.status(401).json({ error: "Token-ID header is missing" });
   }
 
   let userLegacyId;
@@ -52,7 +53,7 @@ const getRecommendations = async (req, res) => {
 
     if (recommendations.startsWith("200 OK\n")) {
       const cleanedResponse =
-        recommendService.parseRecommendations(recommendations);
+        await recommendService.parseRecommendations(recommendations);
       return res.status(200).json({ recommendation: `${cleanedResponse}` });
     } else if (recommendations === "400 Bad Request\n") {
       return res.status(400).json();
@@ -72,7 +73,7 @@ const addWatch = async (req, res) => {
 
   const userId = req.headers[TokenId]; // Get userId from token header
   if (!userId) {
-    return res.status(400).json({ error: "Token-ID header is missing" });
+    return res.status(401).json({ error: "Token-ID header is missing" });
   }
 
   let userLegacyId;
@@ -127,13 +128,13 @@ const addWatch = async (req, res) => {
 
     if (addWatchResponse === "201 Created\n") {
       // If the watch was successfully added, create the watch record in the service
-      await recommendService.createWatch(userId, req.params.id);
+      await watchService.createWatch(userId, req.params.id);
       return res
         .status(201)
         .json({ watcher: `${userId}`, movie: `${req.params.id}` });
     } else if (addWatchResponse === "204 No Content\n") {
       // If no content is returned but still successful
-      await recommendService.createWatch(userId, req.params.id);
+      await watchService.updateWatchDate(userId, req.params.id);
       return res.status(204).json();
     } else if (addWatchResponse === "400 Bad Request\n") {
       return res.status(400).json();
