@@ -93,7 +93,10 @@ const getMovies = async (userId) => {
       // Shuffle the unwatched movies for randomness
       const shuffledUnwatchedMovies = shuffle(unwatchedMovies);
       // Keep only the first 20
-      const limitedUnwatchedMovies = shuffledUnwatchedMovies.slice(0, MAX_MOVIES);
+      const limitedUnwatchedMovies = shuffledUnwatchedMovies.slice(
+        0,
+        MAX_MOVIES
+      );
 
       // Only add a category if there's at least one unwatched movie
       if (limitedUnwatchedMovies.length > 0) {
@@ -147,7 +150,7 @@ const deleteMovie = async (id) => {
     await Watch.deleteMany({ movie: movie._id });
     // Delete the movie from the Movie collection!
     await movie.deleteOne({ _id: id });
-    // Now we delete the files in the database 
+    // Now we delete the files in the database
     for (const watcherId of watcherIds) {
       if (!mongoose.isValidObjectId(watcherId)) {
         // check if valid ObjectId : if not valid, skip
@@ -209,7 +212,7 @@ const getMovieByLegacyId = async (legacyId) => {
     return null;
   }
   return movie;
-}
+};
 module.exports = {
   getMovieByLegacyId,
   createMovie,
