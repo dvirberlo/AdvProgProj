@@ -203,7 +203,15 @@ const updateMovie = async (name, categories, releaseDate, id) => {
     throw new Error("Error updating movie: " + error.message);
   }
 };
+const getMovieByLegacyId = async (legacyId) => {
+  const movie = await Movie.findOne({ legacyId: legacyId });
+  if (!movie) {
+    return null;
+  }
+  return movie;
+}
 module.exports = {
+  getMovieByLegacyId,
   createMovie,
   getMovies,
   deleteMovie,
