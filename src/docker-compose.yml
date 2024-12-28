@@ -20,3 +20,15 @@ services:
     tty: true
     stdin_open: true
     init: true
+  
+  web-server:
+    build:
+      context: ./web-server
+      dockerfile: Dockerfile
+    tty: true
+    stdin_open: true
+    init: true
+
+  mongo:
+    image: mongo:8
+    
