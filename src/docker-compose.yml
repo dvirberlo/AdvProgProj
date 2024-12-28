@@ -20,7 +20,7 @@ services:
     tty: true
     stdin_open: true
     init: true
-  
+
   web-server:
     build:
       context: ./web-server
@@ -31,4 +31,3 @@ services:
 
   mongo:
     image: mongo:8
-    
