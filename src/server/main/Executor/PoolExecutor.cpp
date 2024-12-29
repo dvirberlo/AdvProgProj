@@ -16,7 +16,7 @@
 using namespace std;
 
 /**
- * There are alway {poolSize} threads running PoolExecutor::threadLoop.
+ * There are always {poolSize} threads running PoolExecutor::threadLoop.
  * In the loop, the threads wait for new tasks to be added into the task queue.
  * When adding a task, we notify one thread using the condition variable.
  * When joinAll is called, we set stop to true and notify all the threads.
