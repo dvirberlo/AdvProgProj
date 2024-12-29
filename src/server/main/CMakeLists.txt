@@ -11,3 +11,6 @@ add_executable(
   ${SRC_FILES}
   ../main.cpp
 )
+
+# Link the pthread library to resolve threading issues
+target_link_libraries(main.out PRIVATE pthread)
