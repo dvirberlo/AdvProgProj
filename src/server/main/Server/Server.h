@@ -7,17 +7,15 @@
 
 #include "../Commands/CommandParser.h"
 #include "../Commands/ICommand.h"
-#include "../Commands/IMenu.h"
 #include "../Executor/Executor.h"
 class Server {
    private:
-    IMenu *menu;
     std::map<std::string, ICommand *> commands;
     int const port;
     unique_ptr<Executor> executor;
 
    public:
-    Server(IMenu *menu, std::map<std::string, ICommand *> &commands,
+    Server(std::map<std::string, ICommand *> &commands,
            unique_ptr<Executor> executor, const int port);
 
     // Method to run the application
