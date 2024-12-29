@@ -45,7 +45,7 @@ const getRecommendations = async (req, res) => {
   }
 
   try {
-    const hasWatched = await watchService.isUserWatched(userId);
+    const hasWatched = await watchService.hasWatchedMovies(userId);
 
     if (!hasWatched) {
       // If the user hasn't watched any movie, return an empty array with status 200
@@ -82,7 +82,7 @@ const getRecommendations = async (req, res) => {
 };
 
 const addWatch = async (req, res) => {
-  const userId = req.headers[TokenId]; 
+  const userId = req.headers[TokenId];
   const movieId = req.params.id;
   if (!userId) {
     return res.status(401).json({ error: "Token-ID header is missing" });

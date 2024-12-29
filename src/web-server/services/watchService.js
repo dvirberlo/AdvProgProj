@@ -29,7 +29,7 @@ const updateWatchDate = async (userId, movieId) => {
   }
 };
 
-const isUserWatched = async (userId) => {
+const hasWatchedMovies = async (userId) => {
   try {
     const watchRecord = await Watch.findOne({ watcher: userId });
     if (watchRecord) {
@@ -44,4 +44,4 @@ const isUserWatched = async (userId) => {
   }
 };
 
-module.exports = { createWatch, updateWatchDate, isUserWatched };
+module.exports = { createWatch, updateWatchDate, hasWatchedMovies };
