@@ -1,13 +1,14 @@
 const recommendService = require("../services/recommendService");
 const userService = require("../services/userService");
 const movieService = require("../services/movieService");
-const TokenId="token-id";
+const watchService = require("../services/watchService");
+const TokenId = "token-id";
 // Controller function to get recommendations
 const getRecommendations = async (req, res) => {
-
   const userId = req.headers[TokenId];
+  const movieId = req.params.id;
   if (!userId) {
-    return res.status(400).json({ error: "Token-ID header is missing" });
+    return res.status(401).json({ error: "Token-ID header is missing" });
   }
 
   let userLegacyId;
@@ -30,7 +31,7 @@ const getRecommendations = async (req, res) => {
 
   try {
     // Get movie by movieId (from the route parameter)
-    const movie = await movieService.getMovieById(req.params.id);
+    const movie = await movieService.getMovieById(movieId);
     if (movie == null) {
       return res
         .status(404)
@@ -44,6 +45,18 @@ const getRecommendations = async (req, res) => {
   }
 
   try {
+    const hasWatched = await watchService.hasWatchedMovies(userId);
+
+    if (!hasWatched) {
+      // If the user hasn't watched any movie, return an empty array with status 200
+      return res.status(200).json({ recommendations: [] });
+    }
+  } catch (error) {
+    console.error("Error while checking watch status:", error);
+    return res.status(500).json({ error: error.message });
+  }
+
+  try {
     // Get recommendations based on user legacyId and movie legacyId
     const recommendations = await recommendService.getRecommendations(
       userLegacyId,
@@ -52,7 +65,7 @@ const getRecommendations = async (req, res) => {
 
     if (recommendations.startsWith("200 OK\n")) {
       const cleanedResponse =
-        recommendService.parseRecommendations(recommendations);
+        await recommendService.parseRecommendations(recommendations);
       return res.status(200).json({ recommendation: `${cleanedResponse}` });
     } else if (recommendations === "400 Bad Request\n") {
       return res.status(400).json();
@@ -69,10 +82,10 @@ const getRecommendations = async (req, res) => {
 };
 
 const addWatch = async (req, res) => {
-
-  const userId = req.headers[TokenId]; // Get userId from token header
+  const userId = req.headers[TokenId];
+  const movieId = req.params.id;
   if (!userId) {
-    return res.status(400).json({ error: "Token-ID header is missing" });
+    return res.status(401).json({ error: "Token-ID header is missing" });
   }
 
   let userLegacyId;
@@ -96,7 +109,7 @@ const addWatch = async (req, res) => {
 
   try {
     // Get movie details by movieId (from the route parameter)
-    const movie = await movieService.getMovieById(req.params.id);
+    const movie = await movieService.getMovieById(movieId);
     if (movie == null) {
       return res
         .status(404)
@@ -127,13 +140,13 @@ const addWatch = async (req, res) => {
 
     if (addWatchResponse === "201 Created\n") {
       // If the watch was successfully added, create the watch record in the service
-      await recommendService.createWatch(userId, req.params.id);
+      await watchService.createWatch(userId, movieId);
       return res
         .status(201)
-        .json({ watcher: `${userId}`, movie: `${req.params.id}` });
+        .json({ watcher: `${userId}`, movie: `${movieId}` });
     } else if (addWatchResponse === "204 No Content\n") {
       // If no content is returned but still successful
-      await recommendService.createWatch(userId, req.params.id);
+      await watchService.updateWatchDate(userId, movieId);
       return res.status(204).json();
     } else if (addWatchResponse === "400 Bad Request\n") {
       return res.status(400).json();

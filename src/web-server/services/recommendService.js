@@ -1,7 +1,7 @@
 const net = require("net");
-const Watch = require("../models/watchModel");
+const movieService = require("../services/movieService");
 // Load environment variables (default to "local")
-require("custom-env").env(process.env.NODE_ENV ?? "local", "./config");   
+require("custom-env").env(process.env.NODE_ENV ?? "local", "./config");
 const PORT = process.env.RECOMMEND_PORT;
 const IP = process.env.RECOMMEND_IP;
 
@@ -75,24 +75,38 @@ const deleteWatch = async (userId, movieId) => {
   }
 };
 
-const parseRecommendations = (response) => {
+const parseRecommendations = async (response) => {
   const cleanedResponse = response.replace(/^200 OK\n\n?/, "").trim();
   if (cleanedResponse.length === 0) {
     return [];
   }
-  const movieArray = cleanedResponse
+
+  // Split the response into individual legacyIds
+  const legacyIdArray = cleanedResponse
     .split(" ")
     .map((movie) => movie.trim())
     .filter((movie) => movie.length > 0);
-  return movieArray;
-};
 
-const createWatch = async (userId, movieId) => {
-  const watch = new Watch({
-    watcher: userId,
-    movie: movieId,
-  });
-  return await watch.save();
+  // Use the legacyId array to find the movie IDs from the database
+  const movieIds = [];
+
+  for (const legacyId of legacyIdArray) {
+    try {
+      const movie = await movieService.getMovieByLegacyId(legacyId);
+      if (movie) {
+        movieIds.push(movie._id); // Push the movie's ObjectId
+      } else {
+        throw new Error(`Movie with legacyId ${legacyId} not found.`);
+      }
+    } catch (error) {
+      console.error(`Error fetching movie for legacyId ${legacyId}:`, error);
+      throw new Error(
+        `Failed to process movie with legacyId ${legacyId}: ${error.message}`,
+      );
+    }
+  }
+
+  return movieIds;
 };
 
 module.exports = {
@@ -101,5 +115,4 @@ module.exports = {
   patchWatch,
   deleteWatch,
   parseRecommendations,
-  createWatch,
 };
