@@ -4,16 +4,14 @@
 #include <vector>
 
 #include "./main/Commands/CommandParser.h"
-#include "./main/Commands/ConsoleMenu.h"
 #include "./main/Commands/DeleteCommand.h"
 #include "./main/Commands/HelpCommand.h"
 #include "./main/Commands/ICommand.h"
-#include "./main/Commands/IMenu.h"
 #include "./main/Commands/PatchCommand.h"
 #include "./main/Commands/PostCommand.h"
 #include "./main/Commands/RecommendCommand.h"
 #include "./main/Executor/Executor.h"
-#include "./main/Executor/SimpleExecutor.h"
+#include "./main/Executor/PoolExecutor.h"
 #include "./main/Recommand-Engine/RecommendEngine.h"
 #include "./main/Server/Server.h"
 #include "./main/Users/IUserService.h"
@@ -42,11 +40,10 @@ int main(int argc, char* argv[]) {
     commands["GET"] =
         new RecommendCommand(*userService, commandParser, recommendEngine);
 
-    IMenu* menu = new ConsoleMenu(commandParser);
     // Create the server and run it
 
-    unique_ptr<Executor> executor = make_unique<SimpleExecutor>();
-    Server server = Server(menu, commands, move(executor), serverPort);
+    unique_ptr<Executor> executor = make_unique<PoolExecutor>();
+    Server server = Server(commands, move(executor), serverPort);
     server.run();
 }
 

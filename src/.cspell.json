@@ -3,6 +3,7 @@
     "googletest",
     "gtest",
     "movieid",
+    "pthread",
     "Retriable",
     "Oplog",
     "Retargetting",

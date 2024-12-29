@@ -19,9 +19,9 @@
 
 using namespace std;
 #define BUFFER_SIZE 4096
-Server::Server(IMenu* menu, std::map<std::string, ICommand*>& commands,
+Server::Server(std::map<std::string, ICommand*>& commands,
                unique_ptr<Executor> executor, const int port)
-    : menu(menu), commands(commands), executor(move(executor)), port(port) {}
+    : commands(commands), executor(move(executor)), port(port) {}
 
 void Server ::handleClient(int clientSocket) {
     CommandParser commandParser;
