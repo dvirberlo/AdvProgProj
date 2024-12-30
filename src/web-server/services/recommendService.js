@@ -1,5 +1,4 @@
 const net = require("net");
-const movieService = require("../services/movieService");
 // Load environment variables (default to "local")
 require("custom-env").env(process.env.NODE_ENV ?? "local", "./config");
 const PORT = process.env.RECOMMEND_PORT;
@@ -92,7 +91,7 @@ const parseRecommendations = async (response) => {
 
   for (const legacyId of legacyIdArray) {
     try {
-      const movie = await movieService.getMovieByLegacyId(legacyId);
+      const movie = await getMovieByLegacyId(legacyId);
       if (movie) {
         movieIds.push(movie._id); // Push the movie's ObjectId
       } else {
@@ -107,6 +106,14 @@ const parseRecommendations = async (response) => {
   }
 
   return movieIds;
+};
+
+const getMovieByLegacyId = async (legacyId) => {
+  const movie = await Movie.findOne({ legacyId: legacyId });
+  if (!movie) {
+    return null;
+  }
+  return movie;
 };
 
 module.exports = {
