@@ -1,14 +1,14 @@
 const Movie = require("../models/movieModel");
 const mongoose = require("mongoose");
 const Watch = require("../models/watchModel");
-const { Category, specialCategoryName } = require("../models/categoryModel");
+const { Category, WATCHED_MOVIES_NAME } = require("../models/categoryModel");
 const Recommend = require("./recommendService");
 const User = require("./userService");
 // Define the maximum number of movies to return in the get function, at a time the exercise is asking for 20
 const MAX_MOVIES = 20;
 
 // Define the error code for duplicate key
-let ERROR_DUP_KEY = 11000;
+const ERROR_DUP_KEY = 11000;
 
 const createMovie = async (name, categories, releaseDate) => {
   try {
@@ -56,7 +56,7 @@ function shuffle(array) {
     [array[i], array[j]] = [array[j], array[i]];
   }
   return array;
-}
+};
 const getMovies = async (userId) => {
   // Validate userId
   if (!mongoose.isValidObjectId(userId)) {
@@ -115,7 +115,7 @@ const getMovies = async (userId) => {
 
     // Create a "Watched Movies" category in results
     // This is a const defined in the categoryModel.js file
-    results[specialCategoryName] = watchedMovies.map(
+    results[WATCHED_MOVIES_NAME] = watchedMovies.map(
       (watch) => watch.movie._id
     );
 

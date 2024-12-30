@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 // Use the correct variable here, and make sure it's defined:
-const specialCategoryName = "Watched Movies";
+const WATCHED_MOVIES_NAME = "Watched Movies";
 
 // Define the Category schema
 const categorySchema = new Schema({
@@ -20,9 +20,9 @@ const categorySchema = new Schema({
       },
       {
         validator: function (v) {
-          return v !== specialCategoryName;
+          return v !== WATCHED_MOVIES_NAME;
         },
-        message: `Name cannot be ${specialCategoryName}`,
+        message: `Name cannot be ${WATCHED_MOVIES_NAME}`,
       },
     ],
   },
@@ -39,4 +39,4 @@ const categorySchema = new Schema({
 });
 
 const Category = mongoose.model("Category", categorySchema);
-module.exports = { Category, specialCategoryName };
+module.exports = { Category, specialCategoryName: WATCHED_MOVIES_NAME };

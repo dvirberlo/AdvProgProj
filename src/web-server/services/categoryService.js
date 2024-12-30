@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const { Category } = require("../models/categoryModel");
-const Movie = require("../services/movieService");
+const MovieService = require("../services/movieService");
 // Define the error code for duplicate key
 let ERROR_DUP_KEY = 11000;
 const createCategory = async (name, promoted) => {
@@ -62,7 +62,7 @@ const deleteCategory = async (id) => {
   }
   await category.deleteOne({ _id: id });
   // returned value should be all the movies involved
-  const indicator = Movie.deleteCategory(id);
+  const indicator = MovieService.deleteCategory(id);
   if (indicator === false) {
     return null;
   } else {
