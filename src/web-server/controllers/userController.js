@@ -19,7 +19,7 @@ const createUser = async (req, res) => {
       req.body.password,
       req.body.image
     );
-    return res.status(201).json(UserService.censoredUser(user));
+    return res.status(201).json(UserService.censoredUser(user.toJSON()));
   } catch (error) {
     if (error instanceof mongoose.Error.ValidationError)
       return res.status(400).json({ error: error.message });
@@ -46,7 +46,7 @@ const getUser = async (req, res) => {
       return res
         .status(404)
         .json({ error: "The specified user id does not exist" });
-    return res.status(200).json(UserService.censoredUser(user));
+    return res.status(200).json(UserService.censoredUser(user.toJSON()));
   } catch (error) {
     console.error("userController: getUser internal error:", error);
     return res.status(500).json({ error: "Internal Server Error" });
