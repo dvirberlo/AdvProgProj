@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const { Category } = require('../models/categoryModel');
+const { Category } = require("../models/categoryModel");
 const Movie = require("../services/movieService");
 // Define the error code for duplicate key
 let ERROR_DUP_KEY = 11000;

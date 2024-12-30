@@ -1,7 +1,7 @@
 const Movie = require("../models/movieModel");
 const mongoose = require("mongoose");
 const Watch = require("../models/watchModel");
-const Category = require("../models/categoryModel");
+const { Category, specialCategoryName } = require("../models/categoryModel");
 const Recommend = require("./recommendService");
 const User = require("./userService");
 // Define the maximum number of movies to return in the get function, at a time the exercise is asking for 20
@@ -115,7 +115,7 @@ const getMovies = async (userId) => {
 
     // Create a "Watched Movies" category in results
     // This is a const defined in the categoryModel.js file
-    results[Category.specialCategoryName] = watchedMovies.map(
+    results[specialCategoryName] = watchedMovies.map(
       (watch) => watch.movie._id
     );
 
@@ -199,11 +199,8 @@ const deleteCategory = async (id) => {
   }
   try {
     // Pull the category 'id' from the categories array in all matching movies
-    await Movie.updateMany(
-      { categories: id },
-      { $pull: { categories: id } }
-    );
-    
+    await Movie.updateMany({ categories: id }, { $pull: { categories: id } });
+
     // return true to indicate that the category was removed from the arrays
     return true;
   } catch (error) {
