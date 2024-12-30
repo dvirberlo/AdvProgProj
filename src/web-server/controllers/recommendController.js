@@ -60,7 +60,7 @@ const getRecommendations = async (req, res) => {
     // Get recommendations based on user legacyId and movie legacyId
     const recommendations = await recommendService.getRecommendations(
       userLegacyId,
-      movieLegacyId,
+      movieLegacyId
     );
 
     if (recommendations.startsWith("200 OK\n")) {
@@ -127,14 +127,14 @@ const addWatch = async (req, res) => {
     // Try to add the movie to the watch list with postWatch
     let addWatchResponse = await recommendService.postWatch(
       userLegacyId,
-      movieLegacyId,
+      movieLegacyId
     );
 
     // If the user is already in the watch list, try to add it with patchWatch
     if (addWatchResponse === "404 Not Found\n") {
       addWatchResponse = await recommendService.patchWatch(
         userLegacyId,
-        movieLegacyId,
+        movieLegacyId
       );
     }
 

@@ -20,7 +20,7 @@ const updateWatchDate = async (userId, movieId) => {
     } else {
       // If the watch doesn't exist, throw an exception
       throw new Error(
-        `No watch entry found for user ${userId} and movie ${movieId}`,
+        `No watch entry found for user ${userId} and movie ${movieId}`
       );
     }
   } catch (error) {
@@ -39,7 +39,7 @@ const hasWatchedMovies = async (userId) => {
   } catch (error) {
     console.error("Error checking if user has watched any movie:", error);
     throw new Error(
-      "Unable to check if user has watched any movie: " + error.message,
+      "Unable to check if user has watched any movie: " + error.message
     );
   }
 };

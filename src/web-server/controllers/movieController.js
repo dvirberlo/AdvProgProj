@@ -47,7 +47,9 @@ const deleteMovie = async (req, res) => {
       return res.status(404).json({ error: "Movie not found" });
     }
     if (error.message === "Bad Request") {
-      return res.status(500).json({ error: "movieController: deleteMovie internal error:" });
+      return res
+        .status(500)
+        .json({ error: "movieController: deleteMovie internal error:" });
     } else {
       console.error("movieController: deleteMovie internal error:", error);
       res.status(500).json({ error: "Internal Server Error" });
