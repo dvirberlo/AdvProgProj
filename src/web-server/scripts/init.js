@@ -193,6 +193,8 @@ const init = async () => {
     );
   }
 
+  console.log({ users, categories, movies, watches });
+
   // close connection and exit
   await mongoose.connection.close();
 };
