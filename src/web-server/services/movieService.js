@@ -114,7 +114,10 @@ const getMovies = async (userId) => {
     watchedMovies = watchedMovies.slice(-MAX_MOVIES);
 
     // Create a "Watched Movies" category in results
-    results["Watched Movies"] = watchedMovies.map((watch) => watch.movie._id);
+    // This is a const defined in the categoryModel.js file
+    results[Category.specialCategoryName] = watchedMovies.map(
+      (watch) => watch.movie._id
+    );
 
     // Return the aggregated results
     return results;
@@ -186,6 +189,27 @@ const deleteMovie = async (id) => {
     throw new Error("Error deleting movie: " + error.message);
   }
 };
+/* After a category has been deleted on the category document, 
+we need to delete the category from the movie document
+Input : category id*/
+const deleteCategory = async (id) => {
+  if (!mongoose.isValidObjectId(id)) {
+    // indicate that the category ID is invalid
+    return false;
+  }
+  try {
+    // Pull the category 'id' from the categories array in all matching movies
+    await Movie.updateMany(
+      { categories: id },
+      { $pull: { categories: id } }
+    );
+    
+    // return true to indicate that the category was removed from the arrays
+    return true;
+  } catch (error) {
+    throw new Error("Error removing category from movies: " + error.message);
+  }
+};
 
 const updateMovie = async (name, categories, releaseDate, id) => {
   const movie = await getMovieById(id); // Retrieve the movie by ID
@@ -220,4 +244,5 @@ module.exports = {
   deleteMovie,
   getMovieById,
   updateMovie,
+  deleteCategory,
 };
