@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const Movie = require("../models/movieModel");
-const Category = require("../models/categoryModel");
+const {Category,WATCHED_MOVIES_NAME} = require("../models/categoryModel");
 
 /**
  * @param {String?} query
