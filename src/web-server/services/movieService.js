@@ -1,30 +1,22 @@
 const Movie = require("../models/movieModel");
 const mongoose = require("mongoose");
 const Watch = require("../models/watchModel");
-const Category = require("../models/categoryModel");
+const { Category, WATCHED_MOVIES_NAME } = require("../models/categoryModel");
 const Recommend = require("./recommendService");
 const User = require("./userService");
 // Define the maximum number of movies to return in the get function, at a time the exercise is asking for 20
 const MAX_MOVIES = 20;
 
 // Define the error code for duplicate key
-let ERROR_DUP_KEY = 11000;
+const ERROR_DUP_KEY = 11000;
 
 const createMovie = async (name, categories, releaseDate) => {
-  try {
-    movie = await Movie.create({
-      name: name,
-      categories: categories,
-      releaseDate: releaseDate,
-      legacyId: await getUniqueLegacyId(),
-    });
-  } catch (error) {
-    if (error.code === ERROR_DUP_KEY) {
-      throw new Error("This movie already exists");
-    } else {
-      throw new Error("Error creating Movie: " + error.message);
-    }
-  }
+  const movie = await Movie.create({
+    name: name,
+    categories: categories,
+    releaseDate: releaseDate,
+    legacyId: await getUniqueLegacyId(),
+  });
   return await movie.save();
 };
 const getUniqueLegacyId = async () => {
@@ -56,7 +48,7 @@ function shuffle(array) {
     [array[i], array[j]] = [array[j], array[i]];
   }
   return array;
-}
+};
 const getMovies = async (userId) => {
   // Validate userId
   if (!mongoose.isValidObjectId(userId)) {
@@ -114,7 +106,10 @@ const getMovies = async (userId) => {
     watchedMovies = watchedMovies.slice(-MAX_MOVIES);
 
     // Create a "Watched Movies" category in results
-    results["Watched Movies"] = watchedMovies.map((watch) => watch.movie._id);
+    // This is a const defined in the categoryModel.js file
+    results[WATCHED_MOVIES_NAME] = watchedMovies.map(
+      (watch) => watch.movie._id
+    );
 
     // Return the aggregated results
     return results;
@@ -186,6 +181,24 @@ const deleteMovie = async (id) => {
     throw new Error("Error deleting movie: " + error.message);
   }
 };
+/* After a category has been deleted on the category document, 
+we need to delete the category from the movie document
+Input : category id*/
+const deleteCategory = async (id) => {
+  if (!mongoose.isValidObjectId(id)) {
+    // indicate that the category ID is invalid
+    return false;
+  }
+  try {
+    // Pull the category 'id' from the categories array in all matching movies
+    await Movie.updateMany({ categories: id }, { $pull: { categories: id } });
+
+    // return true to indicate that the category was removed from the arrays
+    return true;
+  } catch (error) {
+    throw new Error("Error removing category from movies: " + error.message);
+  }
+};
 
 const updateMovie = async (name, categories, releaseDate, id) => {
   const movie = await getMovieById(id); // Retrieve the movie by ID
@@ -220,4 +233,5 @@ module.exports = {
   deleteMovie,
   getMovieById,
   updateMovie,
+  deleteCategory,
 };

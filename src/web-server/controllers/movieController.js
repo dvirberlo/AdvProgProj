@@ -1,5 +1,8 @@
+const mongoose = require("mongoose");
+
 const movieService = require("../services/movieService");
 const userService = require("../services/userService");
+const { MongoError } = require("../constants/mongoDBErrors");
 const createMovie = async (req, res) => {
   let movie;
   try {
@@ -9,7 +12,11 @@ const createMovie = async (req, res) => {
       req.body.releaseDate
     );
   } catch (error) {
-    return res.status(400).json({ error: error.message });
+    if (error instanceof mongoose.Error.ValidationError)
+      return res.status(400).json({ error: error.message });
+    if (error?.code === MongoError.DuplicateKey.code)
+      return res.status(409).json({ error: error.message });
+    return res.status(500).json({ error: error?.message });
   }
   return res.status(201).json(movie);
 };
@@ -19,8 +26,9 @@ const getMovies = async (req, res) => {
     return res.status(401).json({ error: "Token is required" });
   }
   // check if the existing user having that token-id
-  if (userService.getUserById(req.headers["token-id"]) === null) {
-    return res.status(401).json({ error: "User not found" });
+  const user = await userService.getUserById(req.headers["token-id"]);
+  if (user === null) {
+    return res.status(404).json({ error: "User not found" });
   }
   try {
     let movies = await movieService.getMovies(req.headers["token-id"]);

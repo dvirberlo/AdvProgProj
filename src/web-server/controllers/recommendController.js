@@ -2,6 +2,7 @@ const recommendService = require("../services/recommendService");
 const userService = require("../services/userService");
 const movieService = require("../services/movieService");
 const watchService = require("../services/watchService");
+const Watch = require("../models/watchModel");
 const TokenId = "token-id";
 // Controller function to get recommendations
 const getRecommendations = async (req, res) => {
@@ -64,8 +65,9 @@ const getRecommendations = async (req, res) => {
     );
 
     if (recommendations.startsWith("200 OK\n")) {
-      const cleanedResponse =
-        await recommendService.parseRecommendations(recommendations);
+      const cleanedResponse = await recommendService.parseRecommendations(
+        recommendations
+      );
       return res.status(200).json({ recommendation: `${cleanedResponse}` });
     } else if (recommendations === "400 Bad Request\n") {
       return res.status(400).json();
@@ -145,6 +147,15 @@ const addWatch = async (req, res) => {
         .status(201)
         .json({ watcher: `${userId}`, movie: `${movieId}` });
     } else if (addWatchResponse === "204 No Content\n") {
+      // Find if there is already entry in the watch list
+      const watch = await Watch.findOne({ watcher: userId, movie: movieId });
+      if (!watch) {
+        // There is no entry in the watch list, create one
+        await watchService.createWatch(userId, movieId);
+        return res
+          .status(201)
+          .json({ watcher: `${userId}`, movie: `${movieId}` });
+      }
       // If no content is returned but still successful
       await watchService.updateWatchDate(userId, movieId);
       return res.status(204).json();
