@@ -1,5 +1,8 @@
+const mongoose = require("mongoose");
+
 const movieService = require("../services/movieService");
 const userService = require("../services/userService");
+const { MongoError } = require("../constants/mongoDBErrors");
 const createMovie = async (req, res) => {
   let movie;
   try {
@@ -9,7 +12,11 @@ const createMovie = async (req, res) => {
       req.body.releaseDate
     );
   } catch (error) {
-    return res.status(400).json({ error: error.message });
+    if (error instanceof mongoose.Error.ValidationError)
+      return res.status(400).json({ error: error.message });
+    if (error?.code === MongoError.DuplicateKey.code)
+      return res.status(409).json({ error: error.message });
+    return res.status(500).json({ error: error?.message });
   }
   return res.status(201).json(movie);
 };
@@ -47,7 +54,9 @@ const deleteMovie = async (req, res) => {
       return res.status(404).json({ error: "Movie not found" });
     }
     if (error.message === "Bad Request") {
-      return res.status(500).json({ error: "movieController: deleteMovie internal error:" });
+      return res
+        .status(500)
+        .json({ error: "movieController: deleteMovie internal error:" });
     } else {
       console.error("movieController: deleteMovie internal error:", error);
       res.status(500).json({ error: "Internal Server Error" });
