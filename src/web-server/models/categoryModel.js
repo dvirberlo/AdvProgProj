@@ -39,4 +39,4 @@ const categorySchema = new Schema({
 });
 
 const Category = mongoose.model("Category", categorySchema);
-module.exports = { Category,  WATCHED_MOVIES_NAME };
+module.exports = { Category, WATCHED_MOVIES_NAME };
