@@ -164,6 +164,7 @@ All requests that require the user to be authenticated must include the Token-ID
 This API integrates with an internal recommendation system implemented in C++. The system provides movie suggestions based on the user's historical data and interactions with the movies in the system. When a request is made to fetch recommendations for a movie, the backend will send the request to the recommendation system, receive the recommended movies, and forward them to the user.
 
 ## Output example:
+
 ### `/api/users`
 
 ![98](https://github.com/user-attachments/assets/cbe6e889-5374-49b8-b157-66641ce755b8)
