@@ -1,6 +1,8 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const Category = require("./categoryModel");
+const { arrayReferenceValidator } = require("./referenceValidator");
+
 const movieSchema = new Schema({
   // we use name field
   name: {
@@ -19,6 +21,7 @@ const movieSchema = new Schema({
     // Array of Category references
     type: [{ type: Schema.Types.ObjectId, ref: Category.modelName }],
     default: [],
+    validate: [arrayReferenceValidator(Category)],
   },
   releaseDate: {
     type: Date,
