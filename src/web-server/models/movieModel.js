@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const Category = require("./categoryModel");
+const { Category, WATCHED_MOVIES_NAME } = require("./categoryModel");
 const movieSchema = new Schema({
   // we use name field
   name: {
