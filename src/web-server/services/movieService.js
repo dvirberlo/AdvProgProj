@@ -11,20 +11,12 @@ const MAX_MOVIES = 20;
 const ERROR_DUP_KEY = 11000;
 
 const createMovie = async (name, categories, releaseDate) => {
-  try {
-    movie = await Movie.create({
-      name: name,
-      categories: categories,
-      releaseDate: releaseDate,
-      legacyId: await getUniqueLegacyId(),
-    });
-  } catch (error) {
-    if (error.code === ERROR_DUP_KEY) {
-      throw new Error("This movie already exists");
-    } else {
-      throw new Error("Error creating Movie: " + error.message);
-    }
-  }
+  const movie = await Movie.create({
+    name: name,
+    categories: categories,
+    releaseDate: releaseDate,
+    legacyId: await getUniqueLegacyId(),
+  });
   return await movie.save();
 };
 const getUniqueLegacyId = async () => {
