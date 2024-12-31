@@ -65,9 +65,8 @@ const getRecommendations = async (req, res) => {
     );
 
     if (recommendations.startsWith("200 OK\n")) {
-      const cleanedResponse = await recommendService.parseRecommendations(
-        recommendations
-      );
+      const cleanedResponse =
+        await recommendService.parseRecommendations(recommendations);
       return res.status(200).json({ recommendation: `${cleanedResponse}` });
     } else if (recommendations === "400 Bad Request\n") {
       return res.status(400).json();
