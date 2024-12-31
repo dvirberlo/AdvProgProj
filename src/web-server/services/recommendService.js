@@ -101,7 +101,7 @@ const parseRecommendations = async (response) => {
     } catch (error) {
       console.error(`Error fetching movie for legacyId ${legacyId}:`, error);
       throw new Error(
-        `Failed to process movie with legacyId ${legacyId}: ${error.message}`,
+        `Failed to process movie with legacyId ${legacyId}: ${error.message}`
       );
     }
   }
