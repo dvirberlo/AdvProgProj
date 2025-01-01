@@ -104,10 +104,12 @@ const getMovies = async (userId) => {
 
     // Take only the last 20
     watchedMovies = watchedMovies.slice(-MAX_MOVIES);
+    // shuffle the watched movies
+    watchedMoviesShuffle = shuffle(watchedMovies);
 
     // Create a "Watched Movies" category in results
     // This is a const defined in the categoryModel.js file
-    results[WATCHED_MOVIES_NAME] = watchedMovies.map(
+    results[WATCHED_MOVIES_NAME] = watchedMoviesShuffle.map(
       (watch) => watch.movie._id
     );
 
