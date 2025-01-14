@@ -17,13 +17,20 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # Install Prerequisites
-      - name: Install Prerequisites
-        run: sudo apt-get update && sudo apt-get install -y docker docker-compose
+      # Install Docker and Docker Compose
+      - name: Install Docker and Docker Compose
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y apt-transport-https ca-certificates curl software-properties-common
+          curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+          echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+          sudo apt-get update
+          sudo apt-get install -y docker-ce docker-ce-cli containerd.io
+          sudo apt-get install -y docker-compose-plugin
 
       # Build and run the tests
       - name: Run tests
-        run: docker-compose -f src/docker-compose.yml up --abort-on-container-exit --build server-test
+        run: docker compose -f src/docker-compose.yml up --abort-on-container-exit --build server-test
 
   test:
     runs-on: ubuntu-latest
