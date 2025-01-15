@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 
+const specialCharactersRegex = /[!@#$%^&*(),.?":{}|<>]/;
+
 const userSchema = new mongoose.Schema({
   firstName: {
     type: String,
@@ -20,7 +22,13 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true,
-    minlength: 1,
+    minlength: 8,
+    validate: [
+      {
+        validator: (value) =>  specialCharactersRegex.test(value),
+        message: "Password must include at least 1 special character."
+      }
+    ],
     select: false,
   },
   legacyId: {
