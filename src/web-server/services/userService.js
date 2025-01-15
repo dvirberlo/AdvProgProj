@@ -12,7 +12,14 @@ const User = require("../models/userModel");
  * @return the new User model if user was successfully created, or null
  * @throws on DB connection errors or validation errors
  */
-const createUser = async (firstName, lastName, username, password, image) => {
+const createUser = async (
+  firstName,
+  lastName,
+  username,
+  password,
+  image,
+  role
+) => {
   const user = new User({
     firstName: firstName,
     lastName: lastName,
@@ -20,6 +27,8 @@ const createUser = async (firstName, lastName, username, password, image) => {
     password: password,
     legacyId: await getUniqueLegacyId(),
     image: image,
+    // this field is validated in the model
+    role: role,
   });
   return await user.save();
 };

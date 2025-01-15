@@ -32,6 +32,22 @@ const userSchema = new mongoose.Schema({
     type: String,
     default: "https://robohash.org/DemoUserImage.png",
   },
+  role: {
+    type: String,
+    required: true,
+    default: "user",
+    validate: {
+      validator: function (v) {
+        // allow only user and admin roles : to be more clear we do not present that field to the user he will be automatically assigned a user role
+        // the admins will be added manually by the developers
+        if (v === "user" || v === "admin") {
+          return true;
+        }
+        return false;
+      },
+      message: (props) => `${props.value} is not a valid role!`,
+    },
+  },
 });
 
 const User = mongoose.model("User", userSchema);
