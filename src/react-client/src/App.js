@@ -1,5 +1,6 @@
 import { AppRouter } from "./Pages/AppRouter";
 import { ThemeProvider } from "./Contexts/ThemeContext/ThemeContext";
+import { AuthProvider } from "./Contexts/AuthContext/AuthContext";
 
 import "material-symbols";
 
@@ -10,8 +11,10 @@ import "./App.css";
 
 export const App = () => {
   return (
-    <ThemeProvider>
-      <AppRouter />
-    </ThemeProvider>
+    <AuthProvider>
+      <ThemeProvider>
+        <AppRouter />
+      </ThemeProvider>
+    </AuthProvider>
   );
 };
