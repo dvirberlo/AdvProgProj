@@ -2,9 +2,9 @@ import { NavBar } from "./NavBar";
 
 export const NavBarTemplate = ({ children }) => {
   return (
-    <div className="container-fluid">
+    <div>
       <NavBar />
-      <div className="container">{children}</div>
+      {children}
     </div>
   );
 };
