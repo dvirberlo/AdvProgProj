@@ -17,9 +17,7 @@ const createUser = async (req, res) => {
       req.body.lastName,
       req.body.username,
       req.body.password,
-      req.body.image,
-      // optional field potentially not present in the request
-      req.body.role
+      req.body.image
     );
     return res.status(201).json(UserService.censoredUser(user.toJSON()));
   } catch (error) {
