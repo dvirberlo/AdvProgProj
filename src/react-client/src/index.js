@@ -2,6 +2,8 @@ import { StrictMode } from "react";
 import ReactDOM from "react-dom/client";
 import { AppRouter } from "./Pages/AppRouter";
 
+import "material-symbols";
+
 import "bootstrap";
 import "bootstrap/dist/css/bootstrap.css";
 
