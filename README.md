@@ -26,6 +26,7 @@ CONNECTION_STRING=mongodb://mongo:27017
 PORT=3000
 RECOMMEND_IP="server-main"
 RECOMMEND_PORT=8080
+JWT_PRIVATE_KEY=some_private_key
 ```
 
 4. Run the web server
@@ -297,6 +298,7 @@ CONNECTION_STRING=mongodb://localhost:27017
 PORT=3000
 RECOMMEND_IP="127.0.0.1"
 RECOMMEND_PORT=8080
+JWT_PRIVATE_KEY=some_private_key
 ```
 
 Once everything is installed and configured, you can enter the Web Server's folder and run it:
