@@ -1,6 +1,6 @@
 import { StrictMode } from "react";
 import ReactDOM from "react-dom/client";
-import { AppRouter } from "./AppRouter/AppRouter";
+import { AppRouter } from "./Pages/AppRouter";
 
 import "bootstrap";
 import "bootstrap/dist/css/bootstrap.css";

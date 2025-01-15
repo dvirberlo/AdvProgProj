@@ -1,12 +1,12 @@
 import { useState } from "react";
-
-import "./HomePage.css";
+import { NavBarTemplate } from "../../Components/NavBar/NavBarTemplate";
 
 export const HomePage = () => {
   const [counter, setCounter] = useState(0);
+
   return (
-    <div className="container">
-      <h1 className="text-center">Home Page Component</h1>
+    <NavBarTemplate>
+      <h1 className="text-center">Home Page</h1>
       <button
         onClick={() => setCounter(counter + 1)}
         className="btn btn-primary"
@@ -26,6 +26,14 @@ export const HomePage = () => {
           aria-label="Close"
         ></button>
       </div>
-    </div>
+      {Array.from({ length: 20 }).map((item) => (
+        <p>
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quos harum
+          similique odit, iusto aliquam earum numquam aliquid officiis nesciunt
+          nulla quas voluptatem voluptates culpa. Rerum fugiat temporibus modi
+          alias mollitia.
+        </p>
+      ))}
+    </NavBarTemplate>
   );
 };
