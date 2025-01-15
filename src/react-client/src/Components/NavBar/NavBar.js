@@ -21,8 +21,8 @@ export const NavBar = () => {
         </button>
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav mb-2 mb-lg-0">
-            <NavItem to={routes.Home}>Home</NavItem>
-            <NavItem to={routes.Signup}>Signup</NavItem>
+            <NavItem to={routes.Home} icon="home" text="Home" />
+            <NavItem to={routes.Login} icon="login" text="Login" />
           </ul>
           <div className="ms-auto" />
           <NavSearchForm />
@@ -32,14 +32,19 @@ export const NavBar = () => {
   );
 };
 
-const NavItem = ({ children, to }) => {
+const NavItem = ({ to, icon, text }) => {
   return (
     <li className="nav-item px-2">
       <NavLink
         className={({ isActive }) => `nav-link ${isActive ? "active" : ""} `}
         to={to}
       >
-        {children}
+        <div className="d-flex">
+          {icon !== undefined && (
+            <span className="material-symbols-rounded me-1">{icon}</span>
+          )}
+          <span>{text}</span>
+        </div>
       </NavLink>
     </li>
   );
@@ -47,16 +52,17 @@ const NavItem = ({ children, to }) => {
 
 const NavSearchForm = () => {
   return (
-    <form className="d-flex" role="search">
+    <div class="input-group w-auto">
       <input
-        className="form-control me-2 focus-ring-secondary focus-ring border-secondary"
+        className="form-control focus-ring-secondary focus-ring border-secondary"
         type="search"
-        placeholder="Search"
+        placeholder="Search something..."
         aria-label="Search"
       />
-      <button className="btn btn-outline-secondary" type="submit">
+      <button className="btn btn-outline-secondary d-flex" type="button">
+        <span className="material-symbols-rounded me-1">search</span>
         Search
       </button>
-    </form>
+    </div>
   );
 };

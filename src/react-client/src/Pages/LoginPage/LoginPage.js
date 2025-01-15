@@ -1,9 +1,9 @@
 import { NavBarTemplate } from "../../Components/NavBar/NavBarTemplate";
 
-export const DummyPage = () => {
+export const LoginPage = () => {
   return (
     <NavBarTemplate>
-      <h1>Signup Page</h1>
+      <h1>Login Page</h1>
     </NavBarTemplate>
   );
 };
