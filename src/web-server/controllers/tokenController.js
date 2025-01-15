@@ -10,15 +10,17 @@ const TokenService = require("../services/tokenService");
  */
 const getToken = async (req, res) => {
   try {
-    const userId = await TokenService.getToken(
+    const userId = await TokenService.getUserId(
       req.body.username,
       req.body.password
     );
     if (userId == null)
       return res
-        .status(400)
+        .status(401)
         .json({ error: "The specified credentials are invalid" });
-    return res.status(200).json({ _id: userId });
+
+    const token = await TokenService.createToken(userId);
+    return res.status(200).json({ _id: userId, token: token });
   } catch (error) {
     console.error("tokenController: getToken internal error:", error);
     return res.status(500).json({ error: "Internal Server Error" });
