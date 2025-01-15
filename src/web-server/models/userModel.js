@@ -7,27 +7,31 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
     minlength: 1,
+    maxLength: 20,
   },
   lastName: {
     type: String,
     required: true,
     minlength: 1,
+    maxLength: 20,
   },
   username: {
     type: String,
     required: true,
     unique: true,
     minlength: 1,
+    maxLength: 20,
   },
   password: {
     type: String,
     required: true,
-    minlength: 8,
+    minLength: 8,
+    maxLength: 20,
     validate: [
       {
-        validator: (value) =>  specialCharactersRegex.test(value),
-        message: "Password must include at least 1 special character."
-      }
+        validator: (value) => specialCharactersRegex.test(value),
+        message: "Password must include at least 1 special character.",
+      },
     ],
     select: false,
   },
