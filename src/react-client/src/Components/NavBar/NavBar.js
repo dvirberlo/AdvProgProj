@@ -52,7 +52,7 @@ const NavItem = ({ to, icon, text }) => {
 
 const NavSearchForm = () => {
   return (
-    <div class="input-group w-auto">
+    <div className="input-group w-auto">
       <input
         className="form-control focus-ring-secondary focus-ring border-secondary"
         type="search"
