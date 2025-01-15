@@ -10,11 +10,25 @@ const MAX_MOVIES = 20;
 // Define the error code for duplicate key
 const ERROR_DUP_KEY = 11000;
 
-const createMovie = async (name, categories, releaseDate) => {
+const createMovie = async (
+  name,
+  description,
+  length,
+  rating,
+  categories,
+  releaseYear,
+  filePath,
+  thumbnailPath
+) => {
   const movie = await Movie.create({
     name: name,
+    description: description,
+    length: length,
+    rating: rating,
     categories: categories,
-    releaseDate: releaseDate,
+    releaseYear: releaseYear,
+    filePath: filePath,
+    thumbnailPath: thumbnailPath,
     legacyId: await getUniqueLegacyId(),
   });
   return await movie.save();
@@ -202,7 +216,17 @@ const deleteCategory = async (id) => {
   }
 };
 
-const updateMovie = async (name, categories, releaseDate, id) => {
+const updateMovie = async (
+  id,
+  name,
+  description,
+  length,
+  rating,
+  categories,
+  releaseYear,
+  filePath,
+  thumbnailPath
+) => {
   const movie = await getMovieById(id); // Retrieve the movie by ID
   if (!movie) {
     return null;
@@ -210,8 +234,13 @@ const updateMovie = async (name, categories, releaseDate, id) => {
 
   // Update the properties
   movie.name = name;
+  movie.description = description;
+  movie.length = length;
+  movie.rating = rating;
   movie.categories = categories;
-  movie.releaseDate = releaseDate;
+  movie.releaseYear = releaseYear;
+  movie.filePath = filePath;
+  movie.thumbnailPath = thumbnailPath;
 
   // Save the updated movie
   try {

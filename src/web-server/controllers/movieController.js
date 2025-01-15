@@ -8,8 +8,13 @@ const createMovie = async (req, res) => {
   try {
     movie = await movieService.createMovie(
       req.body.name,
+      req.body.description,
+      req.body.length,
+      req.body.rating,
       req.body.categories,
-      req.body.releaseDate
+      req.body.releaseYear,
+      req.body.filePath,
+      req.body.thumbnailPath
     );
   } catch (error) {
     if (error instanceof mongoose.Error.ValidationError)
@@ -78,26 +83,33 @@ const getMovieById = async (req, res) => {
   }
 };
 const updateMovie = async (req, res) => {
-  if (!req.body.categories) {
+  if (
+    req.params.id == null ||
+    req.body.name == null ||
+    req.body.description == null ||
+    req.body.length == null ||
+    req.body.rating == null ||
+    req.body.categories == null ||
+    req.body.releaseYear == null ||
+    req.body.filePath == null ||
+    req.body.thumbnailPath == null
+  )
     return res
       .status(400)
-      .json({ error: "Categories is required in Put command" });
-  }
-  if (!req.body.name) {
-    return res.status(400).json({ error: "Name is required in Put command" });
-  }
-  if (!req.body.releaseDate) {
-    return res
-      .status(400)
-      .json({ error: "releaseDate is required in Put command" });
-  }
+      .json({ error: "All movie fields must be specified" });
+
   let movie;
   try {
     movie = await movieService.updateMovie(
+      req.params.id,
       req.body.name,
+      req.body.description,
+      req.body.length,
+      req.body.rating,
       req.body.categories,
-      req.body.releaseDate,
-      req.params.id
+      req.body.releaseYear,
+      req.body.filePath,
+      req.body.thumbnailPath
     );
   } catch (error) {
     return res.status(400).json({ error: error.message });
