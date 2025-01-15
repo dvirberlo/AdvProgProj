@@ -2,12 +2,18 @@ import { NavLink } from "react-router";
 import { routes } from "../../Pages/AppRouter";
 
 import "./NavBar.css";
+import { useState } from "react";
+import { getMode, toggleMode, COLOR_DARK } from "./ColorMode";
 
 export const NavBar = () => {
   return (
     <nav className="navbar sticky-top navbar-expand-lg bg-opacity-75 bg-body-tertiary backdrop-blur">
       <div className="container-fluid">
         <a className="navbar-brand">APP_NAME</a>
+        <div className="ms-auto" />
+        <div className="d-lg-none">
+          <ColorModeToggle />
+        </div>
         <button
           className="navbar-toggler"
           type="button"
@@ -26,6 +32,10 @@ export const NavBar = () => {
           </ul>
           <div className="ms-auto" />
           <NavSearchForm />
+          <div className="ms-1" />
+          <div className="d-none d-lg-block">
+            <ColorModeToggle />
+          </div>
         </div>
       </div>
     </nav>
@@ -64,5 +74,21 @@ const NavSearchForm = () => {
         Search
       </button>
     </div>
+  );
+};
+
+const ColorModeToggle = () => {
+  const [colorMode, _setColorMode] = useState(getMode());
+
+  const toggleColorMode = (colorMode) => {
+    _setColorMode(toggleMode(colorMode));
+  };
+
+  return (
+    <button className="btn d-flex" onClick={toggleColorMode}>
+      <span className="material-symbols-rounded">
+        {colorMode === COLOR_DARK ? "light_mode" : "dark_mode"}
+      </span>
+    </button>
   );
 };
