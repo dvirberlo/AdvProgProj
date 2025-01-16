@@ -9,13 +9,14 @@ var router = express.Router();
 router
   .route("/")
   .get(movieController.getMovies)
-  .post(movieController.createMovie);
+  .post(movieController.movieUploads, movieController.createMovie);
 // Modify one category based on its ID
 router
   .route("/:id")
   .get(movieController.getMovieById)
   .delete(movieController.deleteMovie)
-  .put(movieController.updateMovie);
+  .put(movieController.movieUploads, movieController.putMovie)
+  .patch(movieController.movieUploads, movieController.updateMovie);
 
 router.use("/:id/recommend", RecommendRouter);
 router.use("/search", MovieSearchRouter);

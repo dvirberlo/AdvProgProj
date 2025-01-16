@@ -3,19 +3,38 @@ const mongoose = require("mongoose");
 const movieService = require("../services/movieService");
 const userService = require("../services/userService");
 const { MongoError } = require("../constants/mongoDBErrors");
+const {
+  getUploadedFilePath,
+  uploadFieldsMiddleware,
+} = require("./fileUploads");
+
+const movieFileFields = {
+  movie: "movieFile",
+  thumbnail: "thumbnailFile",
+};
+const movieUploads = uploadFieldsMiddleware(Object.values(movieFileFields));
+
 const createMovie = async (req, res) => {
-  let movie;
+  const movieFilePath = getUploadedFilePath(req, movieFileFields.movie);
+  const thumbnailFilePath = getUploadedFilePath(req, movieFileFields.thumbnail);
+  if (movieFileFields == null || thumbnailFilePath == null) {
+    return res
+      .status(400)
+      .json({ error: "Please provide a movie file and a thumbnail file." });
+  }
+
   try {
-    movie = await movieService.createMovie(
+    const movie = await movieService.createMovie(
       req.body.name,
       req.body.description,
       req.body.length,
       req.body.rating,
       req.body.categories,
       req.body.releaseYear,
-      req.body.filePath,
-      req.body.thumbnailPath
+      movieFilePath,
+      thumbnailFilePath
     );
+    return res.status(201).json(movie);
   } catch (error) {
     if (error instanceof mongoose.Error.ValidationError)
       return res.status(400).json({ error: error.message });
@@ -23,7 +42,6 @@ const createMovie = async (req, res) => {
       return res.status(409).json({ error: error.message });
     return res.status(500).json({ error: error?.message });
   }
-  return res.status(201).json(movie);
 };
 const getMovies = async (req, res) => {
   // not necessary for that exercise but good practice
@@ -82,7 +100,9 @@ const getMovieById = async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
-const updateMovie = async (req, res) => {
+const putMovie = async (req, res) => {
+  const movieFilePath = getUploadedFilePath(req, movieFileFields.movie);
+  const thumbnailFilePath = getUploadedFilePath(req, movieFileFields.thumbnail);
   if (
     req.params.id == null ||
     req.body.name == null ||
@@ -91,16 +111,15 @@ const updateMovie = async (req, res) => {
     req.body.rating == null ||
     req.body.categories == null ||
     req.body.releaseYear == null ||
-    req.body.filePath == null ||
-    req.body.thumbnailPath == null
+    movieFilePath == null ||
+    thumbnailFilePath == null
   )
     return res
       .status(400)
       .json({ error: "All movie fields must be specified" });
 
-  let movie;
   try {
-    movie = await movieService.updateMovie(
+    const movie = await movieService.updateMovie(
       req.params.id,
       req.body.name,
       req.body.description,
@@ -108,22 +127,44 @@ const updateMovie = async (req, res) => {
       req.body.rating,
       req.body.categories,
       req.body.releaseYear,
-      req.body.filePath,
-      req.body.thumbnailPath
+      movieFilePath,
+      thumbnailFilePath
     );
+    if (!movie) return res.status(404).json({ error: "Movie not found" });
+    return res.status(204).json({});
   } catch (error) {
     return res.status(400).json({ error: error.message });
   }
-
-  if (!movie) {
-    return res.status(404).json({ error: "Movie not found" });
-  }
-  return res.status(204).json({}); // return empty response
 };
+const updateMovie = async (req, res) => {
+  const movieFilePath = getUploadedFilePath(req, movieFileFields.movie);
+  const thumbnailFilePath = getUploadedFilePath(req, movieFileFields.thumbnail);
+
+  try {
+    const movie = await movieService.updateMovie(
+      req.params.id,
+      req.body.name,
+      req.body.description,
+      req.body.length,
+      req.body.rating,
+      req.body.categories,
+      req.body.releaseYear,
+      movieFilePath,
+      thumbnailFilePath
+    );
+    if (!movie) return res.status(404).json({ error: "Movie not found" });
+    return res.status(204).json({});
+  } catch (error) {
+    return res.status(400).json({ error: error.message });
+  }
+};
+
 module.exports = {
+  movieUploads,
   createMovie,
   getMovies,
   deleteMovie,
   getMovieById,
+  putMovie,
   updateMovie,
 };
