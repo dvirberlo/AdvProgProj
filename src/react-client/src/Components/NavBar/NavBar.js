@@ -29,6 +29,11 @@ export const NavBar = () => {
           <ul className="navbar-nav mb-2 mb-lg-0">
             <NavItem to={routes.Home} icon="home" text="Home" />
             <NavItem to={routes.Login} icon="login" text="Login" />
+            <NavItem
+              to={routes.Admin}
+              icon="admin_panel_settings"
+              text="Admin"
+            />
           </ul>
           <div className="ms-auto" />
           <NavSearchForm />
