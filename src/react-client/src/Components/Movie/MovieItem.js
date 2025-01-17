@@ -2,10 +2,8 @@ import React, { useState } from "react";
 import { MovieDetails } from "./MovieDetails";
 import { getMovieHttp } from "../../HttpRequest/getMovieHttp";
 import "./MovieItem.css";
-import { useAuth } from "../../Contexts/AuthContext/AuthContext";
 export const MovieItem = ({ movie }) => {
   const [selectedMovie, setSelectedMovie] = useState(null);
-  const { token } = useAuth();
   // When clicking on a movie picture, fetch the movie details then show details window
   const handleClick = (movieData) => {
     setSelectedMovie(movieData);

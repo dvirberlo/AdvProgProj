@@ -1,6 +1,6 @@
 import React from "react";
 import "./MovieDetails.css";
-import { StarRating } from "../Rating/StarRating"; 
+import { StarRating } from "../Rating/StarRating";
 
 export const MovieDetails = ({ movie, onClose }) => {
   if (!movie) return null;

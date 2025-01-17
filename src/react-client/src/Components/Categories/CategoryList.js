@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import { MovieItem } from "../Movie/MovieItem";
-import "./CategoryList.css"; 
+import "./CategoryList.css";
 
 export const CategoryList = ({ categoryName, movies }) => {
   // ref to the row div to scroll left and right
@@ -22,7 +22,10 @@ export const CategoryList = ({ categoryName, movies }) => {
     <div className="category-list-container">
       <h3 className="category-list-title">{categoryName}</h3>
 
-      <span className="material-symbols-outlined arrow-icon arrow-left" onClick={scrollLeft}>
+      <span
+        className="material-symbols-outlined arrow-icon arrow-left"
+        onClick={scrollLeft}
+      >
         chevron_left
       </span>
 
@@ -32,7 +35,10 @@ export const CategoryList = ({ categoryName, movies }) => {
         ))}
       </div>
 
-      <span className="material-symbols-outlined arrow-icon arrow-right" onClick={scrollRight}>
+      <span
+        className="material-symbols-outlined arrow-icon arrow-right"
+        onClick={scrollRight}
+      >
         chevron_right
       </span>
     </div>

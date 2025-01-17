@@ -81,22 +81,32 @@ const getMovies = async (userId) => {
       const moviesInCategory = await Movie.find({ categories: category._id });
 
       // Extract movie IDs the user has watched in this category
-      const watchedMovieIds = await Watch.find({ watcher: userId, movie: { $in: moviesInCategory.map(m => m._id) } })
-        .select('movie')
+      const watchedMovieIds = await Watch.find({
+        watcher: userId,
+        movie: { $in: moviesInCategory.map((m) => m._id) },
+      })
+        .select("movie")
         .lean()
         .exec();
-      
-      const watchedIdsSet = new Set(watchedMovieIds.map(w => w.movie.toString()));
+
+      const watchedIdsSet = new Set(
+        watchedMovieIds.map((w) => w.movie.toString())
+      );
 
       // Filter movies the user has not watched
-      const unwatchedMovies = moviesInCategory.filter(movie => !watchedIdsSet.has(movie._id.toString()));
+      const unwatchedMovies = moviesInCategory.filter(
+        (movie) => !watchedIdsSet.has(movie._id.toString())
+      );
 
       if (unwatchedMovies.length === 0) {
         continue; // Skip categories with no unwatched movies
       }
 
       // Shuffle and limit the movies
-      const shuffledUnwatchedMovies = shuffle(unwatchedMovies).slice(0, MAX_MOVIES);
+      const shuffledUnwatchedMovies = shuffle(unwatchedMovies).slice(
+        0,
+        MAX_MOVIES
+      );
 
       // Add to results
       results.push({
@@ -110,15 +120,15 @@ const getMovies = async (userId) => {
     // Now handle "Watched Movies"
     const watchedMovies = await Watch.find({ watcher: userId })
       .populate("movie")
-      .sort({ date: -1 }) 
+      .sort({ date: -1 })
       .limit(MAX_MOVIES)
       .lean()
       .exec();
 
     const watchedMoviesDetails = watchedMovies
-      .map(watch => watch.movie)
-      .filter(movie => movie !== null) // Ensure the movie exists
-      .reverse(); 
+      .map((watch) => watch.movie)
+      .filter((movie) => movie !== null) // Ensure the movie exists
+      .reverse();
 
     if (watchedMoviesDetails.length > 0) {
       results.push({
@@ -226,25 +236,28 @@ const updateMovie = async (
   filePath,
   thumbnailPath
 ) => {
-  if ((await getMovieById(id)) == null) {
+  const movie = await getMovieById(id); // Retrieve the movie by ID
+  if (!movie) {
     return null;
   }
-  await Movie.updateOne(
-    { _id: id },
-    {
-      $set: {
-        name: name,
-        description: description,
-        length: length,
-        rating: rating,
-        categories: categories,
-        releaseYear: releaseYear,
-        filePath: filePath,
-        thumbnailPath: thumbnailPath,
-      },
-    }
-  );
-  return await getMovieById(id);
+
+  // Update the properties
+  movie.name = name;
+  movie.description = description;
+  movie.length = length;
+  movie.rating = rating;
+  movie.categories = categories;
+  movie.releaseYear = releaseYear;
+  movie.filePath = filePath;
+  movie.thumbnailPath = thumbnailPath;
+
+  // Save the updated movie
+  try {
+    const updatedMovie = await movie.save();
+    return updatedMovie;
+  } catch (error) {
+    throw new Error("Error updating movie: " + error.message);
+  }
 };
 const getMovieByLegacyId = async (legacyId) => {
   const movie = await Movie.findOne({ legacyId: legacyId });
