@@ -1,0 +1,24 @@
+.movie-item {
+  min-width: 180px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: transparent;
+  padding: 0.5rem;
+  border-radius: 10px;
+}
+
+.movie-thumbnail {
+  width: 180px;
+  height: 270px;
+  object-fit: cover;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+  cursor: pointer;
+  border: 4px solid transparent;
+}
+div.movie-item .movie-thumbnail:hover {
+  border-color: #d0cece;
+  transform: scale(1.05);
+}

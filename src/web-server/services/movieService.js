@@ -10,11 +10,25 @@ const MAX_MOVIES = 20;
 // Define the error code for duplicate key
 const ERROR_DUP_KEY = 11000;
 
-const createMovie = async (name, categories, releaseDate) => {
+const createMovie = async (
+  name,
+  description,
+  length,
+  rating,
+  categories,
+  releaseYear,
+  filePath,
+  thumbnailPath
+) => {
   const movie = await Movie.create({
     name: name,
+    description: description,
+    length: length,
+    rating: rating,
     categories: categories,
-    releaseDate: releaseDate,
+    releaseYear: releaseYear,
+    filePath: filePath,
+    thumbnailPath: thumbnailPath,
     legacyId: await getUniqueLegacyId(),
   });
   return await movie.save();
@@ -56,67 +70,66 @@ const getMovies = async (userId) => {
   }
 
   try {
-    // Find all promoted categories
+    // Find all promoted categories and populate their movies
     const promotedCategories = await Category.find({ promoted: true });
 
-    // Create a plain object to store results (serializable to JSON)
-    const results = {};
-
-    // For each promoted category, find up to 20 movies the user has not watched
+    // Create an array to store the results
+    const results = [];
+    // Iterate over each promoted category
     for (const category of promotedCategories) {
       // Find all movies in this category
-      const movies = await Movie.find({ categories: category._id });
+      const moviesInCategory = await Movie.find({ categories: category._id });
 
-      // Collect unwatched movies
-      const unwatchedMovies = [];
+      // Extract movie IDs the user has watched in this category
+      const watchedMovieIds = await Watch.find({ watcher: userId, movie: { $in: moviesInCategory.map(m => m._id) } })
+        .select('movie')
+        .lean()
+        .exec();
+      
+      const watchedIdsSet = new Set(watchedMovieIds.map(w => w.movie.toString()));
 
-      for (const movie of movies) {
-        // Check if the user has already watched this movie
-        const hasWatched = await Watch.findOne({
-          watcher: userId,
-          movie: movie._id,
-        });
-        // If the user has NOT watched this movie, push it to `unwatchedMovies`
-        if (!hasWatched) {
-          unwatchedMovies.push(movie._id);
-        }
+      // Filter movies the user has not watched
+      const unwatchedMovies = moviesInCategory.filter(movie => !watchedIdsSet.has(movie._id.toString()));
+
+      if (unwatchedMovies.length === 0) {
+        continue; // Skip categories with no unwatched movies
       }
 
-      // Shuffle the unwatched movies for randomness
-      const shuffledUnwatchedMovies = shuffle(unwatchedMovies);
-      // Keep only the first 20
-      const limitedUnwatchedMovies = shuffledUnwatchedMovies.slice(
-        0,
-        MAX_MOVIES
-      );
+      // Shuffle and limit the movies
+      const shuffledUnwatchedMovies = shuffle(unwatchedMovies).slice(0, MAX_MOVIES);
 
-      // Only add a category if there's at least one unwatched movie
-      if (limitedUnwatchedMovies.length > 0) {
-        results[category.name] = limitedUnwatchedMovies;
-      }
+      // Add to results
+      results.push({
+        _id: category._id,
+        name: category.name,
+        promoted: category.promoted,
+        movies: shuffledUnwatchedMovies,
+      });
     }
 
-    // Now we add a special entry for the last 20 movies the user has watched
-    let watchedMovies = await Watch.find({ watcher: userId }).populate("movie");
+    // Now handle "Watched Movies"
+    const watchedMovies = await Watch.find({ watcher: userId })
+      .populate("movie")
+      .sort({ date: -1 }) 
+      .limit(MAX_MOVIES)
+      .lean()
+      .exec();
 
-    // Sort by date (assuming `a.date` and `b.date` are valid date fields in the Watch model)
-    watchedMovies.sort((a, b) => a.date - b.date);
+    const watchedMoviesDetails = watchedMovies
+      .map(watch => watch.movie)
+      .filter(movie => movie !== null) // Ensure the movie exists
+      .reverse(); 
 
-    // Take only the last 20
-    watchedMovies = watchedMovies.slice(-MAX_MOVIES);
-    // shuffle the watched movies
-    watchedMoviesShuffle = shuffle(watchedMovies);
+    if (watchedMoviesDetails.length > 0) {
+      results.push({
+        name: WATCHED_MOVIES_NAME,
+        movies: shuffle(watchedMoviesDetails),
+      });
+    }
 
-    // Create a "Watched Movies" category in results
-    // This is a const defined in the categoryModel.js file
-    results[WATCHED_MOVIES_NAME] = watchedMoviesShuffle.map(
-      (watch) => watch.movie._id
-    );
-
-    // Return the aggregated results
     return results;
   } catch (error) {
-    console.error("Error retrieving unwatched movies by category:", error);
+    console.error("Error retrieving movies:", error);
     throw error;
   }
 };
@@ -202,7 +215,17 @@ const deleteCategory = async (id) => {
   }
 };
 
-const updateMovie = async (name, categories, releaseDate, id) => {
+const updateMovie = async (
+  id,
+  name,
+  description,
+  length,
+  rating,
+  categories,
+  releaseYear,
+  filePath,
+  thumbnailPath
+) => {
   const movie = await getMovieById(id); // Retrieve the movie by ID
   if (!movie) {
     return null;
@@ -210,8 +233,13 @@ const updateMovie = async (name, categories, releaseDate, id) => {
 
   // Update the properties
   movie.name = name;
+  movie.description = description;
+  movie.length = length;
+  movie.rating = rating;
   movie.categories = categories;
-  movie.releaseDate = releaseDate;
+  movie.releaseYear = releaseYear;
+  movie.filePath = filePath;
+  movie.thumbnailPath = thumbnailPath;
 
   // Save the updated movie
   try {

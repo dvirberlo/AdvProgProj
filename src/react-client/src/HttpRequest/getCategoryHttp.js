@@ -1,9 +1,9 @@
-export const getMovieHttp = async (token, movieId) => {
+export const getCategoryHttp = async (token, categoryId) => {
   try {
     // http get request to the server
     // should change the hard coded port to env variable
     const response = await fetch(
-      `http://localhost:3000/api/movies/${movieId}`,
+      `http://localhost:3000/api/categories/${categoryId}`,
       {
         method: "GET",
         headers: {
