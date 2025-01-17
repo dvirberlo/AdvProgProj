@@ -226,28 +226,25 @@ const updateMovie = async (
   filePath,
   thumbnailPath
 ) => {
-  const movie = await getMovieById(id); // Retrieve the movie by ID
-  if (!movie) {
+  if ((await getMovieById(id)) == null) {
     return null;
   }
-
-  // Update the properties
-  movie.name = name;
-  movie.description = description;
-  movie.length = length;
-  movie.rating = rating;
-  movie.categories = categories;
-  movie.releaseYear = releaseYear;
-  movie.filePath = filePath;
-  movie.thumbnailPath = thumbnailPath;
-
-  // Save the updated movie
-  try {
-    const updatedMovie = await movie.save();
-    return updatedMovie;
-  } catch (error) {
-    throw new Error("Error updating movie: " + error.message);
-  }
+  await Movie.updateOne(
+    { _id: id },
+    {
+      $set: {
+        name: name,
+        description: description,
+        length: length,
+        rating: rating,
+        categories: categories,
+        releaseYear: releaseYear,
+        filePath: filePath,
+        thumbnailPath: thumbnailPath,
+      },
+    }
+  );
+  return await getMovieById(id);
 };
 const getMovieByLegacyId = async (legacyId) => {
   const movie = await Movie.findOne({ legacyId: legacyId });
