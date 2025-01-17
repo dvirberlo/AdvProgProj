@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { UserRoles, UserRoleValues } = require("./userRolesModel");
 
 const userSchema = new mongoose.Schema({
   firstName: {
@@ -31,6 +32,12 @@ const userSchema = new mongoose.Schema({
   image: {
     type: String,
     default: "https://robohash.org/DemoUserImage.png",
+  },
+  role: {
+    type: String,
+    required: true,
+    default: UserRoles.User,
+    enum: UserRoleValues,
   },
 });
 
