@@ -1,9 +1,8 @@
 import { NavLink } from "react-router";
 import { routes } from "../../Pages/AppRouter";
+import { useTheme, DARK_THEME } from "../../Contexts/ThemeContext/ThemeContext";
 
 import "./NavBar.css";
-import { useState } from "react";
-import { getMode, toggleMode, COLOR_DARK } from "./ColorMode";
 
 export const NavBar = () => {
   return (
@@ -83,16 +82,12 @@ const NavSearchForm = () => {
 };
 
 const ColorModeToggle = () => {
-  const [colorMode, _setColorMode] = useState(getMode());
-
-  const toggleColorMode = (colorMode) => {
-    _setColorMode(toggleMode(colorMode));
-  };
+  const { theme, toggleTheme } = useTheme();
 
   return (
-    <button className="btn d-flex" onClick={toggleColorMode}>
+    <button className="btn d-flex" onClick={toggleTheme}>
       <span className="material-symbols-rounded">
-        {colorMode === COLOR_DARK ? "light_mode" : "dark_mode"}
+        {theme === DARK_THEME ? "light_mode" : "dark_mode"}
       </span>
     </button>
   );
