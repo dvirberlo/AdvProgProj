@@ -1,24 +1,38 @@
+/* Container holding the movie items */
+.movies-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem; /* space between items */
+  justify-content: center;
+  padding: 0 3rem; /* left and right padding for a Netflix-like center layout */
+  margin: 0 auto;
+  max-width: 1600px; /* optional max width */
+}
+
 .movie-item {
-  min-width: 180px;
+  width: 240px;
   flex-shrink: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   background-color: transparent;
-  padding: 0.5rem;
+  margin-bottom: 3rem;
   border-radius: 10px;
+  box-sizing: border-box;
 }
-
+/* impotent here you should adjust the picture height and width to fit want we will want */
 .movie-thumbnail {
-  width: 180px;
-  height: 270px;
+  width: 240px;
+  height: 200px;
   object-fit: cover;
   border-radius: 4px;
   margin-bottom: 0.5rem;
   cursor: pointer;
   border: 4px solid transparent;
+  transition: transform 0.2s ease;
 }
-div.movie-item .movie-thumbnail:hover {
+
+.movie-item .movie-thumbnail:hover {
   border-color: #d0cece;
   transform: scale(1.05);
 }

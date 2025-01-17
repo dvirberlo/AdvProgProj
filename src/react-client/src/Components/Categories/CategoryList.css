@@ -1,4 +1,3 @@
-/*updated*/
 .category-list-container {
   position: relative;
   margin-bottom: 2rem;
@@ -9,6 +8,7 @@
   color: inherit;
 }
 
+/* Allows horizontal scroll but removes extra left space */
 .movies-row {
   display: flex;
   justify-content: flex-start;
@@ -16,8 +16,9 @@
   overflow-x: auto;
   scroll-behavior: smooth;
   padding-bottom: 1rem;
-  padding-left: 40px;
-  padding-right: 40px;
+  /* Set this to 0 or a smaller value to remove the large left indentation: */
+  padding-left: 0;
+  padding-right: 40px; /* Keep if you still want some padding on the right */
 }
 
 .arrow-icon {
@@ -35,11 +36,11 @@
 }
 
 .arrow-left {
-  left: 5px;
+  left: -3px; /* Or adjust to 0 if you want it exactly on the edge */
 }
 
 .arrow-right {
-  right: 5px;
+  right: 0px;
 }
 
 .arrow-icon:hover {
@@ -51,4 +52,31 @@
   .arrow-icon:hover {
     background-color: #4d4d4d;
   }
+}
+
+.movie-item {
+  min-width: 180px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  background-color: transparent;
+  padding: 0.5rem;
+  border-radius: 4px;
+}
+
+.movie-picture {
+  width: 180px;
+  height: 270px;
+  object-fit: cover;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+}
+
+.more-to-explore {
+  color: lightgray;
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  font-size: 1.25rem;
 }

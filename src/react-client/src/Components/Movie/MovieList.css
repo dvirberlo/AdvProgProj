@@ -1,0 +1,7 @@
+.more-to-explore {
+  color: lightgray; /* Set text color to light grey */
+  text-align: center; /* Center the text */
+  margin-top: 10px; /* Adjust top margin to position it higher */
+  margin-bottom: 20px; /* Space below the heading */
+  font-size: 1.25rem; /* Increase font size for better visibility */
+}

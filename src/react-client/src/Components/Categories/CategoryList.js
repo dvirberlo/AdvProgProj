@@ -3,18 +3,17 @@ import { MovieItem } from "../Movie/MovieItem";
 import "./CategoryList.css";
 
 export const CategoryList = ({ categoryName, movies }) => {
-  // ref to the row div to scroll left and right
   const rowRef = useRef(null);
 
   const scrollLeft = () => {
     if (rowRef.current) {
-      rowRef.current.scrollLeft -= 200;
+      rowRef.current.scrollLeft -= 250;
     }
   };
 
   const scrollRight = () => {
     if (rowRef.current) {
-      rowRef.current.scrollLeft += 200;
+      rowRef.current.scrollLeft += 250;
     }
   };
 

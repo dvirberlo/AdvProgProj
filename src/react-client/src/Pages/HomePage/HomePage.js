@@ -1,22 +1,19 @@
-// HomePage.js
 import React, { useEffect, useState } from "react";
 import { NavBarTemplate } from "../../Components/NavBar/NavBarTemplate";
 import { CategoryLists } from "../../Components/Categories/CategoryLists";
 import { getMoviesHttp } from "../../HttpRequest/getMoviesHttp";
-import { useSearchParams } from "react-router"; 
-import { useAuth } from "../../Contexts/AuthContext/AuthContext";
+const demoToken = "67896ad97a9550763c011921";
 export const HomePage = () => {
   // State variables to manage categories data, loading state, and errors
   const [categoriesWithMovies, setCategoriesWithMovies] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const { token } = useAuth();
 
   useEffect(() => {
     // function to fetch data
     const fetchMoviesCategories = async () => {
       try {
-        const response = await getMoviesHttp(token);
+        const response = await getMoviesHttp(demoToken);
         if (response === null) {
           console.log("Failed to fetch movies");
           setError("Failed to fetch movies");
@@ -32,41 +29,41 @@ export const HomePage = () => {
       }
     };
     fetchMoviesCategories();
-  }, [userToken]); 
+  }, [demoToken]);
 
   // Render loading state
   if (loading) {
     return (
-      <NavBarTemplate>
+      <div>
         <div className="container-fluid py-4">
           <h1 className="text-center mb-4">Netflix</h1>
           <div>Loading...</div>
         </div>
-      </NavBarTemplate>
+      </div>
     );
   }
 
   // Render error state
   if (error) {
     return (
-      <NavBarTemplate>
+      <div>
         <div className="container-fluid py-4">
           <h1 className="text-center mb-4">Netflix</h1>
           <div className="alert alert-danger" role="alert">
             {error}
           </div>
         </div>
-      </NavBarTemplate>
+      </div>
     );
   }
 
   // Render the categories and movies
   return (
-    <NavBarTemplate>
+    <div>
       <div className="container-fluid py-4">
         <h1 className="text-center mb-4">Netflix</h1>
         <CategoryLists categories={categoriesWithMovies} />
       </div>
-    </NavBarTemplate>
+    </div>
   );
 };

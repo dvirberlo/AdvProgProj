@@ -1,4 +1,3 @@
-import { NavBarTemplate } from "../../Components/NavBar/NavBarTemplate";
 import { CreateMovieForm } from "./CreateMovieForm";
 import { CreateCategoryForm } from "./CreateCategoryForm";
 import { EditMovieForm } from "./EditMovieForm";
@@ -9,7 +8,7 @@ import { TabsNav } from "../../Components/TabsNav/TabsNav";
 
 export const AdminPage = () => {
   return (
-    <NavBarTemplate>
+    <div>
       <div className="container">
         <TabsNav
           tabs={[
@@ -40,6 +39,6 @@ export const AdminPage = () => {
           ]}
         />
       </div>
-    </NavBarTemplate>
+    </div>
   );
 };
