@@ -10,12 +10,27 @@ const movieSchema = new Schema({
     required: [true, "Name is required"],
     unique: true,
     minlength: 1,
-    validate: {
-      validator: function (v) {
-        return typeof v === "string";
-      },
-      message: "Name must be a string",
-    },
+    maxLength: 50,
+  },
+  description: {
+    type: String,
+    required: true,
+    minLength: 1,
+    maxLength: 200,
+  },
+  /**
+   * length in minutes
+   */
+  length: {
+    type: Number,
+    required: true,
+    min: 0,
+  },
+  rating: {
+    type: Number,
+    required: true,
+    min: 0,
+    max: 5,
   },
   categories: {
     // Array of Category references
@@ -23,9 +38,17 @@ const movieSchema = new Schema({
     default: [],
     validate: [arrayReferenceValidator(Category)],
   },
-  releaseDate: {
-    type: Date,
-    default: Date.now,
+  releaseYear: {
+    type: Number,
+    required: true,
+  },
+  filePath: {
+    type: String,
+    required: true,
+  },
+  thumbnailPath: {
+    type: String,
+    required: true,
   },
   legacyId: {
     type: mongoose.Schema.Types.Int32,
