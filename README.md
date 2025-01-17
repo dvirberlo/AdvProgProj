@@ -307,6 +307,18 @@ npm install # install required npm packages
 npm start # start the web server
 ```
 
+#### React Client
+
+First, install [NodeJS](https://nodejs.org).
+
+Once installed, you can install the npm dependencies and run the client locally:
+
+```bash
+cd src/react-client
+npm install # install required npm packages
+npm start # start a static server on local host and open the client in browser
+```
+
 ### Code Style and Format
 
 Please, always format your files.
