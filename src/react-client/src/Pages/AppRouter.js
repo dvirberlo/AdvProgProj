@@ -11,7 +11,7 @@ export const routes = {
   Login: "/login",
   Admin: "/admin",
   SearchPage: "/search",
-  ErrorPage: "/error",
+  ErrorPage: "/*",
 };
 
 export const AppRouter = () => {
