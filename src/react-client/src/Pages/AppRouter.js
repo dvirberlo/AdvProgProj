@@ -1,11 +1,11 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { HomePage } from "./HomePage/HomePage"; 
+import { HomePage } from "./HomePage/HomePage";
 import { LoginPage } from "./LoginPage/LoginPage";
 import { AdminPage } from "./AdminPage/AdminPage";
 import { SignupPage } from "./SignupPage/SignupPage";
 
 export const routes = {
-  Home: "/", 
+  Home: "/",
   Login: "/login",
   Admin: "/admin",
   Signup: "/signup",

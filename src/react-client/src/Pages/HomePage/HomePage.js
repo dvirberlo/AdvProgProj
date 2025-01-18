@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { RegisteredHomePage } from "../HomePage/RegisteredHomePage"; 
-import { UnRegisteredHomePage } from "../HomePage/UnRegisteredHomePage"; 
+import { RegisteredHomePage } from "../HomePage/RegisteredHomePage";
+import { UnRegisteredHomePage } from "../HomePage/UnRegisteredHomePage";
 
 export const HomePage = () => {
   const [loading, setLoading] = useState(true);
@@ -15,7 +15,7 @@ export const HomePage = () => {
     } else {
       setIsLoggedIn(false);
     }
-    setLoading(false);  // Set loading to false once the check is complete
+    setLoading(false); // Set loading to false once the check is complete
   }, []);
 
   // Show loading state while checking the token
