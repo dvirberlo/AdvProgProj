@@ -2,9 +2,7 @@ import { BrowserRouter, Route, Routes } from "react-router";
 import { UnRegisteredHomePage } from "./HomePage/UnRegisteredHomePage";
 import { LoginPage } from "./LoginPage/LoginPage";
 import { AdminPage } from "./AdminPage/AdminPage";
-import {SignupPage} from "./SignupPage/SignupPage";
-
-
+import { SignupPage } from "./SignupPage/SignupPage";
 
 export const routes = {
   Home: "/",

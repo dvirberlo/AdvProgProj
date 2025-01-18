@@ -1,8 +1,19 @@
-import React from 'react';
+import React from "react";
 
-export const InputField = ({ label, type, name, value, onChange, placeholder, maxLengthWarning, errorMessage }) => (
+export const InputField = ({
+  label,
+  type,
+  name,
+  value,
+  onChange,
+  placeholder,
+  maxLengthWarning,
+  errorMessage,
+}) => (
   <div className="col-md-12">
-    <label htmlFor={name} className="form-label">{label}</label>
+    <label htmlFor={name} className="form-label">
+      {label}
+    </label>
     <input
       type={type}
       className="form-control bg-secondary text-dark"

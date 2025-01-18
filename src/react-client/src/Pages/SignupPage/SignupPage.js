@@ -8,11 +8,11 @@ import { NavLink } from "react-router-dom";
 
 export const SignupPage = () => {
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    username: '',
-    password: '',
-    confirmPassword: '',
+    firstName: "",
+    lastName: "",
+    username: "",
+    password: "",
+    confirmPassword: "",
     image: null,
   });
 
@@ -60,7 +60,7 @@ export const SignupPage = () => {
       ...prevErrors,
       [name]: value.length > 20,
     }));
-    
+
     if (value.length === 20) {
       setMaxLengthWarning((prevWarnings) => ({
         ...prevWarnings,
@@ -108,15 +108,21 @@ export const SignupPage = () => {
       });
 
       if (response.status === 409) {
-        setErrorMessage("Username already exists. Please choose a different username.");
+        setErrorMessage(
+          "Username already exists. Please choose a different username."
+        );
       } else if (response.ok) {
         navigate(routes.Login);
       } else {
         const errorData = await response.json();
-        setErrorMessage(errorData.message || "An error occurred. Please try again.");
+        setErrorMessage(
+          errorData.message || "An error occurred. Please try again."
+        );
       }
     } catch (error) {
-      setErrorMessage("Failed to connect to the server. Please try again later.");
+      setErrorMessage(
+        "Failed to connect to the server. Please try again later."
+      );
     }
   };
 
@@ -139,7 +145,11 @@ export const SignupPage = () => {
       </div>
       <h1 className="mt-2 mb-1 text-center">Sign Up</h1>
 
-      <form className="mt-3 px-3 mx-auto" style={{ maxWidth: '600px' }} onSubmit={handleSubmit}>
+      <form
+        className="mt-3 px-3 mx-auto"
+        style={{ maxWidth: "600px" }}
+        onSubmit={handleSubmit}
+      >
         <InputField
           label="First Name"
           type="text"
@@ -177,7 +187,11 @@ export const SignupPage = () => {
           value={formData.password}
           onChange={handleChange}
           placeholder="At least 8 characters, 1 letter, 1 number"
-          errorMessage={!passwordComplexity && formData.password ? "Password must meet the conditions" : ""}
+          errorMessage={
+            !passwordComplexity && formData.password
+              ? "Password must meet the conditions"
+              : ""
+          }
         />
 
         <InputField
@@ -200,13 +214,20 @@ export const SignupPage = () => {
 
         {/* Display error message if there is one */}
         {errorMessage && (
-          <div className="alert alert-danger mt-3" style={{ fontSize: "0.8rem" }}>
+          <div
+            className="alert alert-danger mt-3"
+            style={{ fontSize: "0.8rem" }}
+          >
             {errorMessage}
           </div>
         )}
         {/* submit button */}
         <div className="col-12 mt-4">
-          <button className="btn btn-danger w-100" type="submit" disabled={!isFormValid()}>
+          <button
+            className="btn btn-danger w-100"
+            type="submit"
+            disabled={!isFormValid()}
+          >
             Sign Up
           </button>
         </div>
@@ -215,7 +236,10 @@ export const SignupPage = () => {
         <div className="mt-2 text-center">
           <span style={{ fontSize: "0.9rem", color: "white" }}>
             Already signed up?{" "}
-            <NavLink to={routes.Login} style={{ color: "lightblue", textDecoration: "none" }}>
+            <NavLink
+              to={routes.Login}
+              style={{ color: "lightblue", textDecoration: "none" }}
+            >
               Click here to sign in
             </NavLink>
           </span>
