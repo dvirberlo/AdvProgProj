@@ -7,11 +7,11 @@
   background-color: transparent;
   border-radius: 10px;
   box-sizing: border-box;
-  margin-bottom: 4rem;
+  margin-bottom: 0rem;
 }
 
 .movie-thumbnail {
-  width: clamp(100px, 15vw, 320px);
+  width: clamp(150px, 15vw, 320px);
   aspect-ratio: 16 / 9;
   object-fit: cover;
   border-radius: 10px;
