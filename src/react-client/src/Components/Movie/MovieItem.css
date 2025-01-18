@@ -11,10 +11,9 @@
 }
 
 .movie-thumbnail {
-  width: clamp(100px, 25vw, 320px);
-
+  width: clamp(100px, 15vw, 320px);
   aspect-ratio: 16 / 9;
-
+  object-fit: cover;
   border-radius: 10px;
   margin-bottom: 0.5rem;
   cursor: pointer;
