@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { InputField } from "../../Components/Login/InputField"; // Assuming you have this component for input fields
-import { routes } from "../../Pages/AppRouter"; // Assuming the routes are defined here
+import { InputField } from "../../Components/Login/InputField"; 
+import { routes } from "../../Pages/AppRouter"; 
 import { useNavigate } from "react-router-dom";
 
 export const LoginPage = () => {
