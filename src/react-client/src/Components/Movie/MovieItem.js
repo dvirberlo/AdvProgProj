@@ -1,12 +1,16 @@
 import React, { useState } from "react";
 import { MovieDetails } from "./MovieDetails";
-import { getMovieHttp } from "../../HttpRequest/getMovieHttp";
 import "./MovieItem.css";
-export const MovieItem = ({ movie }) => {
+
+export const MovieItem = ({ movie, handleArrow }) => {
   const [selectedMovie, setSelectedMovie] = useState(null);
-  // When clicking on a movie picture, fetch the movie details then show details window
+  // set the selected movie and open the MovieDetails modal
   const handleClick = (movieData) => {
     setSelectedMovie(movieData);
+    // set the arrow state to false to hide the arrows when the modal is open
+    if (handleArrow) {
+      handleArrow();
+    }
   };
 
   // Function to close the MovieDetails modal

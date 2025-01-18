@@ -35,7 +35,7 @@ export const MovieDetails = ({ movie, onClose }) => {
                 <img
                   src={movie.thumbnailPath}
                   alt={movie.name}
-                  className="movie-picture"
+                  className="movie-picture-details"
                 />
               </div>
               <div className="col-md-8">

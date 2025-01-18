@@ -1,15 +1,5 @@
-.movie-item {
-  min-width: 180px;
-  flex-shrink: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  background-color: transparent;
-  padding: 0.5rem;
-  border-radius: 4px;
-}
-.movie-picture {
-  width: 300px;
+.movie-picture-details {
+  width: 180px;
   height: 270px;
   object-fit: cover;
   border-radius: 4px;
