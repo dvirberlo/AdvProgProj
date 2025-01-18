@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { NavLink, useNavigate, useLocation } from "react-router-dom";
+import { NavLink, useNavigate, useLocation } from "react-router";
 import { routes } from "../../Pages/AppRouter";
 import { useTheme, DARK_THEME } from "../../Contexts/ThemeContext/ThemeContext";
 import "./NavBar.css";

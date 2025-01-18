@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router";
 import { queryHttp } from "../../HttpRequest/queryHttp";
 import { MovieList } from "../../Components/Movie/MovieList";
 
