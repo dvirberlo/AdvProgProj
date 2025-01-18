@@ -4,12 +4,14 @@ import { LoginPage } from "./LoginPage/LoginPage";
 import { AdminPage } from "./AdminPage/AdminPage";
 import { SearchPage } from "./SearchPage/SearchPage";
 import { NavBarTemplate } from "../Components/NavBar/NavBarTemplate";
-
+import { ErrorPage } from "./ErrorPage/ErrorPage";
+import { useState } from "react";
 export const routes = {
   Home: "/",
   Login: "/login",
   Admin: "/admin",
   SearchPage: "/search",
+  ErrorPage: "/error",
 };
 
 export const AppRouter = () => {
@@ -17,6 +19,7 @@ export const AppRouter = () => {
     <BrowserRouter>
       <NavBarTemplate>
         <Routes>
+          <Route path={routes.ErrorPage} element={<ErrorPage />} />
           <Route path={routes.SearchPage} element={<SearchPage />} />
           <Route index path={routes.Home} element={<HomePage />} />
           <Route path={routes.Login} element={<LoginPage />} />
