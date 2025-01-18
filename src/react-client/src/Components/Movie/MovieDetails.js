@@ -39,13 +39,13 @@ export const MovieDetails = ({ movie, onClose }) => {
                 />
               </div>
               <div className="col-md-8">
-                <p>
+                <p className="movie-details">
                   <strong>Description:</strong> {movie.description}
                 </p>
-                <div>
+                <div className="movie-details">
                   <strong>Rating:</strong> <StarRating rating={movie.rating} />
                 </div>
-                <p>
+                <p className="movie-details">
                   <strong>Year:</strong> {movie.releaseYear}
                 </p>
               </div>

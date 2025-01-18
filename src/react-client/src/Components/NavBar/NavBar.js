@@ -5,32 +5,9 @@ import { useTheme, DARK_THEME } from "../../Contexts/ThemeContext/ThemeContext";
 import "./NavBar.css";
 
 export const NavBar = () => {
-  // Store the typed search text
   const [searchValue, setSearchValue] = useState("");
-  // Keep track of the route the user was on before starting to type
-  const [previousRoute, setPreviousRoute] = useState(routes.Home);
-  // use the navigate function to navigate to a new route
-  const navigate = useNavigate();
-  // use the useLocation hook to get the current
-  const location = useLocation();
-
-  const handleSearchChange = (e) => {
-    const value = e.target.value;
-    // this is before we apply setSearchValue so this is the first char of the user input
-    // so we store the previous route if the user is not on the search page
-    if (searchValue === "" && value !== "" && location.pathname !== "/search") {
-      setPreviousRoute(location.pathname);
-    }
-
-    setSearchValue(value);
-
-    if (value.trim()) {
-      navigate(`/search?q=${encodeURIComponent(value.trim())}`, {
-        replace: true,
-      });
-    } else {
-      navigate(previousRoute, { replace: true });
-    }
+  const handleSearchChange = (newValue) => {
+    setSearchValue(newValue);
   };
 
   return (
@@ -67,6 +44,7 @@ export const NavBar = () => {
           </ul>
 
           <div className="ms-auto" />
+          {/* Pass searchValue and handleSearchChange to NavSearchForm */}
           <NavSearchForm
             searchValue={searchValue}
             handleSearchChange={handleSearchChange}
@@ -81,7 +59,6 @@ export const NavBar = () => {
     </nav>
   );
 };
-
 const NavItem = ({ to, icon, text }) => {
   return (
     <li className="nav-item px-2">
@@ -101,6 +78,43 @@ const NavItem = ({ to, icon, text }) => {
 };
 
 const NavSearchForm = ({ searchValue, handleSearchChange }) => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  // Keep track of the route the user was on before searching
+  const [previousRoute, setPreviousRoute] = useState(routes.Home);
+
+  // Handle pressing "Enter"
+  const onKeyDown = (e) => {
+    if (e.key === "Enter" && searchValue.trim()) {
+      navigate(`/search?q=${encodeURIComponent(searchValue.trim())}`, {
+        replace: true,
+      });
+    }
+  };
+
+  // Handle onChange of the input
+  const onChange = (e) => {
+    const value = e.target.value;
+
+    // If we just started typing and are not on /search, record previous route
+    if (searchValue === "" && value !== "" && location.pathname !== "/search") {
+      setPreviousRoute(location.pathname);
+    }
+
+    // Update the parent's searchValue
+    handleSearchChange(value);
+
+    // Navigate to search or back to previous route based on the new value
+    if (value.trim()) {
+      navigate(`/search?q=${encodeURIComponent(value.trim())}`, {
+        replace: true,
+      });
+    } else {
+      navigate(previousRoute, { replace: true });
+    }
+  };
+
   return (
     <div className="input-group w-auto">
       <input
@@ -109,9 +123,18 @@ const NavSearchForm = ({ searchValue, handleSearchChange }) => {
         placeholder="Search something..."
         aria-label="Search"
         value={searchValue}
-        onChange={handleSearchChange}
+        onKeyDown={onKeyDown}
+        onChange={onChange}
       />
-      <button className="btn btn-outline-secondary d-flex" type="button">
+      <button
+        className="btn btn-outline-secondary d-flex"
+        type="button"
+        onClick={() => {
+          if (searchValue.trim()) {
+            navigate(`/search?q=${encodeURIComponent(searchValue.trim())}`);
+          }
+        }}
+      >
         <span className="material-symbols-rounded me-1">search</span>
         Search
       </button>
