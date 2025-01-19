@@ -14,7 +14,7 @@ export const NavBarTemplate = ({ children }) => {
   return (
     <div>
       <NavBar />
-      {children}
+      <div className="mt-1">{children}</div>
     </div>
   );
 };

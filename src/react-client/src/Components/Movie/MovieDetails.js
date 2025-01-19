@@ -2,8 +2,15 @@ import React from "react";
 import "./MovieDetails.css";
 import { StarRating } from "../Rating/StarRating";
 import { ServerImage } from "../ServerMedia/ServerImage";
+import { useNavigate } from "react-router";
+import { routes } from "../../Pages/AppRouter";
 
 export const MovieDetails = ({ movie, onClose }) => {
+  const navigate = useNavigate();
+  const watchClick = () => {
+    navigate(routes.MoviePage + "/" + movie._id);
+  };
+
   if (!movie) return null;
 
   return (
@@ -61,7 +68,11 @@ export const MovieDetails = ({ movie, onClose }) => {
             >
               Close
             </button>
-            <button type="button" className="btn btn-danger">
+            <button
+              type="button"
+              className="btn btn-danger"
+              onClick={watchClick}
+            >
               Watch Now
             </button>
           </div>

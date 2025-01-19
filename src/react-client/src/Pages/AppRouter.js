@@ -7,6 +7,7 @@ import { SearchPage } from "./SearchPage/SearchPage";
 import { NavBarTemplate } from "../Components/NavBar/NavBarTemplate";
 import { ErrorPage } from "./ErrorPage/ErrorPage";
 import { SignupPage } from "./SignupPage/SignupPage";
+import { MoviePage } from "./MoviePage/MoviePage";
 
 export const routes = {
   Landing: "/",
@@ -16,6 +17,7 @@ export const routes = {
   SearchPage: "/search",
   Error: "/*",
   Signup: "/signup",
+  MoviePage: "/movie",
 };
 
 export const AppRouter = () => {
@@ -30,6 +32,7 @@ export const AppRouter = () => {
           <Route path={routes.Admin} element={<AdminPage />} />
           <Route path={routes.Error} element={<ErrorPage />} />
           <Route path={routes.Signup} element={<SignupPage />} />
+          <Route path={routes.MoviePage + "/:id"} element={<MoviePage />} />
         </Routes>
       </NavBarTemplate>
     </BrowserRouter>

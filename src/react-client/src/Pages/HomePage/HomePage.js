@@ -4,6 +4,7 @@ import { getMoviesHttp } from "../../HttpRequest/getMoviesHttp";
 import { useNavigate } from "react-router";
 import { useAuth } from "../../Contexts/AuthContext/AuthContext";
 import { routes } from "../../Pages/AppRouter";
+import { VideoPlayer } from "../../Components/VideoPlayer/VideoPlayer";
 
 export const HomePage = () => {
   const { auth, setAuth } = useAuth();
@@ -18,8 +19,7 @@ export const HomePage = () => {
 
   return (
     <div>
-      <div className="container-fluid py-4">
-        <h1 className="text-center mb-4">Movies</h1>
+      <div className="container-fluid">
         <Movies />
       </div>
     </div>
@@ -64,5 +64,29 @@ const Movies = () => {
       </div>
     );
   }
-  return <CategoryLists categories={categoriesWithMovies} />;
+  return (
+    <div>
+      <h2 className="mb-1">Random Movie</h2>
+      <RandomVideo categories={categoriesWithMovies} />
+      <h2 className="mb-1">Movies</h2>
+      <CategoryLists categories={categoriesWithMovies} />
+    </div>
+  );
+};
+
+const randomChoice = (arr) => {
+  return arr[Math.floor(Math.random() * arr.length)];
+};
+
+const RandomVideo = ({ categories }) => {
+  const randomMovie = randomChoice(
+    Object.values(categories).flatMap((category) => category.movies)
+  );
+  return (
+    <div>
+      <h4>{randomMovie.name}</h4>
+      <p>{randomMovie.description}</p>
+      <VideoPlayer src={randomMovie.filePath} autoPlay />
+    </div>
+  );
 };
