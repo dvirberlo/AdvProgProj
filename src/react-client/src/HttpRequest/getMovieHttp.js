@@ -1,16 +1,15 @@
+import { TOKEN_ID_HEADER, WebServerURL } from "../Constants/http";
+
 export const getMovieHttp = async (token, movieId) => {
   try {
     // http get request to the server
     // should change the hard coded port to env variable
-    const response = await fetch(
-      `http://localhost:3000/api/movies/${movieId}`,
-      {
-        method: "GET",
-        headers: {
-          "token-id": token,
-        },
-      }
-    );
+    const response = await fetch(`${WebServerURL}/api/movies/${movieId}`, {
+      method: "GET",
+      headers: {
+        [TOKEN_ID_HEADER]: token,
+      },
+    });
     // Check if the response was successful
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);

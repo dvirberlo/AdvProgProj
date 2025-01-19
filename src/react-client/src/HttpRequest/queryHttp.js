@@ -1,14 +1,13 @@
+import { TOKEN_ID_HEADER, WebServerURL } from "../Constants/http";
+
 export const queryHttp = async (token, query) => {
   try {
-    const response = await fetch(
-      `http://localhost:3000/api/movies/search/${query}`,
-      {
-        method: "GET",
-        headers: {
-          "token-id": token,
-        },
-      }
-    );
+    const response = await fetch(`${WebServerURL}/api/movies/search/${query}`, {
+      method: "GET",
+      headers: {
+        [TOKEN_ID_HEADER]: token,
+      },
+    });
     // Check if the response was successful
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);

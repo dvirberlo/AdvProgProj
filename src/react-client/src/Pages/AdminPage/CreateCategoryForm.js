@@ -3,8 +3,12 @@ import {
   TextInput,
   CheckboxInput,
 } from "../../Components/FormInputs/FormInputs";
+import { useAuth } from "../../Contexts/AuthContext/AuthContext";
+import { TOKEN_ID_HEADER, WebServerURL } from "../../Constants/http";
 
 export const CreateCategoryForm = () => {
+  const { token } = useAuth();
+
   const [name, setName] = useState("");
   const [promoted, setPromoted] = useState(false);
 
@@ -13,10 +17,11 @@ export const CreateCategoryForm = () => {
 
   const onSubmit = (event) => {
     event.preventDefault();
-    fetch("http://localhost:3000/api/categories", {
+    fetch(`${WebServerURL}/api/categories`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        [TOKEN_ID_HEADER]: token,
       },
       body: JSON.stringify({ name, promoted }),
     })

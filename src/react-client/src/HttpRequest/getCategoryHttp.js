@@ -1,13 +1,15 @@
+import { TOKEN_ID_HEADER, WebServerURL } from "../Constants/http";
+
 export const getCategoryHttp = async (token, categoryId) => {
   try {
     // http get request to the server
     // should change the hard coded port to env variable
     const response = await fetch(
-      `http://localhost:3000/api/categories/${categoryId}`,
+      `${WebServerURL}/api/categories/${categoryId}`,
       {
         method: "GET",
         headers: {
-          "token-id": token,
+          [TOKEN_ID_HEADER]: token,
         },
       }
     );

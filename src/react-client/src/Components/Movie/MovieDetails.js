@@ -1,6 +1,7 @@
 import React from "react";
 import "./MovieDetails.css";
 import { StarRating } from "../Rating/StarRating";
+import { ServerImage } from "../ServerMedia/ServerImage";
 
 export const MovieDetails = ({ movie, onClose }) => {
   if (!movie) return null;
@@ -32,7 +33,7 @@ export const MovieDetails = ({ movie, onClose }) => {
           <div className="modal-body">
             <div className="row">
               <div className="col-md-4">
-                <img
+                <ServerImage
                   src={movie.thumbnailPath}
                   alt={movie.name}
                   className="movie-picture-details"

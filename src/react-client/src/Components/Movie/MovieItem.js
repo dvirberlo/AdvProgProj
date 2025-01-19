@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { MovieDetails } from "./MovieDetails";
 import "./MovieItem.css";
+import { ServerImage } from "../ServerMedia/ServerImage";
 
 export const MovieItem = ({ movie, handleArrow }) => {
   const [selectedMovie, setSelectedMovie] = useState(null);
@@ -20,7 +21,7 @@ export const MovieItem = ({ movie, handleArrow }) => {
 
   return (
     <div className="movie-item">
-      <img
+      <ServerImage
         src={movie.thumbnailPath}
         alt={movie.name}
         className="movie-thumbnail"
