@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { InputField } from "../../Components/Login/InputField";
 import { routes } from "../../Pages/AppRouter";
 import { useNavigate } from "react-router-dom";
+import { BasicBar } from "../../Components/Login/BasicBar";
 
 export const LoginPage = () => {
   const [formData, setFormData] = useState({
@@ -9,9 +10,9 @@ export const LoginPage = () => {
     password: "",
   });
 
-  const [error, setError] = useState(""); // To store the error message
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // State to handle login success
-  const navigate = useNavigate(); // React Router's hook for navigation
+  const [error, setError] = useState(""); 
+  const [isLoggedIn, setIsLoggedIn] = useState(false); 
+  const navigate = useNavigate(); 
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -29,7 +30,6 @@ export const LoginPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Prepare the login data to send with fetch
     const loginData = {
       username: formData.username,
       password: formData.password,
@@ -45,13 +45,13 @@ export const LoginPage = () => {
       });
 
       if (response.ok) {
-        const data = await response.json(); // Parse JSON data if response is OK
-        console.log(data); // If necessary, log the response data
-        setError(""); // Clear error if login is successful
-        setIsLoggedIn(true); // Set the login status to true
+        const data = await response.json();
+        console.log(data); 
+        setError(""); 
+        setIsLoggedIn(true); 
         console.log("Logged in successfully");
         const token = data.token;
-        localStorage.setItem("token", token); // Store the token in local storage
+        localStorage.setItem("token", token); 
         navigate(routes.Home);
       } else {
         const errorData = await response.json();
@@ -64,11 +64,7 @@ export const LoginPage = () => {
   };
 
   return (
-    <div className="bg-dark text-white min-vh-100 d-flex flex-column">
-      {/* Logo Section */}
-      <div className="ms-5 mt-3 logo-custom" style={{ marginTop: "100px" }}>
-        <h1 className="logo">OUR LOGO</h1>
-      </div>
+    <BasicBar showSignIn={false}>
 
       {/* Login Title */}
       <h1 className="mt-5 text-center" style={{ marginTop: "50px" }}>
@@ -125,6 +121,6 @@ export const LoginPage = () => {
           </button>
         </div>
       </form>
-    </div>
+    </BasicBar>
   );
 };

@@ -2,9 +2,10 @@ import React, { useState, useEffect } from "react";
 import { PasswordMatchStatus } from "../../Components/Login/PasswordMatchStatus";
 import { InputField } from "../../Components/Login/InputField";
 import { FileInputField } from "../../Components/Login/FileInputField";
-import { useNavigate } from "react-router-dom"; // Use this to navigate programmatically
+import { useNavigate } from "react-router-dom";
 import { routes } from "../../Pages/AppRouter";
 import { NavLink } from "react-router-dom";
+import { BasicBar } from "../../Components/Login/BasicBar";
 
 export const SignupPage = () => {
   const [formData, setFormData] = useState({
@@ -34,7 +35,7 @@ export const SignupPage = () => {
     username: false,
   });
 
-  const navigate = useNavigate(); // Hook for navigation
+  const navigate = useNavigate(); 
 
   useEffect(() => {
     const { password, confirmPassword } = formData;
@@ -139,15 +140,12 @@ export const SignupPage = () => {
   };
 
   return (
-    <div className="bg-dark text-white min-vh-100 d-flex flex-column">
-      <div className="ms-5 mt-3 logo-custom">
-        <h1 className="logo">OUR LOGO</h1>
-      </div>
+    <BasicBar showSignIn={false}>
       <h1 className="mt-2 mb-1 text-center">Sign Up</h1>
 
       <form
         className="mt-3 px-3 mx-auto"
-        style={{ maxWidth: "600px" }}
+        style={{ maxWidth: "400px" }}
         onSubmit={handleSubmit}
       >
         <InputField
@@ -245,6 +243,6 @@ export const SignupPage = () => {
           </span>
         </div>
       </form>
-    </div>
+    </BasicBar> 
   );
 };
