@@ -101,21 +101,10 @@ export const SignupPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const dataToSend = {
-      firstName: formData.firstName,
-      lastName: formData.lastName,
-      username: formData.username,
-      password: formData.password,
-      image: formData.image.name,
-    };
-
     try {
       const response = await fetch("http://localhost:3000/api/users", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(dataToSend),
+        body: new FormData(e.target),
       });
 
       if (response.status === 409) {
@@ -215,7 +204,7 @@ export const SignupPage = () => {
 
         <FileInputField
           label="Profile Image"
-          name="image"
+          name="imageFile"
           onChange={handleFileChange}
           errorMessage={imageError}
         />
