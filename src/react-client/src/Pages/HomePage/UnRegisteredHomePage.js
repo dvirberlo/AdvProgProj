@@ -1,13 +1,16 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { routes } from "../../Pages/AppRouter";
-import { BasicBar } from "../../Components/Login/BasicBar"; 
+import { BasicBar } from "../../Components/Login/BasicBar";
 
 export const UnRegisteredHomePage = () => {
   return (
     <BasicBar showSignIn={true}>
       {/* Centered Content for UnRegistered Home Page */}
-      <div className="d-flex justify-content-center align-items-center text-center" style={{ height: '80vh' }}>
+      <div
+        className="d-flex justify-content-center align-items-center text-center"
+        style={{ height: "80vh" }}
+      >
         <div>
           <h1 className="heading-custom fw-bold">
             Unlimited movies, TV <br /> shows and more.

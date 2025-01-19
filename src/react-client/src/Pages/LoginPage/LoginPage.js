@@ -11,9 +11,9 @@ export const LoginPage = () => {
     password: "",
   });
 
-  const [error, setError] = useState(""); 
-  const [isLoggedIn, setIsLoggedIn] = useState(false); 
-  const navigate = useNavigate(); 
+  const [error, setError] = useState("");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -47,12 +47,12 @@ export const LoginPage = () => {
 
       if (response.ok) {
         const data = await response.json();
-        console.log(data); 
-        setError(""); 
-        setIsLoggedIn(true); 
+        console.log(data);
+        setError("");
+        setIsLoggedIn(true);
         console.log("Logged in successfully");
         const token = data.token;
-        localStorage.setItem("token", token); 
+        localStorage.setItem("token", token);
         navigate(routes.Home);
       } else {
         const errorData = await response.json();
@@ -66,7 +66,6 @@ export const LoginPage = () => {
 
   return (
     <BasicBar showSignIn={false}>
-
       {/* Login Title */}
       <h1 className="mt-5 text-center" style={{ marginTop: "50px" }}>
         Sign in
@@ -122,8 +121,8 @@ export const LoginPage = () => {
           </button>
         </div>
 
-         {/* "Did not have an account?" Link */}
-         <div className="mt-2 text-center">
+        {/* "Did not have an account?" Link */}
+        <div className="mt-2 text-center">
           <span style={{ fontSize: "0.9rem", color: "white" }}>
             Did not have an account?{" "}
             <NavLink
@@ -134,7 +133,6 @@ export const LoginPage = () => {
             </NavLink>
           </span>
         </div>
-
       </form>
     </BasicBar>
   );

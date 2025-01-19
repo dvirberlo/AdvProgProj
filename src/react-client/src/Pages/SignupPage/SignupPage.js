@@ -35,7 +35,7 @@ export const SignupPage = () => {
     username: false,
   });
 
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   useEffect(() => {
     const { password, confirmPassword } = formData;
@@ -45,7 +45,8 @@ export const SignupPage = () => {
       setPasswordMatch(null);
     }
 
-    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>]).{8,}$/;
+    const passwordRegex =
+      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>]).{8,}$/;
     setPasswordComplexity(passwordRegex.test(password));
   }, [formData.password, formData.confirmPassword]);
 
@@ -243,6 +244,6 @@ export const SignupPage = () => {
           </span>
         </div>
       </form>
-    </BasicBar> 
+    </BasicBar>
   );
 };
