@@ -45,7 +45,7 @@ export const SignupPage = () => {
       setPasswordMatch(null);
     }
 
-    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d).{8,}$/;
+    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>]).{8,}$/;
     setPasswordComplexity(passwordRegex.test(password));
   }, [formData.password, formData.confirmPassword]);
 
@@ -184,7 +184,7 @@ export const SignupPage = () => {
           name="password"
           value={formData.password}
           onChange={handleChange}
-          placeholder="At least 8 characters, 1 letter, 1 number"
+          placeholder="8-20 length, must: letter, number, special"
           errorMessage={
             !passwordComplexity && formData.password
               ? "Password must meet the conditions"

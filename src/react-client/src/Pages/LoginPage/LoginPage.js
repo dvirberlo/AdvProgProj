@@ -3,6 +3,7 @@ import { InputField } from "../../Components/Login/InputField";
 import { routes } from "../../Pages/AppRouter";
 import { useNavigate } from "react-router-dom";
 import { BasicBar } from "../../Components/Login/BasicBar";
+import { NavLink } from "react-router-dom";
 
 export const LoginPage = () => {
   const [formData, setFormData] = useState({
@@ -120,6 +121,20 @@ export const LoginPage = () => {
             Sign In
           </button>
         </div>
+
+         {/* "Did not have an account?" Link */}
+         <div className="mt-2 text-center">
+          <span style={{ fontSize: "0.9rem", color: "white" }}>
+            Did not have an account?{" "}
+            <NavLink
+              to={routes.Signup}
+              style={{ color: "lightblue", textDecoration: "none" }}
+            >
+              Click here to sign up
+            </NavLink>
+          </span>
+        </div>
+
       </form>
     </BasicBar>
   );
