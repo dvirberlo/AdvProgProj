@@ -1,69 +1,35 @@
 import React, { useEffect, useState } from "react";
-import { NavBarTemplate } from "../../Components/NavBar/NavBarTemplate";
-import { CategoryLists } from "../../Components/Categories/CategoryLists";
-import { getMoviesHttp } from "../../HttpRequest/getMoviesHttp";
-const demoToken = "67896ad97a9550763c011921";
+import { RegisteredHomePage } from "../HomePage/RegisteredHomePage";
+import { UnRegisteredHomePage } from "../HomePage/UnRegisteredHomePage";
+
 export const HomePage = () => {
-  // State variables to manage categories data, loading state, and errors
-  const [categoriesWithMovies, setCategoriesWithMovies] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    // function to fetch data
-    const fetchMoviesCategories = async () => {
-      try {
-        const response = await getMoviesHttp(demoToken);
-        if (response === null) {
-          console.log("Failed to fetch movies");
-          setError("Failed to fetch movies");
-        } else {
-          console.log("Fetched categories with movies:", response);
-          setCategoriesWithMovies(response);
-        }
-      } catch (error) {
-        console.error("Failed to fetch movies:", error);
-        setError("An error occurred while fetching movies.");
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchMoviesCategories();
-  }, [demoToken]);
+    // Check if token exists in localStorage
+    const token = localStorage.getItem("token");
 
-  // Render loading state
-  if (loading) {
-    return (
-      <div>
-        <div className="container-fluid py-4">
-          <h1 className="text-center mb-4">Netflix</h1>
-          <div>Loading...</div>
-        </div>
-      </div>
-    );
-  }
+    if (token) {
+      setIsLoggedIn(true);
+    } else {
+      setIsLoggedIn(false);
+    }
+    setLoading(false); // Set loading to false once the check is complete
+  }, []);
 
-  // Render error state
-  if (error) {
-    return (
-      <div>
-        <div className="container-fluid py-4">
-          <h1 className="text-center mb-4">Netflix</h1>
-          <div className="alert alert-danger" role="alert">
-            {error}
-          </div>
-        </div>
-      </div>
-    );
-  }
+  // Show loading state while checking the token
+  if (loading) return <div>Loading...</div>;
 
-  // Render the categories and movies
   return (
     <div>
-      <div className="container-fluid py-4">
-        <h1 className="text-center mb-4">Netflix</h1>
-        <CategoryLists categories={categoriesWithMovies} />
-      </div>
+      {isLoggedIn ? (
+        // If there is a token, show the RegisteredHomePage content
+        <RegisteredHomePage />
+      ) : (
+        // If there is no token, show the UnRegisteredHomePage content
+        <UnRegisteredHomePage />
+      )}
     </div>
   );
 };
