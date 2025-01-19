@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { InputField } from "../../Components/Login/InputField";
 import { routes } from "../../Pages/AppRouter";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { BasicBar } from "../../Components/Login/BasicBar";
-import { NavLink } from "react-router-dom";
+import { NavLink } from "react-router";
 
 export const LoginPage = () => {
   const [formData, setFormData] = useState({

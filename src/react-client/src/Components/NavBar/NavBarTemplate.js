@@ -1,5 +1,5 @@
 import { NavBar } from "./NavBar";
-import { useLocation } from "react-router-dom";
+import { useLocation } from "react-router";
 export const NavBarTemplate = ({ children }) => {
   const { pathname } = useLocation();
   const pathRegex = /^(?!.*\/(?:login|admin|search|)$).*$/;

@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import { PasswordMatchStatus } from "../../Components/Login/PasswordMatchStatus";
 import { InputField } from "../../Components/Login/InputField";
 import { FileInputField } from "../../Components/Login/FileInputField";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { routes } from "../../Pages/AppRouter";
-import { NavLink } from "react-router-dom";
+import { NavLink } from "react-router";
 import { BasicBar } from "../../Components/Login/BasicBar";
 
 export const SignupPage = () => {

@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router";
 import { HomePage } from "./HomePage/HomePage";
 import { LoginPage } from "./LoginPage/LoginPage";
 import { AdminPage } from "./AdminPage/AdminPage";
@@ -26,9 +26,9 @@ export const AppRouter = () => {
           <Route path={routes.Login} element={<LoginPage />} />
           <Route path={routes.Admin} element={<AdminPage />} />
           <Route path={routes.Error} element={<ErrorPage />} />
-        <Route path={routes.Signup} element={<SignupPage />} />
+          <Route path={routes.Signup} element={<SignupPage />} />
         </Routes>
-      </NavBarTemplate>        
+      </NavBarTemplate>
     </BrowserRouter>
   );
 };
