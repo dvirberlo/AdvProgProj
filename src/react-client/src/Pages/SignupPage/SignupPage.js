@@ -247,5 +247,3 @@ export const SignupPage = () => {
     </BasicBar>
   );
 };
-//add jira issue
-// more jira issues
