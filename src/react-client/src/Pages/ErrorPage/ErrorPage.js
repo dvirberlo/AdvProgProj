@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from "react-router";
 export const ErrorPage = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
-  const pathRegex = /^(?!.*\/(?:login|admin|search)$).*$/;
+  const pathRegex = /^(?!.*\/(?:login|admin|search|)$).*$/;
   console.log(pathname);
   if (!pathRegex.test(pathname)) {
     return <div></div>;

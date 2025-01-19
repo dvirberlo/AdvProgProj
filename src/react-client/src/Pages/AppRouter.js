@@ -5,13 +5,12 @@ import { AdminPage } from "./AdminPage/AdminPage";
 import { SearchPage } from "./SearchPage/SearchPage";
 import { NavBarTemplate } from "../Components/NavBar/NavBarTemplate";
 import { ErrorPage } from "./ErrorPage/ErrorPage";
-import { useState } from "react";
 export const routes = {
   Home: "/",
   Login: "/login",
   Admin: "/admin",
   SearchPage: "/search",
-  ErrorPage: "/*",
+  Error: "/*",
 };
 
 export const AppRouter = () => {
@@ -26,7 +25,7 @@ export const AppRouter = () => {
         </Routes>
       </NavBarTemplate>
       <Routes>
-        <Route path={routes.ErrorPage} element={<ErrorPage />} />
+        <Route path={routes.Error} element={<ErrorPage />} />
       </Routes>
     </BrowserRouter>
   );
