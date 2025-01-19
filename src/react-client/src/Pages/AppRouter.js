@@ -1,4 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router";
+import { LandingPage } from "./LandingPage/LandingPage";
 import { HomePage } from "./HomePage/HomePage";
 import { LoginPage } from "./LoginPage/LoginPage";
 import { AdminPage } from "./AdminPage/AdminPage";
@@ -8,7 +9,8 @@ import { ErrorPage } from "./ErrorPage/ErrorPage";
 import { SignupPage } from "./SignupPage/SignupPage";
 
 export const routes = {
-  Home: "/",
+  Landing: "/",
+  Home: "/home",
   Login: "/login",
   Admin: "/admin",
   SearchPage: "/search",
@@ -21,8 +23,9 @@ export const AppRouter = () => {
     <BrowserRouter>
       <NavBarTemplate>
         <Routes>
+          <Route index path={routes.Landing} element={<LandingPage />} />
+          <Route path={routes.Home} element={<HomePage />} />
           <Route path={routes.SearchPage} element={<SearchPage />} />
-          <Route index path={routes.Home} element={<HomePage />} />
           <Route path={routes.Login} element={<LoginPage />} />
           <Route path={routes.Admin} element={<AdminPage />} />
           <Route path={routes.Error} element={<ErrorPage />} />

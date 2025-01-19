@@ -62,9 +62,7 @@ export const CreateMovieForm = () => {
         Submit
       </button>
       {error && <div className="my-2 alert alert-danger">{error}</div>}
-      {success && (
-        <div className="my-2 alert alert-success">Category created</div>
-      )}
+      {success && <div className="my-2 alert alert-success">Movie created</div>}
     </form>
   );
 };

@@ -5,34 +5,6 @@ import { useTheme, DARK_THEME } from "../../Contexts/ThemeContext/ThemeContext";
 import "./NavBar.css";
 
 export const NavBar = () => {
-  // Store the typed search text
-  const [searchValue, setSearchValue] = useState("");
-  // Keep track of the route the user was on before starting to type
-  const [previousRoute, setPreviousRoute] = useState(routes.Home);
-  // use the navigate function to navigate to a new route
-  const navigate = useNavigate();
-  // use the useLocation hook to get the current
-  const location = useLocation();
-
-  const handleSearchChange = (e) => {
-    const value = e.target.value;
-    // this is before we apply setSearchValue so this is the first char of the user input
-    // so we store the previous route if the user is not on the search page
-    if (searchValue === "" && value !== "" && location.pathname !== "/search") {
-      setPreviousRoute(location.pathname);
-    }
-
-    setSearchValue(value);
-
-    if (value.trim()) {
-      navigate(`/search?q=${encodeURIComponent(value.trim())}`, {
-        replace: true,
-      });
-    } else {
-      navigate(previousRoute, { replace: true });
-    }
-  };
-
   return (
     <nav className="navbar sticky-top navbar-expand-lg bg-opacity-75 bg-body-tertiary backdrop-blur">
       <div className="container-fluid">
@@ -67,10 +39,7 @@ export const NavBar = () => {
           </ul>
 
           <div className="ms-auto" />
-          <NavSearchForm
-            searchValue={searchValue}
-            handleSearchChange={handleSearchChange}
-          />
+          <NavSearchForm />
           <div className="ms-1" />
 
           <div className="d-none d-lg-block">
@@ -100,7 +69,34 @@ const NavItem = ({ to, icon, text }) => {
   );
 };
 
-const NavSearchForm = ({ searchValue, handleSearchChange }) => {
+const NavSearchForm = () => {
+  // Store the typed search text
+  const [searchValue, setSearchValue] = useState("");
+  // Keep track of the route the user was on before starting to type
+  const [previousRoute, setPreviousRoute] = useState(routes.Home);
+  // use the navigate function to navigate to a new route
+  const navigate = useNavigate();
+  // use the useLocation hook to get the current
+  const location = useLocation();
+
+  const handleSearchChange = (e) => {
+    const value = e.target.value;
+    // this is before we apply setSearchValue so this is the first char of the user input
+    // so we store the previous route if the user is not on the search page
+    if (searchValue === "" && value !== "" && location.pathname !== "/search") {
+      setPreviousRoute(location.pathname);
+    }
+
+    setSearchValue(value);
+
+    if (value.trim()) {
+      navigate(`/search?q=${encodeURIComponent(value.trim())}`, {
+        replace: true,
+      });
+    } else {
+      navigate(previousRoute, { replace: true });
+    }
+  };
   return (
     <div className="input-group w-auto">
       <input

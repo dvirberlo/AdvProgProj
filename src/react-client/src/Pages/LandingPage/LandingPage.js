@@ -3,7 +3,7 @@ import { NavLink } from "react-router";
 import { routes } from "../../Pages/AppRouter";
 import { BasicBar } from "../../Components/Login/BasicBar";
 
-export const UnRegisteredHomePage = () => {
+export const LandingPage = () => {
   return (
     <BasicBar showSignIn={true}>
       {/* Centered Content for UnRegistered Home Page */}

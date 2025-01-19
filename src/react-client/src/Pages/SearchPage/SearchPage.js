@@ -41,7 +41,7 @@ export const SearchPage = () => {
 
   return (
     <div className="container-fluid py-4">
-      <h1 className="text-center mb-4">Netflix</h1>
+      <h1 className="text-center mb-4">Search Results</h1>
       <MovieList movies={searchMoviesResult} />
     </div>
   );

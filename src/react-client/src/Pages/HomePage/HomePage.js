@@ -1,35 +1,50 @@
 import React, { useEffect, useState } from "react";
-import { RegisteredHomePage } from "../HomePage/RegisteredHomePage";
-import { UnRegisteredHomePage } from "../HomePage/UnRegisteredHomePage";
+import { CategoryLists } from "../../Components/Categories/CategoryLists";
+import { getMoviesHttp } from "../../HttpRequest/getMoviesHttp";
+const demoToken = "67896ad97a9550763c011921";
 
 export const HomePage = () => {
+  // State variables to manage categories data, loading state, and errors
+  const [categoriesWithMovies, setCategoriesWithMovies] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    // Check if token exists in localStorage
-    const token = localStorage.getItem("token");
-
-    if (token) {
-      setIsLoggedIn(true);
-    } else {
-      setIsLoggedIn(false);
-    }
-    setLoading(false); // Set loading to false once the check is complete
-  }, []);
-
-  // Show loading state while checking the token
-  if (loading) return <div>Loading...</div>;
+    // function to fetch data
+    const fetchMoviesCategories = async () => {
+      try {
+        const response = await getMoviesHttp(demoToken);
+        if (response === null) {
+          console.log("Failed to fetch movies");
+          setError("Failed to fetch movies");
+        } else {
+          console.log("Fetched categories with movies:", response);
+          setCategoriesWithMovies(response);
+        }
+      } catch (error) {
+        console.error("Failed to fetch movies:", error);
+        setError("An error occurred while fetching movies.");
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchMoviesCategories();
+  }, [demoToken]);
 
   return (
     <div>
-      {isLoggedIn ? (
-        // If there is a token, show the RegisteredHomePage content
-        <RegisteredHomePage />
-      ) : (
-        // If there is no token, show the UnRegisteredHomePage content
-        <UnRegisteredHomePage />
-      )}
+      <div className="container-fluid py-4">
+        <h1 className="text-center mb-4">Movie</h1>
+        {loading && <div>Loading...</div>}
+        {!loading && error && (
+          <div className="alert alert-danger" role="alert">
+            {error}
+          </div>
+        )}
+        {!loading && !error && (
+          <CategoryLists categoriesWithMovies={categoriesWithMovies} />
+        )}
+      </div>
     </div>
   );
 };

@@ -1,11 +1,15 @@
 import { NavBar } from "./NavBar";
 import { useLocation } from "react-router";
+import { routes } from "../../Pages/AppRouter";
+
 export const NavBarTemplate = ({ children }) => {
   const { pathname } = useLocation();
-  const pathRegex = /^(?!.*\/(?:login|admin|search|)$).*$/;
-  console.log(pathname);
-  if (pathRegex.test(pathname)) {
-    return <div></div>;
+  if (
+    pathname === routes.Login ||
+    pathname === routes.Signup ||
+    pathname === routes.Landing
+  ) {
+    return <div data-bs-theme="light">{children}</div>;
   }
   return (
     <div>
