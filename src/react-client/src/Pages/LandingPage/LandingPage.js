@@ -1,9 +1,20 @@
-import React from "react";
-import { NavLink } from "react-router";
+import React, { useEffect } from "react";
+import { NavLink, useNavigate } from "react-router";
 import { routes } from "../../Pages/AppRouter";
 import { BasicBar } from "../../Components/Login/BasicBar";
+import { useAuth } from "../../Contexts/AuthContext/AuthContext";
 
 export const LandingPage = () => {
+  const { auth, setAuth } = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // If the user is already logged in, redirect to the home page
+    if (auth.token) {
+      navigate(routes.Home);
+    }
+  }, [auth, navigate]);
+
   return (
     <BasicBar showSignIn={true}>
       {/* Centered Content for UnRegistered Home Page */}

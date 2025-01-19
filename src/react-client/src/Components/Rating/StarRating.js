@@ -26,5 +26,5 @@ export const StarRating = ({ rating, maxRating = 5 }) => {
     }
   }
 
-  return <div className="star-rating">{stars}</div>;
+  return <div className="star-rating text-danger">{stars}</div>;
 };

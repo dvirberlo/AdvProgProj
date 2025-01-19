@@ -2,21 +2,18 @@ import React, { useState } from "react";
 import { NavLink, useNavigate, useLocation } from "react-router";
 import { routes } from "../../Pages/AppRouter";
 import { useTheme, DARK_THEME } from "../../Contexts/ThemeContext/ThemeContext";
+import { useAuth } from "../../Contexts/AuthContext/AuthContext";
+
 import "./NavBar.css";
+import { Roles } from "../../Constants/Roles";
 
 export const NavBar = () => {
+  const { auth, setAuth } = useAuth();
   return (
     <nav className="navbar sticky-top navbar-expand-lg bg-opacity-75 bg-body-tertiary backdrop-blur">
       <div className="container-fluid">
-        <a className="navbar-brand">APP_NAME</a>
-        <div className="ms-auto" />
-
-        <div className="d-lg-none">
-          <ColorModeToggle />
-        </div>
-
         <button
-          className="navbar-toggler"
+          className="navbar-toggler me-2"
           type="button"
           data-bs-toggle="collapse"
           data-bs-target="#navbarNav"
@@ -27,23 +24,33 @@ export const NavBar = () => {
           <span className="navbar-toggler-icon"></span>
         </button>
 
+        <a className="navbar-brand">APP_NAME</a>
+        <div className="ms-auto" />
+
+        <div className="d-lg-none d-flex">
+          <ColorModeToggle />
+          <LogoutButton />
+        </div>
+
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav mb-2 mb-lg-0">
             <NavItem to={routes.Home} icon="home" text="Home" />
-            <NavItem to={routes.Login} icon="login" text="Login" />
-            <NavItem
-              to={routes.Admin}
-              icon="admin_panel_settings"
-              text="Admin"
-            />
+            {auth.role === Roles.Admin && (
+              <NavItem
+                to={routes.Admin}
+                icon="admin_panel_settings"
+                text="Admin"
+              />
+            )}
           </ul>
 
           <div className="ms-auto" />
           <NavSearchForm />
           <div className="ms-1" />
 
-          <div className="d-none d-lg-block">
+          <div className="d-none d-lg-flex">
             <ColorModeToggle />
+            <LogoutButton />
           </div>
         </div>
       </div>
@@ -97,6 +104,16 @@ const NavSearchForm = () => {
       navigate(previousRoute, { replace: true });
     }
   };
+
+  // Handle pressing "Enter"
+  const onKeyDown = (e) => {
+    if (e.key === "Enter" && searchValue.trim()) {
+      navigate(`/search?q=${encodeURIComponent(searchValue.trim())}`, {
+        replace: true,
+      });
+    }
+  };
+
   return (
     <div className="input-group w-auto">
       <input
@@ -106,8 +123,17 @@ const NavSearchForm = () => {
         aria-label="Search"
         value={searchValue}
         onChange={handleSearchChange}
+        onKeyDown={onKeyDown}
       />
-      <button className="btn btn-outline-secondary d-flex" type="button">
+      <button
+        className="btn btn-outline-secondary d-flex"
+        type="button"
+        onClick={() => {
+          if (searchValue.trim()) {
+            navigate(`/search?q=${encodeURIComponent(searchValue.trim())}`);
+          }
+        }}
+      >
         <span className="material-symbols-rounded me-1">search</span>
         Search
       </button>
@@ -122,6 +148,18 @@ const ColorModeToggle = () => {
       <span className="material-symbols-rounded">
         {theme === DARK_THEME ? "light_mode" : "dark_mode"}
       </span>
+    </button>
+  );
+};
+const LogoutButton = () => {
+  const { auth, setAuth } = useAuth();
+  const logout = () => {
+    setAuth({ token: null, _id: null, role: null });
+  };
+  return (
+    <button className="btn d-flex" onClick={logout}>
+      <span className="material-symbols-rounded me-1">logout</span>
+      <span className="d-none d-md-block">Logout</span>
     </button>
   );
 };

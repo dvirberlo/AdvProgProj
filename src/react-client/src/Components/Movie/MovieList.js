@@ -8,6 +8,7 @@ export const MovieList = ({ movies }) => {
         {movies.map((movie) => (
           <MovieItem key={movie._id} movie={movie} />
         ))}
+        {movies.length === 0 && <div>No movies found</div>}
       </div>
     </div>
   );

@@ -1,14 +1,18 @@
-import { createContext, useState, useContext, Context } from "react";
+import { createContext, useContext, Context } from "react";
+import { usePersistence } from "../persistenceHook";
 
-/** @type {Context<{token: string | null, setToken: function(string | null): void, userId: string | null, setUserId: function(string | null): void}>} */
+/** @type {Context<{auth: {token: string?, _id: string?, role: string?}, setAuth: function(object): void}>} */
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [token, setToken] = useState(null);
-  const [user, setUser] = useState(null);
+  const [auth, setAuth] = usePersistence("auth", {
+    token: null,
+    userId: null,
+    role: null,
+  });
 
   return (
-    <AuthContext.Provider value={{ token, setToken, user, setUser }}>
+    <AuthContext.Provider value={{ auth, setAuth }}>
       {children}
     </AuthContext.Provider>
   );
@@ -17,7 +21,8 @@ export const AuthProvider = ({ children }) => {
 /**
  * @example
  * ```js
- * const { token, setToken, user, setUser } = useAuth();
+ * const { auth, setAuth } = useAuth();
+ * const { token, _id, role } = auth;
  * return (
  *   <div>
  *     <p>we can send http requests using the token</p>

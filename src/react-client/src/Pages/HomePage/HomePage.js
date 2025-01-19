@@ -1,9 +1,33 @@
 import React, { useEffect, useState } from "react";
 import { CategoryLists } from "../../Components/Categories/CategoryLists";
 import { getMoviesHttp } from "../../HttpRequest/getMoviesHttp";
-const demoToken = "67896ad97a9550763c011921";
+import { useNavigate } from "react-router";
+import { useAuth } from "../../Contexts/AuthContext/AuthContext";
+import { routes } from "../../Pages/AppRouter";
 
 export const HomePage = () => {
+  const { auth, setAuth } = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // If the user is not logged in, redirect to the landing page
+    if (!auth.token) {
+      navigate(routes.Landing);
+    }
+  }, [auth, navigate]);
+
+  return (
+    <div>
+      <div className="container-fluid py-4">
+        <h1 className="text-center mb-4">Movies</h1>
+        <Movies />
+      </div>
+    </div>
+  );
+};
+
+const Movies = () => {
+  const { auth, setAuth } = useAuth();
   // State variables to manage categories data, loading state, and errors
   const [categoriesWithMovies, setCategoriesWithMovies] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -13,7 +37,7 @@ export const HomePage = () => {
     // function to fetch data
     const fetchMoviesCategories = async () => {
       try {
-        const response = await getMoviesHttp(demoToken);
+        const response = await getMoviesHttp(auth.token);
         if (response === null) {
           console.log("Failed to fetch movies");
           setError("Failed to fetch movies");
@@ -29,22 +53,16 @@ export const HomePage = () => {
       }
     };
     fetchMoviesCategories();
-  }, [demoToken]);
-
-  return (
-    <div>
-      <div className="container-fluid py-4">
-        <h1 className="text-center mb-4">Movie</h1>
-        {loading && <div>Loading...</div>}
-        {!loading && error && (
-          <div className="alert alert-danger" role="alert">
-            {error}
-          </div>
-        )}
-        {!loading && !error && (
-          <CategoryLists categoriesWithMovies={categoriesWithMovies} />
-        )}
+  }, [auth]);
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+  if (error) {
+    return (
+      <div className="alert alert-danger" role="alert">
+        {error}
       </div>
-    </div>
-  );
+    );
+  }
+  return <CategoryLists categories={categoriesWithMovies} />;
 };

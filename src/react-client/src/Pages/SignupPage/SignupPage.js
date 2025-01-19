@@ -6,8 +6,19 @@ import { useNavigate } from "react-router";
 import { routes } from "../../Pages/AppRouter";
 import { NavLink } from "react-router";
 import { BasicBar } from "../../Components/Login/BasicBar";
+import { useAuth } from "../../Contexts/AuthContext/AuthContext";
 
 export const SignupPage = () => {
+  const { auth, setAuth } = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // If the user is already logged in, redirect to the home page
+    if (auth.token) {
+      navigate(routes.Home);
+    }
+  }, [auth, navigate]);
+
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -34,8 +45,6 @@ export const SignupPage = () => {
     lastName: false,
     username: false,
   });
-
-  const navigate = useNavigate();
 
   useEffect(() => {
     const { password, confirmPassword } = formData;

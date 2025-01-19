@@ -1,7 +1,11 @@
 .movie-picture-details {
   width: 180px;
+  width: 450px;
   height: 270px;
   object-fit: cover;
   border-radius: 4px;
   margin-bottom: 0.5rem;
+}
+.movie-details {
+  margin-left: 200px;
 }

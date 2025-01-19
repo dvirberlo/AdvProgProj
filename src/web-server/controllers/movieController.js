@@ -1,12 +1,13 @@
 const mongoose = require("mongoose");
 
 const movieService = require("../services/movieService");
-const userService = require("../services/userService");
+const tokenService = require("../services/tokenService");
 const { MongoError } = require("../constants/mongoDBErrors");
 const {
   getUploadedFilePath,
   uploadFieldsMiddleware,
 } = require("./fileUploads");
+const { TOKEN_ID_HEADER } = require("../constants/httpHeaders");
 
 const movieFileFields = {
   movie: "movieFile",
@@ -45,16 +46,16 @@ const createMovie = async (req, res) => {
 };
 const getMovies = async (req, res) => {
   // not necessary for that exercise but good practice
-  if (!req.headers["token-id"]) {
+  if (!req.headers[TOKEN_ID_HEADER]) {
     return res.status(401).json({ error: "Token is required" });
   }
   // check if the existing user having that token-id
-  const user = await userService.getUserById(req.headers["token-id"]);
+  const user = await tokenService.verifyToken(req.headers[TOKEN_ID_HEADER]);
   if (user === null) {
     return res.status(404).json({ error: "User not found" });
   }
   try {
-    let movies = await movieService.getMovies(req.headers["token-id"]);
+    let movies = await movieService.getMovies(user.id);
     if (!movies) {
       return res.status(404).json({ error: "Movies not found" });
     } else {
