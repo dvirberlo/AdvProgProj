@@ -1,7 +1,15 @@
 import React from "react";
-import { useNavigate } from "react-router";
+
+import { useLocation, useNavigate } from "react-router";
 export const ErrorPage = () => {
   const navigate = useNavigate();
+  const { pathname } = useLocation();
+  const pathRegex = /^(?!.*\/(?:login|admin|search)$).*$/;
+  console.log(pathname);
+  if (!pathRegex.test(pathname)) {
+    return <div></div>;
+  }
+
   const goHome = () => {
     navigate("/");
   };

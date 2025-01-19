@@ -19,13 +19,15 @@ export const AppRouter = () => {
     <BrowserRouter>
       <NavBarTemplate>
         <Routes>
-          <Route path={routes.ErrorPage} element={<ErrorPage />} />
           <Route path={routes.SearchPage} element={<SearchPage />} />
           <Route index path={routes.Home} element={<HomePage />} />
           <Route path={routes.Login} element={<LoginPage />} />
           <Route path={routes.Admin} element={<AdminPage />} />
         </Routes>
       </NavBarTemplate>
+      <Routes>
+        <Route path={routes.ErrorPage} element={<ErrorPage />} />
+      </Routes>
     </BrowserRouter>
   );
 };
