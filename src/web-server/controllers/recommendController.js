@@ -33,7 +33,7 @@ const getRecommendations = async (req, res) => {
   }
 };
 
-const addWatch = async (req, res) => {  
+const addWatch = async (req, res) => {
   // check if the existing user having that token-id
   const user = await tokenService.verifyToken(req.headers[TOKEN_ID_HEADER]);
   if (user === null)
