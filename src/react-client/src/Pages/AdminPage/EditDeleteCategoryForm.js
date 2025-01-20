@@ -8,11 +8,12 @@ import { useAuth } from "../../Contexts/AuthContext/AuthContext";
 import { TOKEN_ID_HEADER, WebServerURL } from "../../Constants/http";
 
 export const EditDeleteCategoryForm = () => {
-  const [category, setCategory] = useState({
+  const emptyCategory = {
     _id: "",
     name: "",
     promoted: false,
-  });
+  };
+  const [category, setCategory] = useState(emptyCategory);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [refresh, setRefresh] = useState(0);
@@ -35,6 +36,7 @@ export const EditDeleteCategoryForm = () => {
         const data = await response.json();
         setError(data.error);
         setSuccess("");
+        setCategory(emptyCategory);
       }
       setRefresh(refresh + 1);
     });
@@ -50,7 +52,7 @@ export const EditDeleteCategoryForm = () => {
       if (response.ok) {
         setError("");
         setSuccess("Category deleted successfully");
-        setCategory({ name: "", promoted: false });
+        setCategory(emptyCategory);
       } else {
         const data = await response.json();
         setError(data.error);
