@@ -1,9 +1,9 @@
 const recommendService = require("../services/recommendService");
-const TokenId = "token-id";
+const { TOKEN_ID_HEADER } = require("../constants/httpHeaders");
 
 // Controller function to get recommendations
 const getRecommendations = async (req, res) => {
-  const userId = req.headers[TokenId];
+  const userId = req.headers[TOKEN_ID_HEADER];
   const movieId = req.params.id;
 
   if (!userId) {
@@ -28,7 +28,7 @@ const getRecommendations = async (req, res) => {
 };
 
 const addWatch = async (req, res) => {
-  const userId = req.headers[TokenId];
+  const userId = req.headers[TOKEN_ID_HEADER];
   const movieId = req.params.id;
   if (!userId) {
     return res.status(401).json({ error: "Token-ID header is missing" });

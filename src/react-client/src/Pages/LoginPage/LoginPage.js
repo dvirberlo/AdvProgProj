@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import { InputField } from "../../Components/Login/InputField";
-import { routes } from "../../Pages/AppRouter";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { NavLink, useNavigate } from "react-router";
 import { BasicBar } from "../../Components/Login/BasicBar";
-import { NavLink } from "react-router-dom";
+import { InputField } from "../../Components/Login/InputField";
+import { useAuth } from "../../Contexts/AuthContext/AuthContext";
+import { routes } from "../../Pages/AppRouter";
 
 export const LoginPage = () => {
   const [formData, setFormData] = useState({
@@ -12,8 +12,15 @@ export const LoginPage = () => {
   });
 
   const [error, setError] = useState("");
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const { auth, setAuth } = useAuth();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // If the user is already logged in, redirect to the home page
+    if (auth.token) {
+      navigate(routes.Home);
+    }
+  }, [auth, navigate]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -49,7 +56,7 @@ export const LoginPage = () => {
         const data = await response.json();
         console.log(data);
         setError("");
-        setIsLoggedIn(true);
+        setAuth(data);
         console.log("Logged in successfully");
         const token = data.token;
         localStorage.setItem("token", token);

@@ -2,12 +2,23 @@ import React, { useState, useEffect } from "react";
 import { PasswordMatchStatus } from "../../Components/Login/PasswordMatchStatus";
 import { InputField } from "../../Components/Login/InputField";
 import { FileInputField } from "../../Components/Login/FileInputField";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { routes } from "../../Pages/AppRouter";
-import { NavLink } from "react-router-dom";
+import { NavLink } from "react-router";
 import { BasicBar } from "../../Components/Login/BasicBar";
+import { useAuth } from "../../Contexts/AuthContext/AuthContext";
 
 export const SignupPage = () => {
+  const { auth, setAuth } = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // If the user is already logged in, redirect to the home page
+    if (auth.token) {
+      navigate(routes.Home);
+    }
+  }, [auth, navigate]);
+
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -34,8 +45,6 @@ export const SignupPage = () => {
     lastName: false,
     username: false,
   });
-
-  const navigate = useNavigate();
 
   useEffect(() => {
     const { password, confirmPassword } = formData;
@@ -92,21 +101,10 @@ export const SignupPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const dataToSend = {
-      firstName: formData.firstName,
-      lastName: formData.lastName,
-      username: formData.username,
-      password: formData.password,
-      image: formData.image.name,
-    };
-
     try {
       const response = await fetch("http://localhost:3000/api/users", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(dataToSend),
+        body: new FormData(e.target),
       });
 
       if (response.status === 409) {
@@ -206,7 +204,7 @@ export const SignupPage = () => {
 
         <FileInputField
           label="Profile Image"
-          name="image"
+          name="imageFile"
           onChange={handleFileChange}
           errorMessage={imageError}
         />

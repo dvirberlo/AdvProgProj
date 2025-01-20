@@ -5,17 +5,24 @@ import {
   TextareaInput,
   NumberInput,
 } from "../../Components/FormInputs/FormInputs";
+import { useAuth } from "../../Contexts/AuthContext/AuthContext";
+import { TOKEN_ID_HEADER, WebServerURL } from "../../Constants/http";
 
 export const CreateMovieForm = () => {
+  const { token } = useAuth();
+
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
 
   const onVideoUpload = (event) => {
     event.preventDefault();
     const formData = new FormData(event.target);
-    fetch("http://localhost:3000/api/movies", {
+    fetch(`${WebServerURL}/api/movies`, {
       method: "POST",
       body: formData,
+      headers: {
+        [TOKEN_ID_HEADER]: token,
+      },
     })
       .then(async (response) => {
         if (response.ok) {
@@ -62,9 +69,7 @@ export const CreateMovieForm = () => {
         Submit
       </button>
       {error && <div className="my-2 alert alert-danger">{error}</div>}
-      {success && (
-        <div className="my-2 alert alert-success">Category created</div>
-      )}
+      {success && <div className="my-2 alert alert-success">Movie created</div>}
     </form>
   );
 };

@@ -2,6 +2,15 @@ const express = require("express");
 const mongoose = require("mongoose");
 
 const UserService = require("../services/userService");
+const {
+  getUploadedFilePath,
+  uploadFieldsMiddleware,
+} = require("./fileUploads");
+
+const userFileFields = {
+  image: "imageFile",
+};
+const userUploads = uploadFieldsMiddleware(Object.values(userFileFields));
 
 const DUPLICATE_KEY_ERROR_CODE = 11000;
 
@@ -11,13 +20,17 @@ const DUPLICATE_KEY_ERROR_CODE = 11000;
  * @param {express.Response} res
  */
 const createUser = async (req, res) => {
+  const imageFilePath = getUploadedFilePath(req, userFileFields.image);
+  if (imageFilePath == null)
+    return res.status(400).json({ error: "Please provide an image file." });
+
   try {
     const user = await UserService.createUser(
       req.body.firstName,
       req.body.lastName,
       req.body.username,
       req.body.password,
-      req.body.image
+      imageFilePath
     );
     return res.status(201).json(UserService.censoredUser(user.toJSON()));
   } catch (error) {
@@ -54,6 +67,7 @@ const getUser = async (req, res) => {
 };
 
 module.exports = {
+  userUploads,
   createUser,
   getUser,
 };

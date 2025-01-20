@@ -1,0 +1,28 @@
+.movie-item {
+  flex: 0 0 auto;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  background-color: transparent;
+  border-radius: 10px;
+  box-sizing: border-box;
+  margin-bottom: 4rem;
+}
+
+.movie-thumbnail {
+  width: clamp(100px, 25vw, 320px);
+
+  aspect-ratio: 16 / 9;
+
+  border-radius: 10px;
+  margin-bottom: 0.5rem;
+  cursor: pointer;
+  border: 4px solid transparent;
+  transition: transform 0.2s ease;
+}
+
+.movie-item .movie-thumbnail:hover {
+  border-color: #d0cece;
+  transform: scale(1.05);
+}

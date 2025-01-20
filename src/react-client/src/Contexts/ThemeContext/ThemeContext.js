@@ -1,4 +1,5 @@
-import { createContext, useState, useContext, useEffect, Context } from "react";
+import { createContext, useContext, useEffect, Context } from "react";
+import { usePersistence } from "../persistenceHook";
 
 const THEME_ATTRIBUTE = "data-bs-theme";
 
@@ -26,14 +27,14 @@ const setDocumentTheme = (theme) => {
 const ThemeContext = createContext();
 
 export const ThemeProvider = ({ children }) => {
-  const [theme, setThemeMode] = useState(LIGHT_THEME);
+  const [theme, setThemeMode] = usePersistence("theme", DARK_THEME);
 
   useEffect(() => {
     setDocumentTheme(theme);
   }, [theme]);
 
   const toggleTheme = () => {
-    setThemeMode((prevTheme) => getOppositeTheme(prevTheme));
+    setThemeMode(getOppositeTheme(theme));
   };
 
   return (
