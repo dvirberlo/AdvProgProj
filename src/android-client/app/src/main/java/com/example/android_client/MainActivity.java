@@ -1,24 +1,200 @@
 package com.example.android_client;
-
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 
+import android.util.Log;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+import androidx.lifecycle.ViewModelProvider;
+
+import com.example.android_client.entities.PhotoHandler;
+import com.example.android_client.models.User;
+import com.example.android_client.network.RetroFitClient;
+import com.example.android_client.network.WebServiceApi;
+import com.example.android_client.viewmodels.UserViewModel;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
+    private EditText editTextFirstName, editTextLastName, editTextPassword,
+            editTextConfirmPassword, editTextUserName;
+    private Button buttonUploadPhoto, buttonSignUp;
+    private PhotoHandler photoHandler;
+    private Bitmap resultBit;
+    private static final String TAG = "SignUpActivity";
+    private UserViewModel userViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
+        userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
+        userViewModel.getRegisterData().observe(this,user -> {
+            if(!user.isSuccess()){
+                Toast toast = Toast.makeText(MainActivity.this,
+                        user.getMessage(), Toast.LENGTH_LONG);
+                toast.show();
+                return;
+            }
+            Toast toast = Toast.makeText(MainActivity.this,
+                    user.getMessage(), Toast.LENGTH_LONG);
+            toast.show();
+
+            //startActivity(new Intent(this, LoginActivity.class));
         });
+
+
+        init();
+        clickEvent();
     }
+
+    private void init(){
+        // Getting the elements from XML\
+        ImageView regPhoto = findViewById(R.id.reg_photo);
+        editTextFirstName = findViewById(R.id.editTextFirstName);
+        editTextLastName = findViewById(R.id.editTextLastName);
+        editTextPassword = findViewById(R.id.editTextPassword);
+        editTextUserName = findViewById(R.id.editTextUserName);
+        editTextConfirmPassword = findViewById(R.id.editTextConfirmPassword);
+        buttonSignUp = findViewById(R.id.buttonSignUp);
+        buttonUploadPhoto = findViewById(R.id.buttonUploadPhoto);
+        photoHandler = new PhotoHandler(regPhoto,this);
+    }
+
+    private void clickEvent(){
+        buttonSignUp.setOnClickListener(v -> signUpUser());
+        buttonUploadPhoto.setOnClickListener(v -> photoHandler.checkPermissionAndOpenGallery());
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        photoHandler.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+    // Handling the result of the photo
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Bitmap resultBitmap = photoHandler.onActivityResult(requestCode, resultCode, data);
+        if (resultBitmap != null) {
+            this.resultBit = resultBitmap;
+        }
+    }
+
+
+    private void signUpUser() {
+        // Get the text the user entered, trimming whitespace
+        String firstName = editTextFirstName.getText().toString().trim();
+        String lastName = editTextLastName.getText().toString().trim();
+        String userName = editTextUserName.getText().toString().trim();
+        String password = editTextPassword.getText().toString().trim();
+        String rePassword = editTextConfirmPassword.getText().toString().trim();
+        String profileImgUri = PhotoHandler.bitmapToUri(resultBit, this).toString();
+        //user.setProfileImg(profileImgUri);
+        String specialChars = "[!@#$%^&*(),.?\":{}|<>]";
+
+        // Check first name length
+        if (firstName.isEmpty()) {
+            editTextFirstName.setError("First name is required");
+            editTextFirstName.requestFocus();
+            return;
+        } else if (firstName.length() > 20) {
+            editTextFirstName.setError("First name cannot be longer than 20 characters");
+            editTextFirstName.requestFocus();
+            return;
+        }
+
+        // Check last name length
+        if (lastName.isEmpty()) {
+            editTextLastName.setError("Last name is required");
+            editTextLastName.requestFocus();
+            return;
+        } else if (lastName.length() > 20) {
+            editTextLastName.setError("Last name cannot be longer than 20 characters");
+            editTextLastName.requestFocus();
+            return;
+        }
+
+        // Check username
+        if (userName.isEmpty()) {
+            editTextUserName.setError("Username is required");
+            editTextUserName.requestFocus();
+            return;
+        } else if (userName.length() > 20) {
+            editTextUserName.setError("Username cannot be longer than 20 characters");
+            editTextUserName.requestFocus();
+            return;
+        }
+
+        // Password requirements
+        if (password.isEmpty()) {
+            editTextPassword.setError("Password is required");
+            editTextPassword.requestFocus();
+            return;
+        } else if (password.length() < 8 || password.length() > 20) {
+            editTextPassword.setError("Password must be 8-20 characters long");
+            editTextPassword.requestFocus();
+            return;
+        } else if (!password.matches(".*" + specialChars + ".*")) {
+            editTextPassword.setError("Password must contain at least one special character (!@#$%^&*(),.?\":{}|<>)");
+            editTextPassword.requestFocus();
+            return;
+        }
+
+        // Confirm password
+        if (rePassword.isEmpty()) {
+            editTextConfirmPassword.setError("Please confirm your password");
+            editTextConfirmPassword.requestFocus();
+            return;
+        }
+
+        // Check if passwords match
+        if (!password.equals(rePassword)) {
+            editTextConfirmPassword.setError("Passwords do not match");
+            editTextConfirmPassword.requestFocus();
+            return;
+        }
+
+        User user = new User(firstName, lastName, userName, password,"user",profileImgUri);
+
+        userViewModel.addUser(this,user);
+        // All validations have passed
+       // createUser(firstName, lastName, userName, password, "user");
+    }
+
+//    private void createUser(String firstName, String lastName, String userName, String password, String role){
+//        User user = new User(firstName, lastName, userName, password, role);
+//        WebServiceApi apiService = RetroFitClient.getClient().create(WebServiceApi.class);
+////        Call<Void> call = apiService.createUser(user);
+//       // call.enqueue(new Callback<Void>() {
+//            @Override
+//            public void onResponse(Call<Void> call, Response<Void> response) {
+//                if(response.isSuccessful()){
+//                    Log.d(TAG, "User created successfully");
+//                    Toast.makeText(MainActivity.this, "User created successfully", Toast.LENGTH_SHORT).show();
+//                    // Optionally, navigate to another activity or clear the form
+//                } else {
+//                    Log.e(TAG, "Failed to create user: " + response.code());
+//                    Toast.makeText(MainActivity.this, "Failed to create user: " + response.code(), Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<Void> call, Throwable t) {
+//                Log.e(TAG, "Error: " + t.getMessage(), t);
+//                Toast.makeText(MainActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+//            }
+//        });
+    // }
 }
