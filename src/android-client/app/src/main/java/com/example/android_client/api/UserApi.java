@@ -10,13 +10,16 @@ import androidx.lifecycle.MutableLiveData;
 import com.example.android_client.api.server.UserServerApi;
 import com.example.android_client.entities.FileUtils;
 import com.example.android_client.models.User;
+import com.example.android_client.request.LoginRequest;
 import com.example.android_client.response.ApiResponse;
+import com.example.android_client.response.TokenResponse;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Objects;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -31,6 +34,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class UserApi {
     private static final String BASE_URL = "http://10.0.2.2:3000/api/";
+
     private UserServerApi userServerApi;
     private Retrofit retrofit;
 
@@ -104,6 +108,33 @@ public class UserApi {
             public void onFailure(@NonNull Call<User> call, @NonNull Throwable t) {
                 registerLiveData.postValue(new ApiResponse<>(
                         null, "Network error: " + t.getMessage(), false));
+            }
+        });
+    }
+    public void loginUser(LoginRequest loginRequest, MutableLiveData<ApiResponse<TokenResponse>> tokenLiveData)
+    {
+        userServerApi.login(loginRequest).enqueue(new Callback<TokenResponse>(){
+            @Override
+            public void onResponse(@NonNull Call<TokenResponse> call, @NonNull Response<TokenResponse> response) {
+                Log.d("LoginAPI", "Response code: " + response.code());
+                if (response.isSuccessful() && Objects.requireNonNull(response.body()).getUserId() != null) {
+                    Log.d("LoginAPI", "Login success: " + response.body().toString());
+                    if (response.body().getUserId() != null) {
+                        tokenLiveData.postValue(new ApiResponse<>
+                                (response.body(), "User login successfully", true));
+                    } else {
+                        tokenLiveData.postValue(new ApiResponse<>
+                                (null, "User not found", false));
+                    }
+                } else {
+                    tokenLiveData.postValue(new ApiResponse<>
+                            (null, "Wrong password or username", false));
+                }
+            }
+            @Override
+            public void onFailure(@NonNull Call<TokenResponse> call, @NonNull Throwable t) {
+                tokenLiveData.postValue(new ApiResponse<>
+                        (null, "Error: " + t.getMessage(), false));
             }
         });
     }
