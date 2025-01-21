@@ -77,14 +77,17 @@ public class UserApi {
 
 
         RequestBody filePart = RequestBody.create(MediaType.parse("multipart/form-data"),imageFile);
-        MultipartBody.Part profileImg = MultipartBody.Part.createFormData("profileImg", imageFile.getName(), filePart);
+        MultipartBody.Part profileImg = MultipartBody.Part.createFormData("imageFile", imageFile.getName(), filePart);
 
         Call<User> call = userServerApi.addUser(firstname,lastname,username,password, profileImg);
 
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(@NonNull Call<User> call, @NonNull Response<User> response) {
+                Log.d("LoginAPI", "Login success: " + response.body().toString());
+
                 if (response.isSuccessful() && response.body() != null) {
+                    Log.d("LoginAPI", "Login success: " + response.body().toString());
                     registerLiveData.postValue(new ApiResponse<>(
                             response.body(), "User registered successfully", true));
                 } else {
@@ -111,33 +114,49 @@ public class UserApi {
             }
         });
     }
-    public void loginUser(LoginRequest loginRequest, MutableLiveData<ApiResponse<TokenResponse>> tokenLiveData)
-    {
-        userServerApi.login(loginRequest).enqueue(new Callback<TokenResponse>(){
+    public void loginUser(Context context, LoginRequest loginRequest, MutableLiveData<ApiResponse<TokenResponse>> tokenLiveData) {
+        userServerApi.login(loginRequest).enqueue(new Callback<TokenResponse>() {
             @Override
             public void onResponse(@NonNull Call<TokenResponse> call, @NonNull Response<TokenResponse> response) {
-                Log.d("LoginAPI", "Response code: " + response.code());
-                if (response.isSuccessful() && Objects.requireNonNull(response.body()).getUserId() != null) {
-                    Log.d("LoginAPI", "Login success: " + response.body().toString());
-                    if (response.body().getUserId() != null) {
-                        tokenLiveData.postValue(new ApiResponse<>
-                                (response.body(), "User login successfully", true));
+                // Log the full response
+                if (response.isSuccessful()) {
+                    System.out.println("Response is successful");
+                    System.out.println("Response Body: " + response.body());
+                    TokenResponse tokenResponse = response.body();
+                    if (tokenResponse != null && tokenResponse.get_id() != null) {
+                        System.out.println("User ID (_id) found: " + tokenResponse.get_id());
+                        tokenLiveData.postValue(new ApiResponse<>(
+                                tokenResponse, "User login successfully", true));
                     } else {
-                        tokenLiveData.postValue(new ApiResponse<>
-                                (null, "User not found", false));
+                        System.out.println("User ID (_id) not found");
+                        tokenLiveData.postValue(new ApiResponse<>(
+                                null, "User not found", false));
                     }
                 } else {
-                    tokenLiveData.postValue(new ApiResponse<>
-                            (null, "Wrong password or username", false));
+                    System.out.println("Response not successful");
+                    System.out.println("Error Body: " + response.errorBody());
+                    try {
+                        System.out.println("Error Body String: " + response.errorBody().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    tokenLiveData.postValue(new ApiResponse<>(
+                            null, "Wrong password or username", false));
                 }
             }
+
             @Override
             public void onFailure(@NonNull Call<TokenResponse> call, @NonNull Throwable t) {
-                tokenLiveData.postValue(new ApiResponse<>
-                        (null, "Error: " + t.getMessage(), false));
+                System.out.println("Request failed");
+                System.out.println("Error: " + t.getMessage());
+                //
+                tokenLiveData.postValue(new ApiResponse<>(
+                        null, "Error: " + t.getMessage(), false));
             }
         });
     }
+
+
 
 
 }
