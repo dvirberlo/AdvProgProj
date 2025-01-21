@@ -1,9 +1,8 @@
-package com.example.android_client;
+package com.example.android_client.activities;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 
-import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -14,17 +13,12 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.android_client.R;
 import com.example.android_client.entities.PhotoHandler;
 import com.example.android_client.models.User;
-import com.example.android_client.network.RetroFitClient;
-import com.example.android_client.network.WebServiceApi;
 import com.example.android_client.viewmodels.UserViewModel;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
-public class MainActivity extends AppCompatActivity {
+public class SignUpActivity extends AppCompatActivity {
     private EditText editTextFirstName, editTextLastName, editTextPassword,
             editTextConfirmPassword, editTextUserName;
     private Button buttonUploadPhoto, buttonSignUp;
@@ -37,16 +31,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_sign_up);
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
         userViewModel.getRegisterData().observe(this,user -> {
             if(!user.isSuccess()){
-                Toast toast = Toast.makeText(MainActivity.this,
+                Toast toast = Toast.makeText(SignUpActivity.this,
                         user.getMessage(), Toast.LENGTH_LONG);
                 toast.show();
                 return;
             }
-            Toast toast = Toast.makeText(MainActivity.this,
+            Toast toast = Toast.makeText(SignUpActivity.this,
                     user.getMessage(), Toast.LENGTH_LONG);
             toast.show();
 
@@ -170,7 +164,7 @@ public class MainActivity extends AppCompatActivity {
 
         userViewModel.addUser(this,user);
         // All validations have passed
-       // createUser(firstName, lastName, userName, password, "user");
+        // createUser(firstName, lastName, userName, password, "user");
     }
 
 //    private void createUser(String firstName, String lastName, String userName, String password, String role){
