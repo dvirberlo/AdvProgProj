@@ -94,6 +94,11 @@ public class SignUpActivity extends AppCompatActivity {
         String userName = editTextUserName.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
         String rePassword = editTextConfirmPassword.getText().toString().trim();
+        if (resultBit == null){
+            Toast.makeText(this, "Photo is required.", Toast.LENGTH_SHORT).show();
+            buttonUploadPhoto.requestFocus();
+            return;
+        }
         String profileImgUri = PhotoHandler.bitmapToUri(resultBit, this).toString();
         //user.setProfileImg(profileImgUri);
         String specialChars = "[!@#$%^&*(),.?\":{}|<>]";
