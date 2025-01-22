@@ -1,10 +1,7 @@
 package com.example.android_client.viewmodels;
-
 import android.content.Context;
-
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-
 import com.example.android_client.models.User;
 import com.example.android_client.repository.UserRepository;
 import com.example.android_client.request.LoginRequest;

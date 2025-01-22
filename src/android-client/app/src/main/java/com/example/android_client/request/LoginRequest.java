@@ -1,5 +1,4 @@
 package com.example.android_client.request;
-
 import com.google.gson.annotations.SerializedName;
 
 public class LoginRequest {
