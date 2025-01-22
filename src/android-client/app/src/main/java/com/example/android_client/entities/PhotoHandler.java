@@ -1,8 +1,5 @@
 package com.example.android_client.entities;
-
-
 import static android.app.Activity.RESULT_OK;
-
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;

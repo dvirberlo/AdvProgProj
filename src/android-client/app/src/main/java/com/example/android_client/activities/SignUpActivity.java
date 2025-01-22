@@ -2,7 +2,6 @@ package com.example.android_client.activities;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -44,7 +43,7 @@ public class SignUpActivity extends AppCompatActivity {
                     user.getMessage(), Toast.LENGTH_LONG);
             toast.show();
 
-            //startActivity(new Intent(this, LoginActivity.class));
+            startActivity(new Intent(this, SignInActivity.class));
         });
 
 
@@ -166,34 +165,8 @@ public class SignUpActivity extends AppCompatActivity {
         }
 
         User user = new User(firstName, lastName, userName, password,"user",profileImgUri);
-
-        userViewModel.addUser(this,user);
         // All validations have passed
-        // createUser(firstName, lastName, userName, password, "user");
-    }
+        userViewModel.addUser(this,user);
 
-//    private void createUser(String firstName, String lastName, String userName, String password, String role){
-//        User user = new User(firstName, lastName, userName, password, role);
-//        WebServiceApi apiService = RetroFitClient.getClient().create(WebServiceApi.class);
-////        Call<Void> call = apiService.createUser(user);
-//       // call.enqueue(new Callback<Void>() {
-//            @Override
-//            public void onResponse(Call<Void> call, Response<Void> response) {
-//                if(response.isSuccessful()){
-//                    Log.d(TAG, "User created successfully");
-//                    Toast.makeText(MainActivity.this, "User created successfully", Toast.LENGTH_SHORT).show();
-//                    // Optionally, navigate to another activity or clear the form
-//                } else {
-//                    Log.e(TAG, "Failed to create user: " + response.code());
-//                    Toast.makeText(MainActivity.this, "Failed to create user: " + response.code(), Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<Void> call, Throwable t) {
-//                Log.e(TAG, "Error: " + t.getMessage(), t);
-//                Toast.makeText(MainActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
-//            }
-//        });
-    // }
+    }
 }

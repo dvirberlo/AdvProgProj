@@ -1,11 +1,13 @@
 <resources>
     <string name="app_name">Netflix</string>
     <string name="signup_title">Sign Up</string>
+    <string name="sing_in_title">Welcome</string>
     <string name="first_name">First Name</string>
     <string name="last_name">Last Name</string>
     <string name="password">Password</string>
     <string name="confirm_password">Confirm Password</string>
     <string name="button_sign_up">Sign Up</string>
+    <string name="button_login_in">Log in</string>
     <string name="upload_photo">Upload Photo</string>
     <string name="user_name">Username</string>
     <string name="title_activity_admin">AdminActivity</string>

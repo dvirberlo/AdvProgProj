@@ -1,7 +1,4 @@
 package com.example.android_client.response;
-
-
-// Api response: ability to hold data, message and success status
 public class ApiResponse<T> {
     private T data;
     private String message;
