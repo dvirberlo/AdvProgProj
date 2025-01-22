@@ -1,26 +1,19 @@
 package com.example.android_client.api;
-
 import android.content.Context;
 import android.net.Uri;
 import android.util.Log;
-
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
-
 import com.example.android_client.api.server.UserServerApi;
 import com.example.android_client.entities.FileUtils;
 import com.example.android_client.models.User;
 import com.example.android_client.request.LoginRequest;
 import com.example.android_client.response.ApiResponse;
 import com.example.android_client.response.TokenResponse;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.File;
 import java.io.IOException;
-import java.util.Objects;
-
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -155,8 +148,5 @@ public class UserApi {
             }
         });
     }
-
-
-
 
 }

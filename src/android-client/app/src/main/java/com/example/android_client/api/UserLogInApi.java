@@ -1,32 +1,13 @@
 package com.example.android_client.api;
-
-
-import android.content.Context;
-import android.net.Uri;
 import android.util.Log;
-
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
-
 import com.example.android_client.api.server.UserServerApi;
 import com.example.android_client.models.User;
-import com.example.android_client.entities.FileUtils;
 import com.example.android_client.entities.TokenInterceptor;
 import com.example.android_client.entities.UserManager;
 import com.example.android_client.response.ApiResponse;
-//import com.example.android.response.MessageResponse;
-//import com.example.android.response.UpdateUserResponse;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.File;
-import java.io.IOException;
-
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
-import okhttp3.RequestBody;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -110,9 +91,5 @@ public class UserLogInApi {
         }
         return password.length()<=20 &&password.length() >= 8 && password.matches(".*[a-zA-Z]+.*");
     }
-
-
-
-
 
 }

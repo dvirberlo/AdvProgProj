@@ -1,9 +1,6 @@
 package com.example.android_client.repository;
-
 import android.content.Context;
-
 import androidx.lifecycle.MutableLiveData;
-
 import com.example.android_client.api.UserApi;
 import com.example.android_client.models.User;
 import com.example.android_client.request.LoginRequest;
