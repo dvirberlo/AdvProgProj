@@ -5,7 +5,6 @@ import static android.app.Activity.RESULT_OK;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,15 +17,15 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.android_client.R;
-import com.example.android_client.databinding.FragmentCreateMovieBinding;
+import com.example.android_client.databinding.FragmentMovieAdminBinding;
 import com.example.android_client.models.Movie;
 import com.example.android_client.viewmodels.MovieViewModel;
 
 import java.util.List;
 
-public class CreateMovieFragment extends Fragment {
+public class MovieAdminFragment extends Fragment {
 
-    private FragmentCreateMovieBinding binding;
+    private FragmentMovieAdminBinding binding;
     private MovieViewModel movieViewModel;
     private Uri movieFileUri, thumbnailFileUri;
 
@@ -50,7 +49,7 @@ public class CreateMovieFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        binding = FragmentCreateMovieBinding.inflate(inflater, container, false);
+        binding = FragmentMovieAdminBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         movieViewModel = new ViewModelProvider(this).get(MovieViewModel.class);
 
@@ -68,18 +67,23 @@ public class CreateMovieFragment extends Fragment {
             selectMovieLauncher.launch(intent);
         });
 
-        binding.createMovieButton.setOnClickListener(this::createMovieClick);
+        binding.submitMovieButton.setOnClickListener(v -> {
+            if (binding.id.getText().toString().isEmpty())
+                this.createMovie();
+            else this.updateMovie();
+        });
 
-        movieViewModel.getMovieData().observe(getViewLifecycleOwner(), movie -> {
+        binding.deleteMovieButton.setOnClickListener(v -> this.deleteMovie());
+
+        movieViewModel.getMovieActionData().observe(getViewLifecycleOwner(), movie -> {
             if (movie != null) {
+                binding.id.setText("");
                 binding.name.setText("");
                 binding.description.setText("");
                 binding.releaseYear.setText("");
                 binding.rating.setText("");
                 binding.length.setText("");
                 binding.categories.setText("");
-                binding.thumbnailFileButton.setText("");
-                binding.movieFileButton.setText("");
                 movieFileUri = null;
                 thumbnailFileUri = null;
                 Toast.makeText(getContext(), movie.getMessage(), Toast.LENGTH_LONG).show();
@@ -89,42 +93,65 @@ public class CreateMovieFragment extends Fragment {
         return root;
     }
 
-    public void createMovieClick(View view) {
+    private Movie getValidatedMovie(){
         String name = binding.name.getText().toString();
         if (name.isEmpty()) {
             binding.name.setError(getString(R.string.required));
-            return;
+            return null;
         }
         String description = binding.description.getText().toString();
         if (description.isEmpty()) {
             binding.description.setError(getString(R.string.required));
-            return;
+            return null;
         }
         if (movieFileUri == null) {
             binding.movieFileButton.setError(getString(R.string.required));
-            return;
+            return null;
         }
         if (thumbnailFileUri == null) {
             binding.thumbnailFileButton.setError(getString(R.string.required));
-            return;
+            return null;
         }
         if (binding.releaseYear.getText().toString().isEmpty()) {
             binding.releaseYear.setError(getString(R.string.required));
-            return;
+            return null;
         }
         int releaseYear = Integer.parseInt(binding.releaseYear.getText().toString());
         if (binding.rating.getText().toString().isEmpty()) {
             binding.rating.setError(getString(R.string.required));
-            return;
+            return null;
         }
         int rating = Integer.parseInt(binding.rating.getText().toString());
         if (binding.length.getText().toString().isEmpty()) {
             binding.length.setError(getString(R.string.required));
-            return;
+            return null;
         }
         int length = Integer.parseInt(binding.length.getText().toString());
         List<String> categories = List.of(binding.categories.getText().toString().split(","));
-        movieViewModel.createMovie(getContext(), new Movie(name, description, releaseYear, rating, length, categories, movieFileUri.toString(), thumbnailFileUri.toString()));
+
+        return new Movie(name, description, releaseYear, rating, length, categories, movieFileUri.toString(), thumbnailFileUri.toString());
+    }
+
+    private void createMovie() {
+        Movie movie = getValidatedMovie();
+        if (movie == null) return;
+        movieViewModel.createMovie(getContext(), movie);
+    }
+
+    private void updateMovie() {
+        Movie movie = getValidatedMovie();
+        String id = binding.id.getText().toString();
+        if (movie == null) return;
+        movieViewModel.updateMovie(id, movie);
+    }
+
+    private void deleteMovie() {
+        String id = binding.id.getText().toString();
+        if (id.isEmpty()) {
+            binding.id.setError(getString(R.string.required));
+            return;
+        }
+        movieViewModel.deleteMovie(id);
     }
 
     @Override

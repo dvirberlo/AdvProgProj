@@ -13,12 +13,12 @@
             android:icon="@drawable/ic_search"
             android:title="@string/menu_search" />
         <item
-            android:id="@+id/nav_create_movie"
+            android:id="@+id/nav_movie_admin"
             android:icon="@drawable/ic_admin_panel_settings"
-            android:title="@string/menu_create_movie" />
+            android:title="@string/menu_movie_admin" />
         <item
-            android:id="@+id/nav_create_category"
+            android:id="@+id/nav_category_admin"
             android:icon="@drawable/ic_admin_panel_settings"
-            android:title="@string/menu_create_category" />
+            android:title="@string/menu_category_admin" />
     </group>
 </menu>
