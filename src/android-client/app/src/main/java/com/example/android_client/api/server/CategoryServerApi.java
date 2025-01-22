@@ -6,6 +6,8 @@ import com.example.android_client.models.Category;
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.PATCH;
 import retrofit2.http.POST;
@@ -17,10 +19,12 @@ public interface CategoryServerApi {
 
     @PATCH("categories/{id}")
     Call<Void> updateCategory(@Path("id") String id, Category category);
+    @DELETE("categories/{id}")
+    Call<Void> deleteCategory(@Path("id") String id);
 
     @GET("categories")
     Call<List<Category>> getAllCategories();
 
     @POST("categories")
-    Call<Category> createCategory(Category category);
+    Call<Category> createCategory(@Body Category category);
 }

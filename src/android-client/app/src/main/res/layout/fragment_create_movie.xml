@@ -76,6 +76,15 @@
         android:inputType="number"
         android:required="true" />
 
+    <EditText
+        android:id="@+id/categories"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:hint="@string/movie_categories_hint"
+        android:importantForAccessibility="yes"
+        android:inputType="text" />
+
 
     <Button
         android:id="@+id/movieFileButton"
@@ -96,7 +105,7 @@
 
     <!-- Submit button -->
     <Button
-        android:id="@+id/submitButton"
+        android:id="@+id/createMovieButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/red"

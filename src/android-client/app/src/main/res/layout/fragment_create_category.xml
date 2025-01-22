@@ -40,7 +40,7 @@
             android:id="@+id/promoted" />
 
         <Button
-            android:id="@+id/submitButton"
+            android:id="@+id/createButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/red"

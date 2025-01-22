@@ -25,5 +25,80 @@ public class CategoryApi {
 
         categoryServerApi = retrofit.create(CategoryServerApi.class);
     }
-    
+
+    public void getCategoryById(String id, MutableLiveData<ApiResponse<Category>> categoryData) {
+        Call<Category> call = categoryServerApi.getCategoryById(id);
+        call.enqueue(new Callback<Category>() {
+            @Override
+            public void onResponse(Call<Category> call, Response<Category> response) {
+                if(response.isSuccessful()){
+                    categoryData.postValue(new ApiResponse<>(response.body(), null, true));
+                }else{
+                    categoryData.postValue(new ApiResponse<>(null, "Cannot get category", false));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Category> call, Throwable t) {
+                categoryData.postValue(new ApiResponse<>(null, "Cannot get category", false));
+            }
+        });
+    }
+
+    public void createCategory(Category category, MutableLiveData<ApiResponse<Category>> categoryData) {
+        Call<Category> call = categoryServerApi.createCategory(category);
+        call.enqueue(new Callback<Category>() {
+            @Override
+            public void onResponse(Call<Category> call, Response<Category> response) {
+                if(response.isSuccessful()){
+                    categoryData.postValue(new ApiResponse<>(response.body(), "Category created", true));
+                }else{
+                    categoryData.postValue(new ApiResponse<>(null, "Cannot create category", false));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Category> call, Throwable t) {
+                categoryData.postValue(new ApiResponse<>(null, "Cannot create category", false));
+            }
+        });
+    }
+
+    public void updateCategory(String id, Category category, MutableLiveData<ApiResponse<Category>> categoryData) {
+        Call<Void> call = categoryServerApi.updateCategory(id, category);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if(response.isSuccessful()){
+                    categoryData.postValue(new ApiResponse<>(null, "Category updated", true));
+                }else{
+                    categoryData.postValue(new ApiResponse<>(null, "Cannot update category", false));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                categoryData.postValue(new ApiResponse<>(null, "Cannot update category", false));
+            }
+        });
+    }
+
+    public void deleteCategory(String id, MutableLiveData<ApiResponse<Category>> categoryData) {
+        Call<Void> call = categoryServerApi.deleteCategory(id);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if(response.isSuccessful()){
+                    categoryData.postValue(new ApiResponse<>(null, "Category deleted", true));
+                }else{
+                    categoryData.postValue(new ApiResponse<>(null, "Cannot delete category", false));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                categoryData.postValue(new ApiResponse<>(null, "Cannot delete category", false));
+            }
+        });
+    }
 }

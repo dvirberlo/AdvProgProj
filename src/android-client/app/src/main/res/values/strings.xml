@@ -33,5 +33,7 @@
     <string name="create_category">Create Category</string>
     <string name="category_name_hint">Enter Category Name</string>
     <string name="promoted">Promoted</string>
+    <string name="required">Required</string>
+    <string name="movie_categories_hint">Enter comma seperated list of categories ID</string>
 
 </resources>
