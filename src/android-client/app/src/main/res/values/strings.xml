@@ -8,5 +8,28 @@
     <string name="button_sign_up">Sign Up</string>
     <string name="upload_photo">Upload Photo</string>
     <string name="user_name">Username</string>
+    <string name="title_activity_admin">AdminActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Netflix</string>
+    <string name="nav_header_subtitle">streaming app</string>
+    <string name="nav_header_desc">Navigation header</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_create_movie">Create Movie</string>
+    <string name="menu_create_category">Create Category</string>
+    <string name="menu_search">Search</string>
+    <string name="create_movie">Create Movie</string>
+    <string name="movie_name_hint">Enter movie name</string>
+    <string name="movie_description_hint">Enter movie description</string>
+    <string name="movie_length_hint">Enter movie length</string>
+    <string name="movie_rating__hint">Enter movie rating</string>
+    <string name="movie_release_year_hint">Enter release year</string>
+    <string name="movie_file_hint">Choose Movie File</string>
+    <string name="movie_thumbnail_hint">Choose Thumbnail File</string>
+    <string name="submit">Submit</string>
+    <string name="create_category">Create Category</string>
+    <string name="category_name_hint">Enter Category Name</string>
+    <string name="promoted">Promoted</string>
 
 </resources>
