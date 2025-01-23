@@ -132,8 +132,13 @@ const RandomVideo = ({ categories }) => {
   );
   return (
     <div>
-      <h4>Random Movie: {randomMovie.name}</h4>
-      <VideoPlayer src={randomMovie.filePath} autoPlay />
+      <h4>{randomMovie.name}</h4>
+      <p>{randomMovie.description}</p>
+      <VideoPlayer
+        src={randomMovie.filePath}
+        key={randomMovie.filePath}
+        autoPlay
+      />
     </div>
   );
 };
