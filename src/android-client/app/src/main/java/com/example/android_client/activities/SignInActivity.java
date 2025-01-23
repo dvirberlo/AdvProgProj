@@ -20,7 +20,9 @@ public class SignInActivity extends AppCompatActivity {
     private Button buttonSignIn;
     private UserViewModel userViewModel;
     private UserLogInViewModel userLogInViewModel;
+
     private static final String TAG = "SignInActivity";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,10 +81,21 @@ public class SignInActivity extends AppCompatActivity {
                 return;
             }
             UserManager.getInstance().setUser(user.getData());
+
+            //startActivity(new Intent(this, SignUpActivity.class));
+        });
+
+        //userLogInViewModel.getUser();
+
+            // need to change to move the home page
             startActivity(new Intent(this, SignUpActivity.class));
+            //remove this activity from the stack
+            finish();
         });
 
         userLogInViewModel.getUser();
+
+
     }
 
     }
