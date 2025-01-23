@@ -23,7 +23,6 @@ public class SignUpActivity extends AppCompatActivity {
     private Button buttonUploadPhoto, buttonSignUp;
     private PhotoHandler photoHandler;
     private Bitmap resultBit;
-    private static final String TAG = "SignUpActivity";
     private UserViewModel userViewModel;
 
     @Override
@@ -44,9 +43,9 @@ public class SignUpActivity extends AppCompatActivity {
             toast.show();
 
             startActivity(new Intent(this, SignInActivity.class));
+            //remove this activity from the stack
+            finish();
         });
-
-
         init();
         clickEvent();
     }

@@ -41,5 +41,10 @@
     <string name="required">Required</string>
     <string name="delete">Delete</string>
     <string name="create_or_update">Create/Update</string>
+    <string name="home_page_no_login_title">Explore movies </string>
+    <string name="home_page_no_login_sub_title">Watch anywhere , Cancel anytime. </string>
+    <string name="home_page_no_login_ready_to">Ready to watch? Click on the buttons below </string>
+
+
 
 </resources>
