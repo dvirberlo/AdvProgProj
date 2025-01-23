@@ -24,7 +24,7 @@ export const NavBar = () => {
           <span className="navbar-toggler-icon"></span>
         </button>
 
-        <a className="navbar-brand">APP_NAME</a>
+        <a className="navbar-brand">NextFelix</a>
         <div className="ms-auto" />
 
         <div className="d-lg-none d-flex">
