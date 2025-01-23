@@ -4,6 +4,7 @@ import { getMovieHttp } from "../../HttpRequest/getMovieHttp";
 import { useAuth } from "../../Contexts/AuthContext/AuthContext";
 import { routes } from "../../Pages/AppRouter";
 import { VideoPlayer } from "../../Components/VideoPlayer/VideoPlayer";
+import { Recommendations } from "../../Components/Recommendations/Recommendations";
 
 export const MoviePage = () => {
   const { auth } = useAuth();
@@ -30,12 +31,13 @@ export const MoviePage = () => {
       });
   }, [auth, id]);
   return (
-    <div>
+    <div className="container">
       {movie ? (
         <div>
           <h1>{movie.name}</h1>
           <p>{movie.description}</p>
-          <VideoPlayer src={movie.filePath} />
+          <VideoPlayer src={movie.filePath} key={movie.filePath} />
+          <Recommendations id={id} />
         </div>
       ) : (
         <div>Loading...</div>

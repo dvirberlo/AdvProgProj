@@ -45,15 +45,11 @@ const createMovie = async (req, res) => {
   }
 };
 const getMovies = async (req, res) => {
-  // not necessary for that exercise but good practice
-  if (!req.headers[TOKEN_ID_HEADER]) {
-    return res.status(401).json({ error: "Token is required" });
-  }
   // check if the existing user having that token-id
   const user = await tokenService.verifyToken(req.headers[TOKEN_ID_HEADER]);
-  if (user === null) {
-    return res.status(404).json({ error: "User not found" });
-  }
+  if (user === null)
+    return res.status(401).json({ error: "User token is invalid" });
+
   try {
     let movies = await movieService.getMovies(user.id);
     if (!movies) {
