@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 
 import com.example.android_client.activities.home.HomeActivity;
+import com.example.android_client.activities.home.SearchFragment;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -13,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Intent intent = new Intent(this, HomePageNonLogIn.class);
+        Intent intent = new Intent(this, HomeActivity.class);
 
         startActivity(intent);
         // remove main activity from activity stack
