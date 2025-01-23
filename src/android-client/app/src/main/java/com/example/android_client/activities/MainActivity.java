@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 
 import com.example.android_client.activities.home.HomeActivity;
+import com.example.android_client.activities.home.SearchFragment;
 
 
 public class MainActivity extends AppCompatActivity {

@@ -17,7 +17,6 @@ roomRuntime = "2.6.1"
 roomCompiler = "2.6.1"
 
 okhttp = "4.9.3"
-roomCommon = "2.6.1"
 
 
 [libraries]
@@ -38,7 +37,6 @@ room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "
 room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "roomCompiler" }
 
 okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
-room-common = { group = "androidx.room", name = "room-common", version.ref = "roomCommon" }
 
 
 [plugins]
