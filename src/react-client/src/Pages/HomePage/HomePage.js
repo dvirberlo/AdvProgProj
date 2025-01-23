@@ -82,6 +82,9 @@ const RandomVideo = ({ categories }) => {
   const randomMovie = randomChoice(
     Object.values(categories).flatMap((category) => category.movies)
   );
+  if (!randomMovie) {
+    return <p>No movies available</p>;
+  }
   return (
     <div>
       <h4>{randomMovie.name}</h4>
