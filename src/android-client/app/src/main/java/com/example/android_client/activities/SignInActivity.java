@@ -82,23 +82,19 @@ public class SignInActivity extends AppCompatActivity {
             }
             UserManager.getInstance().setUser(user.getData());
 
-            //startActivity(new Intent(this, SignUpActivity.class));
-        });
-
-        //userLogInViewModel.getUser();
-
-            // need to change to move the home page
+            // Start activity and remove this activity from the stack
             startActivity(new Intent(this, SignUpActivity.class));
-            //remove this activity from the stack
             finish();
         });
-
         userLogInViewModel.getUser();
+    }
+
+
+
 
 
     }
 
-    }
 
 
 
