@@ -1,6 +1,6 @@
 package com.example.android_client.viewmodels;
 
-import android.app.Application;
+import android.content.Context;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -13,16 +13,30 @@ public class MovieViewModel extends ViewModel {
     private MovieRepository movieRepository;
 
     private MutableLiveData<ApiResponse<Movie>> movieData;
+    private MutableLiveData<ApiResponse<Movie>> movieActionData;
 
     public MovieViewModel(){
         this.movieRepository = new MovieRepository();
         this.movieData = new MutableLiveData<>();
+        this.movieActionData = new MutableLiveData<>();
     }
 
     public MutableLiveData<ApiResponse<Movie>> getMovieData(){
         return movieData;
     }
-    public void getMovie(String id){
-        movieRepository.getMovie(id,movieData);
+    public MutableLiveData<ApiResponse<Movie>> getMovieActionData(){
+        return movieActionData;
+    }
+    public void getMovieById(String id){
+        movieRepository.getMovieById(id, movieData);
+    }
+    public void createMovie(Context context, Movie movie){
+        movieRepository.createMovie(context, movie, movieActionData);
+    }
+    public void updateMovie(String id, Movie movie){
+        movieRepository.updateMovie(id, movie, movieActionData);
+    }
+    public void deleteMovie(String id){
+        movieRepository.deleteMovie(id, movieActionData);
     }
 }

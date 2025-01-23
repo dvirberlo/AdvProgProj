@@ -18,14 +18,14 @@
         tools:layout="@layout/fragment_search" />
 
     <fragment
-        android:id="@+id/nav_create_movie"
-        android:name="com.example.android_client.activities.home.CreateMovieFragment"
-        android:label="@string/menu_create_movie"
-        tools:layout="@layout/fragment_create_movie" />
+        android:id="@+id/nav_movie_admin"
+        android:name="com.example.android_client.activities.home.MovieAdminFragment"
+        android:label="@string/menu_movie_admin"
+        tools:layout="@layout/fragment_movie_admin" />
 
     <fragment
-        android:id="@+id/nav_create_category"
-        android:name="com.example.android_client.activities.home.CreateCategoryFragment"
-        android:label="@string/menu_create_category"
-        tools:layout="@layout/fragment_create_category" />
+        android:id="@+id/nav_category_admin"
+        android:name="com.example.android_client.activities.home.CategoryAdminFragment"
+        android:label="@string/menu_category_admin"
+        tools:layout="@layout/fragment_category_admin" />
 </navigation>

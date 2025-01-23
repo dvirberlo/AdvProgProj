@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.home.CreateCategoryFragment">
+    tools:context=".activities.home.CategoryAdminFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,9 +17,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:text="@string/create_category"
+            android:text="@string/category_admin_title"
             android:textSize="18sp"
             android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:hint="@string/category_id_hint"
+            android:importantForAccessibility="yes"
+            android:inputType="text"
+            android:required="true" />
 
         <EditText
             android:id="@+id/name"
@@ -40,12 +50,21 @@
             android:id="@+id/promoted" />
 
         <Button
-            android:id="@+id/submitButton"
+            android:id="@+id/submitCategoryButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/red"
             android:importantForAccessibility="yes"
-            android:text="@string/submit"
+            android:text="@string/create_or_update"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/deleteCategoryButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/red"
+            android:importantForAccessibility="yes"
+            android:text="@string/delete"
             android:textColor="@color/white" />
 
     </LinearLayout>

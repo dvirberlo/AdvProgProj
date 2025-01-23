@@ -43,10 +43,8 @@ public class SignUpActivity extends AppCompatActivity {
             toast.show();
 
             startActivity(new Intent(this, SignInActivity.class));
-
             //remove this activity from the stack
             finish();
-
         });
         init();
         clickEvent();

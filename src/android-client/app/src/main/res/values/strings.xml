@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Netflix</string>
+    <string name="app_name">NextFelix</string>
     <string name="signup_title">Sign Up</string>
     <string name="sing_in_title">Welcome</string>
     <string name="first_name">First Name</string>
@@ -19,15 +19,16 @@
     <string name="title_activity_admin">AdminActivity</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Netflix</string>
-    <string name="nav_header_subtitle">streaming app</string>
+    <string name="nav_header_title">NextFelix</string>
+    <string name="nav_header_subtitle">next-gen streaming app</string>
     <string name="nav_header_desc">Navigation header</string>
 
     <string name="menu_home">Home</string>
-    <string name="menu_create_movie">Create Movie</string>
-    <string name="menu_create_category">Create Category</string>
+    <string name="menu_movie_admin">Movie Admin</string>
+    <string name="menu_category_admin">Category Admin</string>
     <string name="menu_search">Search</string>
-    <string name="create_movie">Create Movie</string>
+
+    <string name="movie_admin">Movie Admin</string>
     <string name="movie_name_hint">Enter movie name</string>
     <string name="movie_description_hint">Enter movie description</string>
     <string name="movie_length_hint">Enter movie length</string>
@@ -35,19 +36,23 @@
     <string name="movie_release_year_hint">Enter release year</string>
     <string name="movie_file_hint">Choose Movie File</string>
     <string name="movie_thumbnail_hint">Choose Thumbnail File</string>
-    <string name="submit">Submit</string>
-    <string name="create_category">Create Category</string>
+    <string name="movie_id_hint">Enter movie ID, or leave empty for new one</string>
+
+    <string name="category_admin_title">Category Admin</string>
     <string name="category_name_hint">Enter Category Name</string>
     <string name="promoted">Promoted</string>
     <string name="place_holder">place_holder</string>
-    <string name="rating">Rating:</string>
     <string name="watch_now">Watch Now</string>
     <string name="close">close</string>
+    <string name="movie_categories_hint">Enter comma separated list of categories ID</string>
+    <string name="category_id_hint">Enter category ID, or leave empty for new one</string>
 
+    <string name="required">Required</string>
+    <string name="delete">Delete</string>
+    <string name="create_or_update">Create/Update</string>
     <string name="home_page_no_login_title">Explore movies </string>
     <string name="home_page_no_login_sub_title">Watch anywhere , Cancel anytime. </string>
     <string name="home_page_no_login_ready_to">Ready to watch? Click on the buttons below </string>
-
 
 
 

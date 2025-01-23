@@ -13,9 +13,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        Intent intent = new Intent(this, HomeActivity.class);
-
+        Intent intent = new Intent(this, HomePageNonLogIn.class);
         startActivity(intent);
         // remove main activity from activity stack
         finish();
