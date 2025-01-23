@@ -127,8 +127,11 @@ public class MovieAdminFragment extends Fragment {
             return null;
         }
         int length = Integer.parseInt(binding.length.getText().toString());
+        if (binding.categories.getText().toString().isEmpty()) {
+            binding.categories.setError(getString(R.string.required));
+            return null;
+        }
         List<String> categories = List.of(binding.categories.getText().toString().split(","));
-
         return new Movie(name, description, releaseYear, rating, length, categories, movieFileUri.toString(), thumbnailFileUri.toString());
     }
 
