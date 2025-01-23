@@ -135,6 +135,7 @@ const RandomVideo = ({ categories }) => {
   }
   return (
     <div>
+      <h2>Random Movie</h2>
       <h4>{randomMovie.name}</h4>
       <p>{randomMovie.description}</p>
       <VideoPlayer
