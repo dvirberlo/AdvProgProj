@@ -8,7 +8,7 @@ export const BasicBar = ({ children, showSignIn = false }) => {
       {/* Header Section with Logo */}
       <div className="d-flex justify-content-between sticky-top">
         <div className="ms-5 mt-3 logo-custom">
-          <h1 className="logo">OUR LOGO</h1>
+          <h1 className="logo">NextFelix</h1>
         </div>
 
         {/* Conditionally Render Sign In Button */}
