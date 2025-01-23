@@ -9,6 +9,7 @@ export const MovieDetails = ({ movie, onClose }) => {
   const navigate = useNavigate();
   const watchClick = () => {
     navigate(routes.MoviePage + "/" + movie._id);
+    onClose();
   };
 
   if (!movie) return null;

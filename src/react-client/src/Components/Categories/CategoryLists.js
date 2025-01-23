@@ -7,7 +7,7 @@ export const CategoryLists = ({ categories }) => {
     <div>
       {categories.map((category) => (
         <CategoryList
-          key={category._id}
+          key={category?._id ?? "WATCHED_MOVIES"}
           categoryName={category.name}
           movies={category.movies}
         />
