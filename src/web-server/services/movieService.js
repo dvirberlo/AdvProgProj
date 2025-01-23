@@ -133,6 +133,8 @@ const getMovies = async (userId) => {
     if (watchedMoviesDetails.length > 0) {
       results.push({
         name: WATCHED_MOVIES_NAME,
+        _id: 0,
+        promoted: true,
         movies: shuffle(watchedMoviesDetails),
       });
     }

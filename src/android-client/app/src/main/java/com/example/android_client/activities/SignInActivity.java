@@ -21,6 +21,9 @@ public class SignInActivity extends AppCompatActivity {
     private UserViewModel userViewModel;
     private UserLogInViewModel userLogInViewModel;
 
+    private static final String TAG = "SignInActivity";
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
