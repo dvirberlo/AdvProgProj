@@ -41,6 +41,10 @@
     <string name="category_admin_title">Category Admin</string>
     <string name="category_name_hint">Enter Category Name</string>
     <string name="promoted">Promoted</string>
+    <string name="place_holder">place_holder</string>
+    <string name="rating">Rating:</string>
+    <string name="watch_now">Watch Now</string>
+    <string name="close">close</string>
     <string name="movie_categories_hint">Enter comma separated list of categories ID</string>
     <string name="category_id_hint">Enter category ID, or leave empty for new one</string>
 
