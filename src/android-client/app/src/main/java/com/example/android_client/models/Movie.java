@@ -8,11 +8,12 @@ import androidx.room.TypeConverters;
 import com.example.android_client.dao.ConvertersDB;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
 @TypeConverters(ConvertersDB.class)
-public class Movie {
+public class Movie implements Serializable {
     @PrimaryKey
     @SerializedName("_id")
     @NonNull
