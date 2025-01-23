@@ -1,8 +1,7 @@
 import { CreateMovieForm } from "./CreateMovieForm";
 import { CreateCategoryForm } from "./CreateCategoryForm";
-import { EditMovieForm } from "./EditMovieForm";
+import { EditDeleteMovieForm } from "./EditDeleteMovieForm";
 import { EditDeleteCategoryForm } from "./EditDeleteCategoryForm";
-import { DeleteMovieForm } from "./DeleteMovieForm";
 import { TabsNav } from "../../Components/TabsNav/TabsNav";
 import { useNavigate } from "react-router";
 import { useAuth } from "../../Contexts/AuthContext/AuthContext";
@@ -30,12 +29,8 @@ export const AdminPage = () => {
               element: <CreateMovieForm />,
             },
             {
-              name: "Edit Movie",
-              element: <EditMovieForm />,
-            },
-            {
-              name: "Delete Movie",
-              element: <DeleteMovieForm />,
+              name: "Edit & Delete Movie",
+              element: <EditDeleteMovieForm />,
             },
             {
               name: "Create Category",

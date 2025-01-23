@@ -20,6 +20,7 @@ export const TextInput = ({
   required,
   onChange,
   value,
+  ...props
 }) => {
   return (
     <div className="mb-3">
@@ -32,6 +33,7 @@ export const TextInput = ({
         required={required}
         onChange={onChange}
         value={value}
+        {...props}
       />
     </div>
   );
@@ -45,6 +47,7 @@ export const NumberInput = ({
   required,
   onChange,
   value,
+  ...props
 }) => {
   return (
     <div className="mb-3">
@@ -58,6 +61,7 @@ export const NumberInput = ({
         required={required}
         onChange={onChange}
         value={value}
+        {...props}
       />
     </div>
   );
@@ -70,6 +74,7 @@ export const TextareaInput = ({
   required,
   onChange,
   value,
+  ...props
 }) => {
   return (
     <div className="mb-3">
@@ -82,12 +87,13 @@ export const TextareaInput = ({
         required={required}
         onChange={onChange}
         value={value}
+        {...props}
       />
     </div>
   );
 };
 
-export const CheckboxInput = ({ name, text, onChange, checked }) => {
+export const CheckboxInput = ({ name, text, onChange, checked, ...props }) => {
   return (
     <div className="form-check mb-3">
       <input
@@ -97,6 +103,7 @@ export const CheckboxInput = ({ name, text, onChange, checked }) => {
         name={name}
         onChange={onChange}
         checked={checked}
+        {...props}
       />
       <label className="form-check-label" htmlFor={`${name}_CheckboxInput`}>
         {text}
