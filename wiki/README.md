@@ -114,6 +114,10 @@ Here are some screenshots of the application in action:
 
 ![Image](https://github.com/user-attachments/assets/e9bb0c02-8962-4b8c-b282-568e46d6735c)
 
+### **Search movies screen**
+
+![Image](https://github.com/user-attachments/assets/c9d11fcc-fc0f-4c8b-a56a-27d39a80470e)
+
 
 ### **Movie Details Screen**
 
