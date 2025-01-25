@@ -80,9 +80,78 @@ The application is structured in the following layers:
 
 ## **How to Run**
 
-To run the application, follow the steps below.
+## **Screenshots**
 
-### **1. Clone the Repository**
-```bash
-git clone https://github.com/yourusername/movie-streaming-app.git
-cd movie-streaming-app
+Here are some screenshots of the application in action:
+
+### **Home Screen (Before Login)**
+
+![Home Screen](./assets/home-screen.png)
+
+### **Login Screen**
+
+![Login Screen](./assets/login-screen.png)
+
+### **Movie Details Screen**
+
+![Movie Details](./assets/movie-details.png)
+
+### **Movie Player**
+
+![Movie Player](./assets/movie-player.png)
+
+### **Admin Dashboard**
+
+![Admin Dashboard](./assets/admin-dashboard.png)
+
+---
+
+## **Role-Based Authentication**
+
+### **User Roles**
+
+#### **Regular User:**
+- Can browse movies.
+- Can watch movies and view recommendations.
+- Cannot manage content.
+
+#### **Admin User:**
+- Has all user features.
+- Can manage movies and categories through the admin panel.
+
+### **JWT Authentication Flow**
+1. **Login**: Upon successful login, the user receives a JWT token which is stored in the browser's local storage.
+2. **Token Validation**: For each subsequent request, the JWT token is included in the request headers to validate user identity and permissions.
+3. **Role-based Access**: Based on the user role (admin or regular), different functionalities are accessible (e.g., only admins can add/edit/delete movies).
+
+---
+
+## **Important Notes**
+
+### **Validation:**
+- All user inputs, including registration and login, are validated (e.g., email format, password strength, etc.).
+- Feedback is provided for invalid inputs.
+
+### **Security:**
+- Passwords are securely hashed before storing.
+- JWT tokens are used to protect sensitive data.
+
+### **Responsive Design:**
+- The app is fully responsive and adapts well to mobile and desktop views.
+
+---
+
+## **Contact**
+
+For any questions or feedback, feel free to reach out:
+
+- Email: [support@movieapp.com](mailto:support@movieapp.com)
+- GitHub: [https://github.com/yourusername/movie-streaming-app](https://github.com/yourusername/movie-streaming-app)
+
+Feel free to explore and contribute to the project. We hope you enjoy using the app!
+
+---
+
+**Happy Streaming! 🍿🎬**
+
+
