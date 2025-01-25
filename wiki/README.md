@@ -76,7 +76,7 @@ The application is structured in the following layers:
 
 - **Frontend**: 
   - **React** app that communicates with the backend using RESTful APIs.
-  - **Android** app built using **Java** or **Kotlin**, interacting with the same backend to provide a mobile experience.
+  - **Android** app built using **Java**, interacting with the same backend to provide a mobile experience.
 - **Backend**: 
   - **Node.js & Express** server that exposes API endpoints for user registration, login, and movie management.
 - **Database**: 
