@@ -2,7 +2,7 @@
 
 ## **Welcome to NextFelix!**
 
-This application is a **dynamic movie streaming platform** built with **React (Frontend)** and **Node.js (Backend)**, designed to replicate the functionality of real-world services like Netflix. It supports various user roles, has a beautiful UI/UX design, and integrates all major features such as user registration, login, movie watching, movie recommendations, and administrative controls.
+This application is a **dynamic movie streaming platform** built with **React, Android (Frontend)** and **Node.js, c++ (Backend)**, designed to replicate the functionality of real-world services like Netflix. It supports various user roles, has a beautiful UI/UX design, and integrates all major features such as user registration, login, movie watching, movie recommendations, and administrative controls.
 
 ### **Table of Contents**
 1. [Introduction](#introduction)
@@ -40,7 +40,7 @@ Here’s a breakdown of the features available in the app:
   - View movie details including recommendations.
 - **Watch Movies**: 
   - Play movies directly from the application with a custom video player.
-  - Watch trailers or full movies.
+  - Watch full movies.
 - **Dark/Light Mode**: 
   - Switch between light and dark themes with a toggle button.
 
@@ -55,12 +55,15 @@ Here’s a breakdown of the features available in the app:
 ## **Technology Stack**
 
 ### **Frontend**
-- **React**: For building the UI with components.
-- **React Router**: To manage routing and navigation between pages.
-- **CSS (Styled Components)**: For responsive styling.
-- **JWT Authentication**: For secure user login and token management.
+- **React**: For building the UI with reusable components for the web.
+- **CSS (Styled Components)**: For responsive styling and modern UI.
+- **JWT Authentication**: For secure user login, token management, and authentication across both web and mobile apps.
+  
+- **Android**: The mobile version of the app is built using **Java** or **Kotlin** for Android devices.
+- **Retrofit**: Used for API communication with the backend to fetch movie data and manage user authentication.
 
 ### **Backend**
+- **C++**: Smart recommendations engine for processing movie recommendations.
 - **Node.js + Express**: Server-side framework for API handling.
 - **MongoDB**: For storing user data, movie details, etc.
 - **JWT Authentication**: For securing endpoints and user authorization.
@@ -71,38 +74,27 @@ Here’s a breakdown of the features available in the app:
 
 The application is structured in the following layers:
 
-- **Frontend**: React app that communicates with the backend using RESTful APIs.
-- **Backend**: Node.js server that exposes API endpoints for user registration, login, and movie management.
-- **Database**: MongoDB database that stores users, movies, categories, and recommendations.
-- **Authentication**: Secure user authentication using JWT tokens.
+- **Frontend**: 
+  - **React** app that communicates with the backend using RESTful APIs.
+  - **Android** app built using **Java** or **Kotlin**, interacting with the same backend to provide a mobile experience.
+- **Backend**: 
+  - **Node.js & Express** server that exposes API endpoints for user registration, login, and movie management.
+- **Database**: 
+  - **MongoDB** database that stores users, movies, categories, and recommendations.
+- **Authentication**: 
+  - Secure user authentication using **JWT** tokens.
 
 ---
 
 ## **How to Run**
 
+//TODO
+
 ## **Screenshots**
 
-Here are some screenshots of the application in action:
+You can find screenshots for the **Web** server under [**wiki/web-images**](./wiki/web-images).
 
-### **Home Screen (Before Login)**
-
-![Home Screen](./assets/home-screen.png)
-
-### **Login Screen**
-
-![Login Screen](./assets/login-screen.png)
-
-### **Movie Details Screen**
-
-![Movie Details](./assets/movie-details.png)
-
-### **Movie Player**
-
-![Movie Player](./assets/movie-player.png)
-
-### **Admin Dashboard**
-
-![Admin Dashboard](./assets/admin-dashboard.png)
+You can find screenshots for the **Android** app under [**wiki/android-images**](./wiki/android-images).
 
 ---
 
