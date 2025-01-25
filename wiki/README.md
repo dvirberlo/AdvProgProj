@@ -149,8 +149,6 @@ GitHub: [https://github.com/dvirberlo/AdvProgProj](https://github.com/dvirberlo/
 
 Feel free to explore and contribute to the project. We hope you enjoy using the app!
 
-Best regards,  
-Dvir, Dor and Aviv
 ---
 
 **Happy Streaming! 🍿🎬**
