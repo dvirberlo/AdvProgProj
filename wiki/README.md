@@ -59,7 +59,7 @@ Here’s a breakdown of the features available in the app:
 - **CSS (Styled Components)**: For responsive styling and modern UI.
 - **JWT Authentication**: For secure user login, token management, and authentication across both web and mobile apps.
   
-- **Android**: The mobile version of the app is built using **Java** or **Kotlin** for Android devices.
+- **Android**: The mobile version of the app is built using **Java** for Android devices.
 - **Retrofit**: Used for API communication with the backend to fetch movie data and manage user authentication.
 
 ### **Backend**
