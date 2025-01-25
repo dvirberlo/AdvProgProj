@@ -137,11 +137,16 @@ You can find screenshots for the **Android** app under [**wiki/android-images**]
 
 For any questions or feedback, feel free to reach out:
 
-- Email: [support@movieapp.com](mailto:support@movieapp.com)
-- GitHub: [https://github.com/yourusername/movie-streaming-app](https://github.com/yourusername/movie-streaming-app)
+Email:
+Dvir: //
+Dor: //
+Aviv: [avivb77@gmail.com](mailto:avivb77@gmail.com)  
+GitHub: [https://github.com/dvirberlo/AdvProgProj](https://github.com/dvirberlo/AdvProgProj)
 
 Feel free to explore and contribute to the project. We hope you enjoy using the app!
 
+Best regards,  
+Dvir, Dor and Aviv
 ---
 
 **Happy Streaming! 🍿🎬**
