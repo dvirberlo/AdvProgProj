@@ -121,7 +121,7 @@ You can find screenshots for the **Android** app under [**wiki/android-images**]
 ## **Important Notes**
 
 ### **Validation:**
-- All user inputs, including registration and login, are validated (e.g., email format, password strength, etc.).
+- All user inputs, including registration and login, are validated (e.g., name length, password strength, etc.).
 - Feedback is provided for invalid inputs.
 
 ### **Security:**
