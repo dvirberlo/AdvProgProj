@@ -1,17 +1,15 @@
 const recommendService = require("../services/recommendService");
 const movieService = require("../services/movieService");
-const tokenService = require("../services/tokenService");
+const { verifyToken } = require("../services/tokenService");
 const { TOKEN_ID_HEADER } = require("../constants/httpHeaders");
 
 // Controller function to get recommendations
 const getRecommendations = async (req, res) => {
-  // check if the existing user having that token-id
-  const user = await tokenService.verifyToken(req.headers[TOKEN_ID_HEADER]);
-  if (user === null)
-    return res.status(401).json({ error: "User token is invalid" });
-
   const movieId = req.params.id;
   try {
+    const user = await verifyToken(req.headers[TOKEN_ID_HEADER]);
+    if (!user) return res.status(401).json({ error: "Unauthorized" });
+
     const recommendations = await recommendService.getRecommendations(
       user.id,
       movieId
@@ -34,14 +32,12 @@ const getRecommendations = async (req, res) => {
 };
 
 const addWatch = async (req, res) => {
-  // check if the existing user having that token-id
-  const user = await tokenService.verifyToken(req.headers[TOKEN_ID_HEADER]);
-  if (user === null)
-    return res.status(401).json({ error: "User token is invalid" });
-
   const movieId = req.params.id;
 
   try {
+    const user = await verifyToken(req.headers[TOKEN_ID_HEADER]);
+    if (!user) return res.status(401).json({ error: "Unauthorized" });
+
     // Call the service function to add watch
     const result = await recommendService.addWatch(user.id, movieId);
 

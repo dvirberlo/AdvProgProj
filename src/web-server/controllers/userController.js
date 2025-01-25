@@ -7,6 +7,10 @@ const {
   uploadFieldsMiddleware,
 } = require("./fileUploads");
 
+const { verifyToken } = require("../services/tokenService");
+const { TOKEN_ID_HEADER } = require("../constants/httpHeaders");
+const { UserRoles } = require("../models/userRolesModel");
+
 const userFileFields = {
   image: "imageFile",
 };
@@ -54,11 +58,10 @@ const createUser = async (req, res) => {
  */
 const getUser = async (req, res) => {
   try {
-    const user = await UserService.getUserById(req.params.id);
-    if (user == null)
-      return res
-        .status(404)
-        .json({ error: "The specified user id does not exist" });
+    const user = await verifyToken(req.headers[TOKEN_ID_HEADER]);
+    if (!user || user.id !== req.params.id)
+      return res.status(401).json({ error: "Unauthorized" });
+
     return res.status(200).json(UserService.censoredUser(user.toJSON()));
   } catch (error) {
     console.error("userController: getUser internal error:", error);
