@@ -112,6 +112,10 @@ Here are some screenshots of the application in action:
 
 ### **Home page Screen**
 
+![Image](https://github.com/user-attachments/assets/35013ff0-2d12-4272-b950-fb4f9956c446)
+
+
+
 ![Image](https://github.com/user-attachments/assets/e9bb0c02-8962-4b8c-b282-568e46d6735c)
 
 ### **Search movies screen**
