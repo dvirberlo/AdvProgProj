@@ -90,11 +90,35 @@ The application is structured in the following layers:
 
 //TODO
 
+---
+
 ## **Screenshots**
 
-You can find screenshots for the **Web** server under [**wiki/web-images**](./wiki/web-images).
+Here are some screenshots of the application in action:
 
-You can find screenshots for the **Android** app under [**wiki/android-images**](./wiki/android-images).
+## React:
+
+### **Home Screen (Before Login)**
+
+
+### **Sign up Screen**
+
+
+### **Login Screen**
+
+
+### **Home page Screen**
+
+
+### **Movie Details Screen**
+
+
+### **Movie Player**
+
+
+### **Admin Dashboard**
+
+
 
 ---
 
