@@ -29,7 +29,7 @@ RECOMMEND_PORT=8080
 JWT_PRIVATE_KEY=some_private_key
 ```
 
-4. Run the web server
+4. Run the web server (it will include the React client)
 
 ```bash
 docker-compose -f src/docker-compose.yml run --build --remove-orphans --rm --name web-server -p 3000:3000 web-server
@@ -40,6 +40,8 @@ Now, you can access the web server through localhost at the specified port (here
 ```bash
 curl -i http://localhost:3000/api/categories
 ```
+
+Also, you can browse the React client at `http://localhost:3000/` (or any other port you specified).
 
 #### Run only recommendation server and python client
 
