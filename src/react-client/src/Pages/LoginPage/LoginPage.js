@@ -4,6 +4,7 @@ import { BasicBar } from "../../Components/Login/BasicBar";
 import { InputField } from "../../Components/Login/InputField";
 import { useAuth } from "../../Contexts/AuthContext/AuthContext";
 import { routes } from "../../Pages/AppRouter";
+import { WebServerURL } from "../../Constants/http";
 
 export const LoginPage = () => {
   const [formData, setFormData] = useState({
@@ -44,7 +45,7 @@ export const LoginPage = () => {
     };
 
     try {
-      const response = await fetch("http://localhost:3000/api/tokens", {
+      const response = await fetch(`${WebServerURL}/api/tokens`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
