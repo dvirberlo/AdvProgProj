@@ -23,8 +23,8 @@ services:
 
   web-server:
     build:
-      context: ./web-server
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: web-server/Dockerfile
     tty: true
     stdin_open: true
     init: true

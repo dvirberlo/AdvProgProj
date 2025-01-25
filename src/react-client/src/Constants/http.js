@@ -1,6 +1,6 @@
-const isDevelopment = process.env.NODE_ENV === "development";
+import { isDevMode } from "./devMode";
 
-export const WebServerURL = isDevelopment
+export const WebServerURL = isDevMode
   ? "http://localhost:3000"
   : window.location.origin;
 
