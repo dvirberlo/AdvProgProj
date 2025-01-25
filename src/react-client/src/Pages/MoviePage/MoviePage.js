@@ -22,7 +22,7 @@ export const MoviePage = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    getMovieHttp(auth, id)
+    getMovieHttp(auth.token, id)
       .then((data) => {
         setMovie(data);
       })

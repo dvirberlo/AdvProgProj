@@ -7,7 +7,7 @@ import { useAuth } from "../../Contexts/AuthContext/AuthContext";
 import { TOKEN_ID_HEADER, WebServerURL } from "../../Constants/http";
 
 export const CreateCategoryForm = () => {
-  const { token } = useAuth();
+  const { auth } = useAuth();
 
   const [name, setName] = useState("");
   const [promoted, setPromoted] = useState(false);
@@ -21,7 +21,7 @@ export const CreateCategoryForm = () => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        [TOKEN_ID_HEADER]: token,
+        [TOKEN_ID_HEADER]: auth.token,
       },
       body: JSON.stringify({ name, promoted }),
     })
