@@ -20,7 +20,7 @@ import com.example.android_client.viewmodels.RecommandationsViewModel;
 import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.MediaItem;
 import com.google.android.exoplayer2.ui.PlayerView;
-
+//movie watch class
 public class MovieWatchActivity extends AppCompatActivity {
 
     private ExoPlayer exoPlayer;
