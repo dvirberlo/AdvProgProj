@@ -51,11 +51,9 @@ public class MovieWatchActivity extends AppCompatActivity {
             exoPlayer.prepare();
             exoPlayer.play();
         }
-
         // Setup RecyclerView for recommended movies
         recyclerViewRecommendedMovies.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         String movieID = getIntent().getStringExtra("MOVIE_ID");
-        // TODO: Fetch and bind recommended movies from TCP
         recommandationsViewModel = new ViewModelProvider(this).get(RecommandationsViewModel.class);
         recommandationsViewModel.getRecommendationsData().observe(this,recommends -> {
             if(!recommends.isSuccess()){
@@ -69,7 +67,6 @@ public class MovieWatchActivity extends AppCompatActivity {
             toast.show();
             movieAdapter = new MovieAdapter(recommends.getData(),this);
             recyclerViewRecommendedMovies.setAdapter(movieAdapter);
-            Log.e("aaaaa",recommends.getData().toString());
         });
         recommandationsViewModel.getRecommendations(movieID);
 
