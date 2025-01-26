@@ -1,5 +1,6 @@
 package com.example.android_client.api.server;
 
+import com.example.android_client.models.Category;
 import com.example.android_client.models.Movie;
 
 import java.util.List;
@@ -25,6 +26,8 @@ public interface MovieServerApi {
     @DELETE("movies/{id}")
     Call<Void> deleteMovie(@Path("id") String id);
 
+    @GET("movies")
+    Call<List<Category>> getMovies();
     @Multipart
     @POST("movies")
     Call<Movie> createMovie(

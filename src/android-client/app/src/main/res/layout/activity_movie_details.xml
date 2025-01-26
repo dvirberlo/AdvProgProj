@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:padding="16dp"
     android:background="@color/white"
-    tools:context=".activities.MovieDetails">
+    tools:context=".activities.MovieDetailsActivity">
 
     <TextView
         android:id="@+id/movie_title"
@@ -118,6 +118,8 @@
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="italic" />
+
+
 
         <!-- Year -->
     </LinearLayout>
