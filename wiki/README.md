@@ -162,7 +162,47 @@ Here are some screenshots of the application in action:
 
 ## Android:
 
-//TODO
+### **Sign up Screen**
+
+![Image](https://github.com/user-attachments/assets/bca3259a-e69d-43c5-a8d1-85c7e0196f72)
+
+### **Login Screen**
+
+![Image](https://github.com/user-attachments/assets/8408d708-43da-4e19-8305-946838f8c9c0)
+
+### **Home page Screen**
+
+![Image](https://github.com/user-attachments/assets/142b6c90-0d33-4d50-9555-208c4b21483b)
+
+
+### **Search movies screen**
+
+![Image](https://github.com/user-attachments/assets/17684be1-a53b-4acc-8a6d-904d0d0f6d8e)
+
+
+### **Movie Details Screen**
+
+![Image](https://github.com/user-attachments/assets/ba17bdfe-e51b-4f03-88f7-d7da9c6240f2)
+
+
+### **Movie Player**
+
+![Image](https://github.com/user-attachments/assets/c21b478f-bfc9-4c26-8c11-9651114a2b6f)
+
+### **Navigation bar**
+
+![Image](https://github.com/user-attachments/assets/45efe7ff-f945-4353-a5ac-6c242bdb6e53)
+
+
+![Image](https://github.com/user-attachments/assets/4e038405-1499-4545-b840-85d6142ea59c)
+
+
+### **Admin Dashboard**
+
+![Image](https://github.com/user-attachments/assets/54a8cacb-8a8d-4e5a-83ee-0fedb31218af)
+
+
+![Image](https://github.com/user-attachments/assets/5da0b962-8502-4313-818a-95069a46b0ea)
 
 ---
 
