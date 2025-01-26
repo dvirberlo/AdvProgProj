@@ -45,6 +45,16 @@ Here’s a breakdown of the features available in the app:
   - Switch between light and dark themes with a toggle button.
 
 ### **Admin Features**
+
+- **Become an Admin**:
+  - If you'd like to become an admin in the MongoDB database, follow these steps:
+    1. Open **MongoDB Compass** and connect to your database.
+    2. Navigate to the **"Users"** section and find your username in the list.
+    3. Click on your username and, in the roles section, change your role to **"admin"**.
+    4. Save the changes.
+    5. After updating your role, **log out of the application**.
+    6. Log back in, and you will now have admin access to manage movies and categories.
+
 - **Manage Movies**: 
   - Add, edit, or delete movies.
 - **Manage Categories**: 
@@ -197,9 +207,9 @@ For any questions or feedback, feel free to reach out:
 
 Email:
 
-Dvir: //
+Dvir: [dvir.berl@gmail.com](mailto:dvir.berl@gmail.com)
 
-Dor: //
+Dor:  [dorshroitman0803@gmail.com](mailto:dorshroitman0803@gmail.com)
 
 Aviv: [avivb77@gmail.com](mailto:avivb77@gmail.com)  
 
