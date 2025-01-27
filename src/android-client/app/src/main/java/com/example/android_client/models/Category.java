@@ -6,6 +6,8 @@ import androidx.room.PrimaryKey;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 @Entity
 public class Category {
     @PrimaryKey
@@ -19,10 +21,20 @@ public class Category {
     @SerializedName("promoted")
     private boolean promoted;
 
+    @SerializedName("movies") // This maps to a JSON field for movies
+    private List<Movie> movies; // List of movies in the category
+
     public Category(String name, boolean promoted) {
         this._id = "";
         this.name = name;
         this.promoted = promoted;
+        this.movies = null;
+    }
+    public Category(String name, boolean promoted, List<Movie> movies) {
+        this._id = "";
+        this.name = name;
+        this.promoted = promoted;
+        this.movies = movies;
     }
 
     @Override
@@ -31,6 +43,7 @@ public class Category {
                 "_id='" + _id + '\'' +
                 ", name='" + name + '\'' +
                 ", promoted=" + promoted +
+                ", movies=" + movies +
                 '}';
     }
 
@@ -57,5 +70,13 @@ public class Category {
 
     public void setPromoted(boolean promoted) {
         this.promoted = promoted;
+    }
+
+    public List<Movie> getMovies() {
+        return movies;
+    }
+
+    public void setMovies(List<Movie> movies) {
+        this.movies = movies;
     }
 }

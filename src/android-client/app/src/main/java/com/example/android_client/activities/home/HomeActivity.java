@@ -11,6 +11,8 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import com.example.android_client.R;
 import com.example.android_client.databinding.ActivityHomeBinding;
+import com.example.android_client.entities.UserManager;
+import com.example.android_client.models.User;
 import com.google.android.material.navigation.NavigationView;
 
 public class HomeActivity extends AppCompatActivity {
@@ -81,6 +83,13 @@ public class HomeActivity extends AppCompatActivity {
             recreate();
             return true;
         });
+
+        UserManager userManager = UserManager.getInstance();
+        User user = userManager.getUser();
+        if (user == null || !user.getRole().equals("admin")) {
+            navigationView.getMenu().findItem(R.id.nav_movie_admin).setVisible(false);
+            navigationView.getMenu().findItem(R.id.nav_category_admin).setVisible(false);
+        }
     }
 
     @Override

@@ -44,7 +44,7 @@
         </activity>
 
         <activity
-            android:name=".activities.MovieDetails"
+            android:name=".activities.MovieDetailsActivity"
             android:exported="false" />
         <activity
             android:name=".activities.SignInActivity"
@@ -56,6 +56,9 @@
 
         <activity
             android:name=".activities.HomePageNonLogIn"
+            android:exported="false" />
+        <activity
+            android:name=".activities.MovieWatchActivity"
             android:exported="false" />
 
         <activity
