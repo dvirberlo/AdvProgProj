@@ -5,6 +5,7 @@
 This application is a **dynamic movie streaming platform** built with **React, Android (Frontend)** and **Node.js, c++ (Backend)**, designed to replicate the functionality of real-world services like Netflix. It supports various user roles, has a beautiful UI/UX design, and integrates all major features such as user registration, login, movie watching, movie recommendations, and administrative controls.
 
 ### **Table of Contents**
+
 1. [Introduction](#introduction)
 2. [Features](#features)
 3. [Technology Stack](#technology-stack)
@@ -30,23 +31,25 @@ The design is inspired by Netflix, with a **responsive** interface suitable for 
 Here’s a breakdown of the features available in the app:
 
 ### **User Features**
-- **User Registration & Login**: 
+
+- **User Registration & Login**:
   - Sign up with necessary details (name, password, picture, etc.).
   - Login with username and password.
   - Profile picture is displayed on the home screen.
-- **Movie Browsing**: 
+- **Movie Browsing**:
   - Browse movies by categories (Action, Comedy, Drama, etc.).
   - Search movies by title.
   - View movie details including recommendations.
-- **Watch Movies**: 
+- **Watch Movies**:
   - Play movies directly from the application with a custom video player.
   - Watch full movies.
-- **Dark/Light Mode**: 
+- **Dark/Light Mode**:
   - Switch between light and dark themes with a toggle button.
 
 ### **Admin Features**
 
 - **Become an Admin**:
+
   - If you'd like to become an admin in the MongoDB database, follow these steps:
     1. Open **MongoDB Compass** and connect to your database.
     2. Navigate to the **"Users"** section and find your username in the list.
@@ -55,24 +58,25 @@ Here’s a breakdown of the features available in the app:
     5. After updating your role, **log out of the application**.
     6. Log back in, and you will now have admin access to manage movies and categories.
 
-- **Manage Movies**: 
+- **Manage Movies**:
   - Add, edit, or delete movies.
-- **Manage Categories**: 
+- **Manage Categories**:
   - Add, edit, or delete movie categories.
-  
+
 ---
 
 ## **Technology Stack**
 
 ### **Frontend**
+
 - **React**: For building the UI with reusable components for the web.
 - **CSS (Styled Components)**: For responsive styling and modern UI.
 - **JWT Authentication**: For secure user login, token management, and authentication across both web and mobile apps.
-  
 - **Android**: The mobile version of the app is built using **Java** for Android devices.
 - **Retrofit**: Used for API communication with the backend to fetch movie data and manage user authentication.
 
 ### **Backend**
+
 - **C++**: Smart recommendations engine for processing movie recommendations.
 - **Node.js + Express**: Server-side framework for API handling.
 - **MongoDB**: For storing user data, movie details, etc.
@@ -84,14 +88,14 @@ Here’s a breakdown of the features available in the app:
 
 The application is structured in the following layers:
 
-- **Frontend**: 
+- **Frontend**:
   - **React** app that communicates with the backend using RESTful APIs.
   - **Android** app built using **Java**, interacting with the same backend to provide a mobile experience.
-- **Backend**: 
+- **Backend**:
   - **Node.js & Express** server that exposes API endpoints for user registration, login, and movie management.
-- **Database**: 
+- **Database**:
   - **MongoDB** database that stores users, movies, categories, and recommendations.
-- **Authentication**: 
+- **Authentication**:
   - Secure user authentication using **JWT** tokens.
 
 ---
@@ -187,41 +191,29 @@ Here are some screenshots of the application in action:
 
 ![Image](https://github.com/user-attachments/assets/35013ff0-2d12-4272-b950-fb4f9956c446)
 
-
-
 ![Image](https://github.com/user-attachments/assets/e9bb0c02-8962-4b8c-b282-568e46d6735c)
 
 ### **Search movies screen**
 
 ![Image](https://github.com/user-attachments/assets/c9d11fcc-fc0f-4c8b-a56a-27d39a80470e)
 
-
 ### **Movie Details Screen**
 
 ![Image](https://github.com/user-attachments/assets/97b40401-a119-4a1c-8429-23ed2925357f)
-
 
 ### **Movie Player**
 
 ![Image](https://github.com/user-attachments/assets/5dc73a85-de1c-4b34-b80a-3cefccaf0272)
 
-
 ### **Admin Dashboard**
 
 ![Image](https://github.com/user-attachments/assets/441fe2e2-5677-474e-acf4-69c12b5164d6)
 
-
-
 ![Image](https://github.com/user-attachments/assets/3ce67b70-1532-497b-b168-52b3ffd3a1de)
-
-
 
 ![Image](https://github.com/user-attachments/assets/ab372919-755c-483d-88c1-2e3040619552)
 
-
-
 ![Image](https://github.com/user-attachments/assets/830a8127-6035-47d7-99bc-cdc55a6fc3f2)
-
 
 ## Android:
 
@@ -237,16 +229,13 @@ Here are some screenshots of the application in action:
 
 ![Image](https://github.com/user-attachments/assets/142b6c90-0d33-4d50-9555-208c4b21483b)
 
-
 ### **Search movies screen**
 
 ![Image](https://github.com/user-attachments/assets/17684be1-a53b-4acc-8a6d-904d0d0f6d8e)
 
-
 ### **Movie Details Screen**
 
 ![Image](https://github.com/user-attachments/assets/ba17bdfe-e51b-4f03-88f7-d7da9c6240f2)
-
 
 ### **Movie Player**
 
@@ -256,14 +245,11 @@ Here are some screenshots of the application in action:
 
 ![Image](https://github.com/user-attachments/assets/45efe7ff-f945-4353-a5ac-6c242bdb6e53)
 
-
 ![Image](https://github.com/user-attachments/assets/4e038405-1499-4545-b840-85d6142ea59c)
-
 
 ### **Admin Dashboard**
 
 ![Image](https://github.com/user-attachments/assets/54a8cacb-8a8d-4e5a-83ee-0fedb31218af)
-
 
 ![Image](https://github.com/user-attachments/assets/5da0b962-8502-4313-818a-95069a46b0ea)
 
@@ -274,15 +260,18 @@ Here are some screenshots of the application in action:
 ### **User Roles**
 
 #### **Regular User:**
+
 - Can browse movies.
 - Can watch movies and view recommendations.
 - Cannot manage content.
 
 #### **Admin User:**
+
 - Has all user features.
 - Can manage movies and categories through the admin panel.
 
 ### **JWT Authentication Flow**
+
 1. **Login**: Upon successful login, the user receives a JWT token which is stored in the browser's local storage.
 2. **Token Validation**: For each subsequent request, the JWT token is included in the request headers to validate user identity and permissions.
 3. **Role-based Access**: Based on the user role (admin or regular), different functionalities are accessible (e.g., only admins can add/edit/delete movies).
@@ -292,14 +281,17 @@ Here are some screenshots of the application in action:
 ## **Important Notes**
 
 ### **Validation:**
+
 - All user inputs, including registration and login, are validated (e.g., name length, password strength, etc.).
 - Feedback is provided for invalid inputs.
 
 ### **Security:**
+
 - Passwords are securely hashed before storing.
 - JWT tokens are used to protect sensitive data.
 
 ### **Responsive Design:**
+
 - The app is fully responsive and adapts well to mobile and desktop views.
 
 ---
@@ -312,9 +304,9 @@ Email:
 
 Dvir: [dvir.berl@gmail.com](mailto:dvir.berl@gmail.com)
 
-Dor:  [dorshroitman0803@gmail.com](mailto:dorshroitman0803@gmail.com)
+Dor: [dorshroitman0803@gmail.com](mailto:dorshroitman0803@gmail.com)
 
-Aviv: [avivb77@gmail.com](mailto:avivb77@gmail.com)  
+Aviv: [avivb77@gmail.com](mailto:avivb77@gmail.com)
 
 GitHub: [https://github.com/dvirberlo/AdvProgProj](https://github.com/dvirberlo/AdvProgProj)
 
@@ -323,5 +315,3 @@ Feel free to explore and contribute to the project. We hope you enjoy using the 
 ---
 
 **Happy Streaming! 🍿🎬**
-
-
