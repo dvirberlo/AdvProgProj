@@ -98,7 +98,70 @@ The application is structured in the following layers:
 
 ## **How to Run**
 
-//TODO
+### Run using Docker (recommended)
+
+You can run the code using Docker in the following way:
+(replace `3000` and `8080` with any available ports you want. just make sure to update them in `.env` files as well as any running commands)
+
+1. Run a Mongo DB container (NOTE: the DB will start empty every time it is restarted)
+
+```bash
+docker-compose -f src/docker-compose.yml run --build --remove-orphans --service-ports --rm --name mongo mongo
+```
+
+2. Run the recommendation server (make sure the file `./data/user_data.txt` is deleted first)
+
+```bash
+docker-compose -f src/docker-compose.yml run --build --remove-orphans --service-ports --rm --name server-main server-main 8080
+```
+
+3. Create a config file at `./src/web-server/config/.env.production` with the relevant ports and addresses. If you follow our exact command, this should look like this:
+
+```env
+CONNECTION_STRING=mongodb://mongo:27017
+PORT=3000
+RECOMMEND_IP="server-main"
+RECOMMEND_PORT=8080
+JWT_PRIVATE_KEY=some_private_key
+```
+
+4. Run the web server (it will include the React client)
+
+```bash
+docker-compose -f src/docker-compose.yml run --build --remove-orphans --rm --name web-server -p 3000:3000 web-server
+```
+
+Now, you can access the web server through localhost at the specified port (here `3000`). For example:
+
+```bash
+curl -i http://localhost:3000/api/categories
+```
+
+Also, you can browse the React client at `http://localhost:3000/` (or any other port you specified).
+
+#### Run only recommendation server and python client
+
+if you wish to run only thee recommendation server and the python client, follow these steps:
+
+1. To run the server, execute:
+
+```bash
+docker-compose -f src/docker-compose.yml run --build --remove-orphans --service-ports --rm --name server-main server-main 8080
+```
+
+2. To run the client, execute:
+
+```bash
+docker-compose -f src/docker-compose.yml run --build --remove-orphans --service-ports client-main server-main 8080
+```
+
+Note : First run the Server then run the client.
+
+you can test the app using
+
+```bash
+docker-compose -f src/docker-compose.yml run --build server-test
+```
 
 ---
 
