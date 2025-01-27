@@ -84,7 +84,7 @@ public class SignInActivity extends AppCompatActivity {
             UserManager.getInstance().setUser(user.getData());
 
             // Start activity and remove this activity from the stack
-            startActivity(new Intent(this, MoviesByCategoryActivity.class));
+            startActivity(new Intent(this, HomeActivity.class));
             finish();
         });
         userLogInViewModel.getUser();
