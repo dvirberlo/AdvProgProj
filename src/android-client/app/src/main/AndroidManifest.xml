@@ -58,9 +58,6 @@
             android:name=".activities.HomePageNonLogIn"
             android:exported="false" />
         <activity
-            android:name=".activities.MoviesByCategoryActivity"
-            android:exported="false" />
-        <activity
             android:name=".activities.MovieWatchActivity"
             android:exported="false" />
 
