@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
-    android:background="@color/white"
     tools:context=".activities.MovieDetailsActivity">
 
     <TextView
@@ -52,7 +51,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/place_holder"
-            android:textColor="@color/black"
             android:textSize="16sp" />
 
         <LinearLayout
@@ -70,7 +68,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="15dp"
                 android:text="@string/rating"
-                android:textColor="@color/black"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
@@ -115,7 +112,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/place_holder"
-            android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="italic" />
 
