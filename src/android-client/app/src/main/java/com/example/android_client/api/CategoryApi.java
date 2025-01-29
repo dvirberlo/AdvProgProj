@@ -3,9 +3,13 @@ package com.example.android_client.api;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.android_client.api.server.CategoryServerApi;
+import com.example.android_client.entities.TokenInterceptor;
+import com.example.android_client.entities.UserManager;
 import com.example.android_client.models.Category;
 import com.example.android_client.response.ApiResponse;
 
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -18,8 +22,16 @@ public class CategoryApi {
     private Retrofit retrofit;
 
     public CategoryApi(){
+        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        OkHttpClient client = new OkHttpClient.Builder()
+                .addInterceptor(loggingInterceptor)
+                .addInterceptor(new TokenInterceptor(UserManager.getInstance().getToken()))
+                .build();
+
         retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
+                .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 

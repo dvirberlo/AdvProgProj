@@ -9,6 +9,8 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.android_client.api.server.MovieServerApi;
 import com.example.android_client.entities.FileUtils;
+import com.example.android_client.entities.TokenInterceptor;
+import com.example.android_client.entities.UserManager;
 import com.example.android_client.models.Movie;
 import com.example.android_client.response.ApiResponse;
 import com.google.gson.Gson;
@@ -40,6 +42,7 @@ public class MovieApi {
 
         OkHttpClient client = new OkHttpClient.Builder()
                 .addInterceptor(loggingInterceptor)
+                .addInterceptor(new TokenInterceptor(UserManager.getInstance().getToken()))
                 .build();
 
         retrofit = new Retrofit.Builder()
