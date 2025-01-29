@@ -4,7 +4,7 @@ import { TOKEN_ID_HEADER, WebServerURL } from "../../Constants/http";
 import { MovieForm } from "../../Components/Movie/MovieForm";
 
 export const CreateMovieForm = () => {
-  const { token } = useAuth();
+  const { auth } = useAuth();
 
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
@@ -16,7 +16,7 @@ export const CreateMovieForm = () => {
       method: "POST",
       body: formData,
       headers: {
-        [TOKEN_ID_HEADER]: token,
+        [TOKEN_ID_HEADER]: auth.token,
       },
     })
       .then(async (response) => {

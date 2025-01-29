@@ -1,13 +1,14 @@
 const mongoose = require("mongoose");
 
 const movieService = require("../services/movieService");
-const tokenService = require("../services/tokenService");
 const { MongoError } = require("../constants/mongoDBErrors");
 const {
   getUploadedFilePath,
   uploadFieldsMiddleware,
 } = require("./fileUploads");
+const { verifyToken } = require("../services/tokenService");
 const { TOKEN_ID_HEADER } = require("../constants/httpHeaders");
+const { UserRoles } = require("../models/userRolesModel");
 
 const movieFileFields = {
   movie: "movieFile",
@@ -25,6 +26,10 @@ const createMovie = async (req, res) => {
   }
 
   try {
+    const user = await verifyToken(req.headers[TOKEN_ID_HEADER]);
+    if (!user || user.role !== UserRoles.Admin)
+      return res.status(401).json({ error: "Unauthorized" });
+
     const movie = await movieService.createMovie(
       req.body.name,
       req.body.description,
@@ -45,12 +50,10 @@ const createMovie = async (req, res) => {
   }
 };
 const getMovies = async (req, res) => {
-  // check if the existing user having that token-id
-  const user = await tokenService.verifyToken(req.headers[TOKEN_ID_HEADER]);
-  if (user === null)
-    return res.status(401).json({ error: "User token is invalid" });
-
   try {
+    const user = await verifyToken(req.headers[TOKEN_ID_HEADER]);
+    if (!user) return res.status(401).json({ error: "Unauthorized" });
+
     let movies = await movieService.getMovies(user.id);
     if (!movies) {
       return res.status(404).json({ error: "Movies not found" });
@@ -65,6 +68,10 @@ const getMovies = async (req, res) => {
 
 const deleteMovie = async (req, res) => {
   try {
+    const user = await verifyToken(req.headers[TOKEN_ID_HEADER]);
+    if (!user || user.role !== UserRoles.Admin)
+      return res.status(401).json({ error: "Unauthorized" });
+
     const movie = await movieService.deleteMovie(req.params.id);
     if (!movie) {
       return res.status(404).json({ error: "Movie not found" });
@@ -86,6 +93,9 @@ const deleteMovie = async (req, res) => {
 };
 const getMovieById = async (req, res) => {
   try {
+    const user = await verifyToken(req.headers[TOKEN_ID_HEADER]);
+    if (!user) return res.status(401).json({ error: "Unauthorized" });
+
     const movie = await movieService.getMovieById(req.params.id);
     if (!movie) {
       return res.status(404).json({ error: "Movie not found" });
@@ -116,6 +126,10 @@ const putMovie = async (req, res) => {
       .json({ error: "All movie fields must be specified" });
 
   try {
+    const user = await verifyToken(req.headers[TOKEN_ID_HEADER]);
+    if (!user || user.role !== UserRoles.Admin)
+      return res.status(401).json({ error: "Unauthorized" });
+
     const movie = await movieService.updateMovie(
       req.params.id,
       req.body.name,
@@ -138,6 +152,10 @@ const updateMovie = async (req, res) => {
   const thumbnailFilePath = getUploadedFilePath(req, movieFileFields.thumbnail);
 
   try {
+    const user = await verifyToken(req.headers[TOKEN_ID_HEADER]);
+    if (!user || user.role !== UserRoles.Admin)
+      return res.status(401).json({ error: "Unauthorized" });
+
     const movie = await movieService.updateMovie(
       req.params.id,
       req.body.name,

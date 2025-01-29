@@ -6,14 +6,17 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
+import com.example.android_client.models.Category;
 import com.example.android_client.models.Movie;
 import com.example.android_client.models.User;
 import com.example.android_client.dao.MovieDao;
 
-@Database(entities = {User.class, Movie.class}, version = 3, exportSchema = false)
+@Database(entities = {User.class, Movie.class, Category.class}, version = 5, exportSchema = false)
 @TypeConverters(ConvertersDB.class)
 public abstract class AppDB extends RoomDatabase {
     public abstract MovieDao movieDao();
+    public abstract CategoryDao categoryDao();
+    public abstract UserDao userDao();
 
     private static volatile AppDB instance;
     public static AppDB getInstance(final Context context) {

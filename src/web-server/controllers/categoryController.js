@@ -1,7 +1,15 @@
 const categoryService = require("../services/categoryService");
+const { verifyToken } = require("../services/tokenService");
+const { TOKEN_ID_HEADER } = require("../constants/httpHeaders");
+const { UserRoles } = require("../models/userRolesModel");
+
 const createCategory = async (req, res) => {
   let category;
   try {
+    const user = await verifyToken(req.headers[TOKEN_ID_HEADER]);
+    if (!user || user.role !== UserRoles.Admin)
+      return res.status(401).json({ error: "Unauthorized" });
+
     category = await categoryService.createCategory(
       req.body.name,
       req.body.promoted
@@ -16,6 +24,9 @@ const createCategory = async (req, res) => {
 };
 const getCategories = async (req, res) => {
   try {
+    const user = await verifyToken(req.headers[TOKEN_ID_HEADER]);
+    if (!user) return res.status(401).json({ error: "Unauthorized" });
+
     res.status(200).json(await categoryService.getCategories());
   } catch (error) {
     console.error("categoryController: getCategories internal error:", error);
@@ -24,6 +35,9 @@ const getCategories = async (req, res) => {
 };
 const getCategoryById = async (req, res) => {
   try {
+    const user = await verifyToken(req.headers[TOKEN_ID_HEADER]);
+    if (!user) return res.status(401).json({ error: "Unauthorized" });
+
     const category = await categoryService.getCategoryById(req.params.id);
     if (!category) {
       return res.status(404).json({ error: "category not found" });
@@ -38,6 +52,10 @@ const getCategoryById = async (req, res) => {
 const updateCategory = async (req, res) => {
   let category;
   try {
+    const user = await verifyToken(req.headers[TOKEN_ID_HEADER]);
+    if (!user || user.role !== UserRoles.Admin)
+      return res.status(401).json({ error: "Unauthorized" });
+
     // Call the service with only the fields that might be updated
     category = await categoryService.updateCategory(req.params.id, {
       name: req.body.name,
@@ -58,6 +76,10 @@ const updateCategory = async (req, res) => {
 };
 const deleteCategory = async (req, res) => {
   try {
+    const user = await verifyToken(req.headers[TOKEN_ID_HEADER]);
+    if (!user || user.role !== UserRoles.Admin)
+      return res.status(401).json({ error: "Unauthorized" });
+
     const category = await categoryService.deleteCategory(req.params.id);
     if (!category) {
       return res.status(404).json({ error: "category not found" });

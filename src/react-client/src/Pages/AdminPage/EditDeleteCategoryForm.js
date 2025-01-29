@@ -18,14 +18,14 @@ export const EditDeleteCategoryForm = () => {
   const [success, setSuccess] = useState("");
   const [refresh, setRefresh] = useState(0);
 
-  const { token } = useAuth();
+  const { auth } = useAuth();
 
   const onEdit = (form) => {
     fetch(`${WebServerURL}/api/categories/${category._id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
-        [TOKEN_ID_HEADER]: token,
+        [TOKEN_ID_HEADER]: auth.token,
       },
       body: JSON.stringify(category),
     }).then(async (response) => {
@@ -46,7 +46,7 @@ export const EditDeleteCategoryForm = () => {
     fetch(`${WebServerURL}/api/categories/${category._id}`, {
       method: "DELETE",
       headers: {
-        [TOKEN_ID_HEADER]: token,
+        [TOKEN_ID_HEADER]: auth.token,
       },
     }).then(async (response) => {
       if (response.ok) {

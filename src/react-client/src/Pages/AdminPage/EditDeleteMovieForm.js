@@ -6,7 +6,7 @@ import { MovieForm } from "../../Components/Movie/MovieForm";
 import { getCategoryHttp } from "../../HttpRequest/getCategoryHttp";
 
 export const EditDeleteMovieForm = () => {
-  const { token } = useAuth();
+  const { auth } = useAuth();
   const [id, setId] = useState("");
   const [movie, setMovie] = useState(null);
 
@@ -18,7 +18,7 @@ export const EditDeleteMovieForm = () => {
     fetch(`${WebServerURL}/api/movies/${id}`, {
       method: "DELETE",
       headers: {
-        [TOKEN_ID_HEADER]: token,
+        [TOKEN_ID_HEADER]: auth.token,
       },
     })
       .then(async (response) => {
@@ -46,7 +46,7 @@ export const EditDeleteMovieForm = () => {
       method: "PATCH",
       body: formData,
       headers: {
-        [TOKEN_ID_HEADER]: token,
+        [TOKEN_ID_HEADER]: auth.token,
       },
     })
       .then(async (response) => {
@@ -75,14 +75,16 @@ export const EditDeleteMovieForm = () => {
     try {
       const response = await fetch(`${WebServerURL}/api/movies/${id}`, {
         headers: {
-          [TOKEN_ID_HEADER]: token,
+          [TOKEN_ID_HEADER]: auth.token,
         },
       });
       if (response.ok) {
         const data = await response.json();
         const populatedCategories = [];
         for (const categoryId of data.categories) {
-          populatedCategories.push(await getCategoryHttp(token, categoryId));
+          populatedCategories.push(
+            await getCategoryHttp(auth.token, categoryId)
+          );
         }
         data.categories = populatedCategories;
         setMovie(data);

@@ -2,6 +2,7 @@ package com.example.android_client.models;
 
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import com.google.gson.annotations.SerializedName;
@@ -21,6 +22,7 @@ public class Category {
     @SerializedName("promoted")
     private boolean promoted;
 
+    @Ignore
     @SerializedName("movies") // This maps to a JSON field for movies
     private List<Movie> movies; // List of movies in the category
 
