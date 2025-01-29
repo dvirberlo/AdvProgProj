@@ -12,11 +12,14 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.android_client.R;
 import com.example.android_client.adapters.CategoryAdapter;
 import com.example.android_client.databinding.FragmentHomeBinding;
+import com.example.android_client.entities.UserManager;
 import com.example.android_client.models.Category;
 import com.example.android_client.models.Movie;
+import com.example.android_client.models.User;
 import com.example.android_client.viewmodels.MovieOnViewModel;
 import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.MediaItem;
@@ -39,6 +42,8 @@ public class HomeFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+
+        setupUserProfile();
 
         // Initialize Views
         recyclerView = binding.recyclerViewCategories;
@@ -110,6 +115,19 @@ public class HomeFragment extends Fragment {
         super.onDestroy();
         if (exoPlayer != null) {
             exoPlayer.release();
+        }
+    }
+    private void setupUserProfile() {
+        // Get user from UserManager
+        User user = UserManager.getInstance().getUser();
+
+        if (user != null) {
+            // Set user name
+            binding.userNameText.setText(user.getUsername());
+            String imagePath = user.getImage();
+
+            Glide.with(this).load("http://10.0.2.2:3000" + imagePath).into(binding.userProfileImage);
+
         }
     }
 }
