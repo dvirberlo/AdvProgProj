@@ -53,7 +53,9 @@
     <string name="home_page_no_login_title">Explore movies </string>
     <string name="home_page_no_login_sub_title">Watch anywhere , Cancel anytime. </string>
     <string name="home_page_no_login_ready_to">Ready to watch? Click on the buttons below </string>
-
+    <string name="dark_light_mode">Dark/Light Mode</string>
+    <string name="fullscreen">Fullscreen</string>
+    <string name="recommendations">Recommendations</string>
 
 
 </resources>

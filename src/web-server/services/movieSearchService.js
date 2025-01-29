@@ -12,7 +12,19 @@ const searchMovies = async (query) => {
   const regex = new RegExp(query, "i");
 
   if (typeof query === "string") {
-    matches.push(...(await Movie.find({ name: { $regex: regex } })));
+    matches.push(
+      ...(await Movie.find({
+        $or: [{ name: { $regex: regex } }, { description: { $regex: regex } }],
+      }))
+    );
+
+    if (!isNaN(query)) {
+      matches.push(
+        ...(await Movie.find({
+          $or: [{ length: query }, { rating: query }, { releaseYear: query }],
+        }))
+      );
+    }
 
     const categories = await Category.find({ name: { $regex: regex } });
     const categoriesIds = categories.map((category) => category._id);
@@ -20,9 +32,6 @@ const searchMovies = async (query) => {
       matches.push(
         ...(await Movie.find({ categories: { $in: categoriesIds } }))
       );
-  }
-  if (!isNaN(new Date(query))) {
-    matches.push(...(await Movie.find({ date: query })));
   }
   // return without duplicates
   return Array.from(new Map(matches.map((item) => [item.id, item])).values());

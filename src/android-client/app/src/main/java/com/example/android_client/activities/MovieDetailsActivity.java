@@ -1,6 +1,7 @@
 package com.example.android_client.activities;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.SpannableStringBuilder;
 import android.view.View;
@@ -10,10 +11,11 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
 import com.example.android_client.R;
 import com.example.android_client.models.Movie;
 
-public class MovieDetails extends AppCompatActivity {
+public class MovieDetailsActivity extends AppCompatActivity {
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -44,9 +46,11 @@ public class MovieDetails extends AppCompatActivity {
 
             // Set rating
             setRating(movie.getRating());
+            String imagePath = movie.getThumbnailPath();
+            Glide.with(this).load("http://10.0.2.2:3000" + imagePath).into(movieImageView);
 
             // Set the movie image dynamically using the image path string
-            String imagePath = "http://10.2.2:3000"+movie.getThumbnailPath();
+
             
             //TODO set image
 
@@ -63,6 +67,14 @@ public class MovieDetails extends AppCompatActivity {
 
         // Set click listener for Close button to finish the activity
         closeButton.setOnClickListener(view -> finish());
+        Button watchNowButton = findViewById(R.id.watch_now_button);
+
+        watchNowButton.setOnClickListener(view -> {
+            Intent intent = new Intent(MovieDetailsActivity.this, MovieWatchActivity.class);
+            intent.putExtra("MOVIE_URL", movie.getFilePath());
+            intent.putExtra("MOVIE_ID", movie.get_id());
+            startActivity(intent);
+        });
     }
     private SpannableStringBuilder styleText(String label, String text, boolean isBold) {
         SpannableStringBuilder spannableStringBuilder = new SpannableStringBuilder(label);

@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.android_client.R;
+import com.example.android_client.activities.home.HomeActivity;
 import com.example.android_client.entities.UserManager;
 import com.example.android_client.request.LoginRequest;
 import com.example.android_client.viewmodels.UserLogInViewModel;
@@ -83,7 +84,7 @@ public class SignInActivity extends AppCompatActivity {
             UserManager.getInstance().setUser(user.getData());
 
             // Start activity and remove this activity from the stack
-            startActivity(new Intent(this, SignUpActivity.class));
+            startActivity(new Intent(this, HomeActivity.class));
             finish();
         });
         userLogInViewModel.getUser();

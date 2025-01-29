@@ -20,5 +20,9 @@
             android:id="@+id/nav_category_admin"
             android:icon="@drawable/ic_admin_panel_settings"
             android:title="@string/menu_category_admin" />
+        <item android:id="@+id/nav_light_dark_mode"
+            android:title="@string/dark_light_mode"
+            android:icon="@drawable/baseline_auto_mode_24"
+            android:checkable="true"/>
     </group>
 </menu>

@@ -7,6 +7,7 @@ import { routes } from "../../Pages/AppRouter";
 import { NavLink } from "react-router";
 import { BasicBar } from "../../Components/Login/BasicBar";
 import { useAuth } from "../../Contexts/AuthContext/AuthContext";
+import { WebServerURL } from "../../Constants/http";
 
 export const SignupPage = () => {
   const { auth, setAuth } = useAuth();
@@ -102,7 +103,7 @@ export const SignupPage = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:3000/api/users", {
+      const response = await fetch(`${WebServerURL}/api/users`, {
         method: "POST",
         body: new FormData(e.target),
       });
