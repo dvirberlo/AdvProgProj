@@ -49,21 +49,8 @@ public class MovieDetailsActivity extends AppCompatActivity {
             String imagePath = movie.getThumbnailPath();
             Glide.with(this).load("http://10.0.2.2:3000" + imagePath).into(movieImageView);
 
-            // Set the movie image dynamically using the image path string
-
-            
-            //TODO set image
-
-            // Use Glide to load the image from the URL into the ImageView
-//            Glide.with(this)
-//                    .load(imagePath) // Load image from URL
-//                    .placeholder(R.drawable.placeholder_image) // Placeholder image while loading
-//                    .error(R.drawable.error_image) // Error image if something goes wrong
-//                    .into(movieImageView); // Set the image into the ImageView
 
         }
-
-        //TODO click listener to watch now button
 
         // Set click listener for Close button to finish the activity
         closeButton.setOnClickListener(view -> finish());
