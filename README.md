@@ -1,5 +1,7 @@
 # AdvProgProj
 
+Please check the [Wiki](./wiki/README.md) for more information about the project.
+
 ## Run the Project
 
 ### Run using Docker (recommended)
@@ -43,6 +45,8 @@ curl -i http://localhost:3000/api/categories
 
 Also, you can browse the React client at `http://localhost:3000/` (or any other port you specified).
 
+In addition, you can open `/src/android-client` in Android Studio and run the Android client on an emulator.
+
 #### Run only recommendation server and python client
 
 if you wish to run only thee recommendation server and the python client, follow these steps:
@@ -67,9 +71,10 @@ you can test the app using
 docker-compose -f src/docker-compose.yml run --build server-test
 ```
 
-## Short explanation about the program
+## Short explanation about the repository
 
-This repository contains the implementation of a Movie Recommendation System API, which provides various functionalities for user registration, login, movie categorization, movie management, and user-based movie recommendations.
+This repository is a monorepo that contains Web client, Android client, NodeJS web server and an internal recommendation system written in C++.  
+Our system, which provides various functionalities for user registration, login, movie categorization, movie management, and user-based movie recommendations.
 The API is designed to handle movie recommendations for authenticated users and interact with an internal recommendation system written in C++. This system provides movie recommendations based on the user's preferences and the movies they have watched.
 
 ### Features
@@ -160,99 +165,11 @@ Searches for movies based on the given query string.
 
 ### Authentication
 
-All requests that require the user to be authenticated must include the Token-ID header.
+All requests that require the user to be authenticated must include a valid JWT in the Token-ID header.
 
 ### Integration with the Recommendation System
 
 This API integrates with an internal recommendation system implemented in C++. The system provides movie suggestions based on the user's historical data and interactions with the movies in the system. When a request is made to fetch recommendations for a movie, the backend will send the request to the recommendation system, receive the recommended movies, and forward them to the user.
-
-## Output example:
-
-### `/api/users`
-
-![98](https://github.com/user-attachments/assets/cbe6e889-5374-49b8-b157-66641ce755b8)
-
-![99](https://github.com/user-attachments/assets/4ae3dc8e-8845-4256-91fd-cd7902269fa3)
-
-![100](https://github.com/user-attachments/assets/47e27dac-ac9c-4c15-93b2-52cc1e1a7df3)
-
-### `/api/tokens`
-
-![101](https://github.com/user-attachments/assets/df22d46e-c172-46d6-8c28-df9cd3cb781e)
-
-![102](https://github.com/user-attachments/assets/7c5c71ec-e692-4e06-b3a4-68f6e5141d6c)
-
-![103](https://github.com/user-attachments/assets/213e7ac3-ba4e-43a3-89b9-a0edbe05b37a)
-
-### `/api/categories`
-
-![104](https://github.com/user-attachments/assets/e8dc88e8-3ebe-4939-aef1-572b5a7679d4)
-
-![105](https://github.com/user-attachments/assets/376b3d96-a889-4cca-b748-912a56fdda08)
-
-![106](https://github.com/user-attachments/assets/988b835a-5333-4a76-9443-fb3cef2eb66b)
-
-![107](https://github.com/user-attachments/assets/57c0c019-d468-46d5-b966-c886aa44dd0f)
-
-![108](https://github.com/user-attachments/assets/0dcab6aa-4880-493f-bf71-dc5d7c03171f)
-
-![109](https://github.com/user-attachments/assets/66d533eb-780e-4429-a1b2-7df00600f97d)
-
-![110](https://github.com/user-attachments/assets/18f300bf-614b-4ca1-b33b-f98ae7555ae5)
-
-![111](https://github.com/user-attachments/assets/c49ef415-637f-4121-b3e5-ef649c53d672)
-
-### `/api/movies`
-
-![112](https://github.com/user-attachments/assets/1c6a06af-ee4a-4907-871e-1cf80c8a1b2a)
-
-![113](https://github.com/user-attachments/assets/78775c21-3a37-475e-a31f-cb0170b4bda0)
-
-![114](https://github.com/user-attachments/assets/bf1befe3-93e5-4e5c-832e-4aa2d2a65a73)
-
-![115](https://github.com/user-attachments/assets/86c977b6-f135-48de-8508-c718a1da6510)
-
-![116](https://github.com/user-attachments/assets/bafe3ee5-c710-4c1e-ade0-fbd6887ceb81)
-
-![117](https://github.com/user-attachments/assets/e1b010e2-2502-42b8-8d5b-ed527b0c890e)
-
-![118](https://github.com/user-attachments/assets/7d5d9847-0b65-40cc-b7b3-fe7b82a3bfd7)
-
-![119](https://github.com/user-attachments/assets/4af59bed-12d5-484f-961d-d0baaea19f8d)
-
-![120](https://github.com/user-attachments/assets/35f60f92-5732-4ff2-9680-3902c878400a)
-
-![121](https://github.com/user-attachments/assets/f3ea4b86-0c2a-46c6-aafb-ba9630c9dca1)
-
-### `/api/movies/:id/recommend/`
-
-![122](https://github.com/user-attachments/assets/65adb444-addd-4cd1-9428-6a7e1f4bfc6c)
-
-![123](https://github.com/user-attachments/assets/8e81a59e-f9de-4def-9ceb-72f5ac418459)
-
-![124](https://github.com/user-attachments/assets/5f3725b7-58ea-4d21-a219-994292105caa)
-
-![125](https://github.com/user-attachments/assets/3a2ef3d4-b063-4abe-940b-c57d57e6da07)
-
-![126](https://github.com/user-attachments/assets/40a34585-014c-4c61-84b3-40a72a050978)
-
-![127](https://github.com/user-attachments/assets/1abf8c3b-3b3f-4163-952a-d77e15e3b419)
-
-![128](https://github.com/user-attachments/assets/a11f3989-4fcc-42a6-8b40-08c2c08ac696)
-
-![129](https://github.com/user-attachments/assets/7cd88ab0-8f5b-4ea8-be17-07b80b73c313)
-
-![130](https://github.com/user-attachments/assets/bffeee90-e651-4444-a235-77727491c0fb)
-
-### `/api/movies/search/:query/`
-
-![131](https://github.com/user-attachments/assets/42a3f32c-4ddf-41f7-a33a-a066061f4a11)
-
-![132](https://github.com/user-attachments/assets/a21c0f8b-77c2-41d6-a1d1-5b167e156ce7)
-
-![133](https://github.com/user-attachments/assets/140e439a-99d4-4ce5-aa7d-f542785b704c)
-
-![134](https://github.com/user-attachments/assets/47bd543c-472f-4368-91d4-cb4a4073d37d)
 
 ## Development
 

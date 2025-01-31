@@ -102,10 +102,7 @@ The application is structured in the following layers:
 
 ## **How to Run**
 
-### Run using Docker (recommended)
-
 You can run the code using Docker in the following way:
-(replace `3000` and `8080` with any available ports you want. just make sure to update them in `.env` files as well as any running commands)
 
 1. Run a Mongo DB container (NOTE: the DB will start empty every time it is restarted)
 
@@ -135,37 +132,15 @@ JWT_PRIVATE_KEY=some_private_key
 docker-compose -f src/docker-compose.yml run --build --remove-orphans --rm --name web-server -p 3000:3000 web-server
 ```
 
-Now, you can access the web server through localhost at the specified port (here `3000`). For example:
+Now, you can access the web server through localhost at the specified port. For example:
 
 ```bash
 curl -i http://localhost:3000/api/categories
 ```
 
-Also, you can browse the React client at `http://localhost:3000/` (or any other port you specified).
+5. Now, you can browse the React client at `http://localhost:3000/`.
 
-#### Run only recommendation server and python client
-
-if you wish to run only thee recommendation server and the python client, follow these steps:
-
-1. To run the server, execute:
-
-```bash
-docker-compose -f src/docker-compose.yml run --build --remove-orphans --service-ports --rm --name server-main server-main 8080
-```
-
-2. To run the client, execute:
-
-```bash
-docker-compose -f src/docker-compose.yml run --build --remove-orphans --service-ports client-main server-main 8080
-```
-
-Note : First run the Server then run the client.
-
-you can test the app using
-
-```bash
-docker-compose -f src/docker-compose.yml run --build server-test
-```
+6. In addition, you can open `/src/android-client` in Android Studio and run the Android client on an emulator.
 
 ---
 
