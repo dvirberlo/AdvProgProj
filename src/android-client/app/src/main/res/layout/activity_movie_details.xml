@@ -76,35 +76,40 @@
                 android:id="@+id/star1"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/star" />
+                android:src="@drawable/star"
+                app:tint="@android:color/holo_red_dark" />
 
             <!-- Star 2 -->
             <ImageView
                 android:id="@+id/star2"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/star" />
+                android:src="@drawable/star"
+                app:tint="@android:color/holo_red_dark"/>
 
             <!-- Star 3 -->
             <ImageView
                 android:id="@+id/star3"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/star" />
+                android:src="@drawable/star"
+                app:tint="@android:color/holo_red_dark"/>
 
             <!-- Star 4 -->
             <ImageView
                 android:id="@+id/star4"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/star" />
+                android:src="@drawable/star"
+                app:tint="@android:color/holo_red_dark"/>
 
             <!-- Star 5 -->
             <ImageView
                 android:id="@+id/star5"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/star" />
+                android:src="@drawable/star"
+                app:tint="@android:color/holo_red_dark"/>
         </LinearLayout>
 
         <TextView
